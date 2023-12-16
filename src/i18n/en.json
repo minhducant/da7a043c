@@ -1,0 +1,22 @@
+{
+  "login_with_facebook": "Login with Facebook",
+  "login_with_google": "Login with Google",
+  "login_with_apple": "Login with Apple",
+  "sign_in": "Sign In",
+  "sign_out": "Sign Out",
+  "search": "Search",
+  "create_new": "Create New",
+  "friends": "Friends",
+  "support": "Support",
+  "chat_gpt": "Chat GPT",
+  "settings": "Settings",
+  "invite_friends": "Invite Friends",
+  "about_us": "About Us",
+  "utilities": "Utilities",
+  "title": "Title",
+  "input": "Input",
+  "description": "Description",
+  "color": "Color",
+  "currency": "Currency",
+  "who_sharing_the_bill": "Who's sharing the Bill"
+}

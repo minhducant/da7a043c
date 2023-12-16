@@ -1,0 +1,22 @@
+{
+  "login_with_facebook": "Facebookでログイン",
+  "login_with_google": "Googleでログイン",
+  "login_with_apple": "Appleでログイン",
+  "sign_in": "ログイン",
+  "sign_out": "ログアウト",
+  "search": "検索",
+  "create_new": "新規作成",
+  "friends": "友達",
+  "support": "サポート",
+  "chat_gpt": "GPT チャット",
+  "settings": "設定",
+  "invite_friends": "友達を招待する",
+  "about_us": "私たちについて",
+  "utilities": "ユーティリティ",
+  "title": "タイトル",
+  "input": "入力",
+  "description": "説明",
+  "color": "色",
+  "currency": "通貨",
+  "who_sharing_the_bill": "誰が請求書を共有していますか"
+}

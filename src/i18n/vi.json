@@ -1,0 +1,22 @@
+{
+  "login_with_facebook": "Đăng nhập với Facebook",
+  "login_with_google": "Đăng nhập với Google",
+  "login_with_apple": "Đăng nhập với Apple",
+  "sign_in": "Đăng nhập",
+  "sign_out": "Đăng xuất",
+  "search": "Tìm kiếm",
+  "create_new": "Tạo mới",
+  "friends": "Bạn bè",
+  "support": "Hỗ trợ",
+  "chat_gpt": "Chat GPT",
+  "settings": "Cài đặt",
+  "invite_friends": "Giới thiệu bạn bè",
+  "about_us": "Về chúng tôi",
+  "utilities": "Tiện ích",
+  "title": "Tiêu đề",
+  "input": "Nhập",
+  "description": "Mô tả",
+  "color": "Màu sắc",
+  "currency": "Tiền tệ",
+  "who_sharing_the_bill": "Ai đang chia sẻ hóa đơn"
+}
