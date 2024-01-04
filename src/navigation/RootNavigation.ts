@@ -33,7 +33,7 @@ export function closeDrawer() {
   drawerRef.current?.closeDrawer();
 }
 
-export function navigate(name: string, params: any) {
+export function navigate(name: string, params?: any) {
   navigationRef.current.navigate('NoFooter', {
     screen: name,
     params: params,

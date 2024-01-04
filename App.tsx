@@ -10,6 +10,7 @@ import i18n from '@i18n/index';
 import {store, persistor} from '@stores/index';
 import {AppNavigation} from '@navigation/AppNavigation';
 import ModalToastMessage from '@components/Modal/ModalToastMessage';
+import ModalLoadingLottie from '@components/Modal/ModalLoadingLottie';
 
 const codePushOptions = {
   installMode: CodePush.InstallMode.IMMEDIATE,
@@ -29,6 +30,7 @@ const App = () => {
           <I18nextProvider i18n={i18n}>
             <AppNavigation />
             <ModalToastMessage />
+            <ModalLoadingLottie />
           </I18nextProvider>
         </PersistGate>
       </Provider>

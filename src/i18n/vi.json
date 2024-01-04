@@ -18,5 +18,13 @@
   "description": "Mô tả",
   "color": "Màu sắc",
   "currency": "Tiền tệ",
-  "who_sharing_the_bill": "Ai đang chia sẻ hóa đơn"
+  "who_sharing_the_bill": "Ai đang chia sẻ hóa đơn",
+  "update_information": "Cập nhật thông tin",
+  "notifications": "Thông báo",
+  "account_settings": "Cài đặt tài khoản",
+  "feedback": "Góp ý",
+  "privacy_policy": "Chính sách bảo mật",
+  "about_spendsync": "Về SpendSync",
+  "delete_account": "Xoá tài khoản",
+  "e_wallet": "Ví điện tử"
 }

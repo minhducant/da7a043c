@@ -18,5 +18,13 @@
   "description": "説明",
   "color": "色",
   "currency": "通貨",
-  "who_sharing_the_bill": "誰が請求書を共有していますか"
+  "who_sharing_the_bill": "誰が請求書を共有していますか",
+  "update_information": "情報を更新する",
+  "notifications": "通知",
+  "account_settings": "アカウント設定",
+  "feedback": "フィードバック",
+  "privacy_policy": "プライバシーポリシー",
+  "about_spendsync": "SpendSyncについて",
+  "delete_account": "アカウントを削除",
+  "e_wallet": "電子ウォレット"
 }

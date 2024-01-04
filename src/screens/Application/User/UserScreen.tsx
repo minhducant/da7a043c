@@ -4,6 +4,7 @@ import {ScrollView, Text, TouchableOpacity, View} from 'react-native';
 
 import {onLogout} from '@utils/Logout';
 import UserInfo from '@components/Home/UserInfo';
+import {navigate} from '@navigation/RootNavigation';
 import {userScreenStyle as styles} from '@styles/user.style';
 
 export default function UserScreen() {
@@ -14,9 +15,9 @@ export default function UserScreen() {
       <UserInfo />
       <ScrollView showsVerticalScrollIndicator={false} style={styles.container}>
         <ProfileItem title={'friends'} />
-        <ProfileItem title={'settings'} />
-        <ProfileItem title={'chat_gpt'} />
-        <ProfileItem title={'utilities'} />
+        <ProfileItem title={'settings'} navigation="SettingScreen" />
+        <ProfileItem title={'chat_gpt'} navigation="ChatGPTScreen" />
+        <ProfileItem title={'utilities'} navigation="UtilitiesScreen" />
         <TouchableOpacity style={styles.signOut} onPress={onLogout}>
           <Text style={styles.txtSignOut}>{t('sign_out')}</Text>
         </TouchableOpacity>
@@ -25,8 +26,13 @@ export default function UserScreen() {
   );
 }
 
-const ProfileItem = ({title, onPress}: any) => {
+const ProfileItem = ({title, navigation}: any) => {
   const {t} = useTranslation();
+
+  const onPress = () => {
+    navigation && navigate(navigation);
+  };
+
   return (
     <TouchableOpacity
       onPress={onPress}

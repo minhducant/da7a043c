@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 
 import {t} from '@i18n/index';
-import {IconQrcode} from '@assets/icons/index';
+// import {IconQrcode} from '@assets/icons/index';
 import COLORS from '@styles/color';
 import theme from '@styles/theme.style';
 import {IconLibrary} from '@components/BaseComponent/IconLibrary';
@@ -133,7 +133,9 @@ const style = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     margin: normalize(16),
-    // marginBottom: normalize(24),
+    // marginTop: 0,
+    marginBottom: normalize(20),
+    marginVertical: normalize(10),
   },
   qrcodeBtn: {
     borderWidth: 0.5,

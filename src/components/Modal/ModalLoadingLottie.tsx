@@ -20,7 +20,7 @@ const ModalLoadingLottie = () => {
     <Modal contentContainerStyle={stylesLoading.modal} visible={isLoading}>
       <LottieView
         ref={lottieRef}
-        source={require('@assets/lottie/animation_lkm8al5r.json')}
+        source={require('@assets/lotties/AnimationLottie.json')}
         style={stylesLoading.lottieView}
       />
     </Modal>
@@ -33,13 +33,14 @@ const stylesLoading = StyleSheet.create({
   modal: {
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: 'white',
-    // width: '50%',
+    width: '50%',
     alignSelf: 'center',
-    borderRadius: 10,
+    borderRadius: 40,
+    backgroundColor: 'white',
   },
   lottieView: {
-    width: 100,
-    height: 150,
+    width: 250,
+    height: 200,
+    marginLeft: 10,
   },
 });

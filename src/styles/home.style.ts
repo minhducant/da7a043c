@@ -18,7 +18,7 @@ export const homeStyle: any = {
     fontSize: 24,
     marginLeft: normalize(16),
     color: color.BLACK,
-    marginVertical: normalize(16),
+    marginVertical: normalize(10),
     marginBottom: normalize(10),
     fontFamily: themeStyle.FONT_BOLD,
   },

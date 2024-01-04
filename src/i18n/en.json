@@ -18,5 +18,13 @@
   "description": "Description",
   "color": "Color",
   "currency": "Currency",
-  "who_sharing_the_bill": "Who's sharing the Bill"
+  "who_sharing_the_bill": "Who's sharing the Bill",
+  "update_information": "Update Information",
+  "notifications": "Notifications",
+  "account_settings": "Account Settings",
+  "feedback": "Feedback",
+  "privacy_policy": "Privacy Policy",
+  "about_spendsync": "About SpendSync",
+  "delete_account": "Delete Account",
+  "e_wallet": "E-Wallet"
 }

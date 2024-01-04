@@ -13,6 +13,7 @@ import {useNavigation} from '@react-navigation/native';
 
 import Colors from '@styles/color';
 import theme from '@styles/theme.style';
+import {IconHome} from '@assets/icons/index';
 import {IconLibrary} from '@components/BaseComponent/IconLibrary';
 
 interface HeaderProps {
@@ -64,7 +65,7 @@ export default function HeaderWithTitle({
                   library="Ionicons"
                   name="chevron-back"
                   size={25}
-                  color={Colors.BLACK}
+                  color={'#757575'}
                 />
               </TouchableOpacity>
             )}
@@ -76,11 +77,10 @@ export default function HeaderWithTitle({
             style={styles.viewBack}
             onPress={onGoHome}
             activeOpacity={0.7}>
-            <IconLibrary
-              library="AntDesign"
-              name="home"
-              size={20}
-              color={Colors.BLACK}
+            <IconHome
+              fill="#757575"
+              width={normalize(21)}
+              height={normalize(21)}
             />
           </TouchableOpacity>
         </View>

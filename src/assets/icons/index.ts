@@ -14,7 +14,7 @@ import IconNotification from './SvgIconNotification';
 import IconAdd from './SvgIconAdd';
 import IconDot from './SvgIconDot';
 import HeaderBackground from './SvgHeaderBackground';
-
+import IconForward from './SvgIconForward';
 export {
   IconClose,
   IconGoogle,
@@ -32,4 +32,5 @@ export {
   IconAdd,
   IconDot,
   HeaderBackground,
+  IconForward,
 };

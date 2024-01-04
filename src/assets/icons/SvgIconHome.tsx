@@ -2,13 +2,13 @@ import * as React from 'react';
 import Svg, {Path} from 'react-native-svg';
 import normalize from 'react-native-normalize';
 
-function SvgComponent({fill}: any) {
+function SvgComponent({
+  fill,
+  width = normalize(26),
+  height = normalize(26),
+}: any) {
   return (
-    <Svg
-      width={normalize(26)}
-      height={normalize(26)}
-      viewBox="0 0 24 24"
-      fill="none">
+    <Svg width={width} height={height} viewBox="0 0 24 24" fill="none">
       <Path
         fill={fill}
         d="M9 17.25a.75.75 0 0 0 0 1.5h6a.75.75 0 0 0 0-1.5H9Z"

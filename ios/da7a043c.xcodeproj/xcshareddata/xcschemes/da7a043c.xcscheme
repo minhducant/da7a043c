@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-               BuildableName = "da7a043c.app"
+               BuildableName = "SpendSync.app"
                BlueprintName = "da7a043c"
                ReferencedContainer = "container:da7a043c.xcodeproj">
             </BuildableReference>
@@ -55,7 +55,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "da7a043c.app"
+            BuildableName = "SpendSync.app"
             BlueprintName = "da7a043c"
             ReferencedContainer = "container:da7a043c.xcodeproj">
          </BuildableReference>
@@ -72,7 +72,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "da7a043c.app"
+            BuildableName = "SpendSync.app"
             BlueprintName = "da7a043c"
             ReferencedContainer = "container:da7a043c.xcodeproj">
          </BuildableReference>

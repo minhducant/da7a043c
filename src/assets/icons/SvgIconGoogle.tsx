@@ -12,6 +12,7 @@ function SvgComponent(props: any) {
       viewBox="0 0 256 262"
       xmlns="http://www.w3.org/2000/svg"
       style={{
+        right: normalize(3),
         marginLeft: normalize(5),
         marginVertical: normalize(2),
       }}

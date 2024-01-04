@@ -2,9 +2,9 @@ import {Dimensions} from 'react-native';
 const {width, height} = Dimensions.get('window');
 
 export default {
-  FONT_FAMILY: 'Inter-Regular',
-  FONT_BOLD: 'Inter-Bold',
-  FONT_SEMIBOLD: 'Inter-SemiBold',
+  FONT_FAMILY: 'PlusJakartaSans-Regular',
+  FONT_BOLD: 'PlusJakartaSans-Bold',
+  FONT_SEMIBOLD: 'PlusJakartaSans-SemiBold',
   width,
   height,
 };

@@ -1,6 +1,5 @@
 import React, {useRef} from 'react';
 import {
-  Text,
   View,
   FlatList,
   Animated,
@@ -10,22 +9,24 @@ import {
 
 import {useGetNotes} from '@hooks/useGetNotes';
 import HeaderHome from '@components/Home/HeaderHome';
-import {RenderNote} from '@components/Home/RenderItem';
+import {WalletCard} from '@components/Home/RenderItem';
 import {homeStyle as styles} from '@styles/home.style';
 import SearchInput from '@components/Home/SearchInput';
 
+const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
+
 export default function HomeScreen() {
-  const scrollRef = useRef(null);
-  const loadMore = useRef(false);
+  const scrollRef = useRef<any>(null);
   const searchRef = useRef<any>(null);
   const refreshControl = useRef(false);
-  const scrollY = useRef(new Animated.Value(0)).current;
-  const {
-    data,
-    // onLoadMore,
-    updateParamsRef,
-    onRefresh: refreshData,
-  } = useGetNotes();
+  const loadMore = useRef<boolean>(false);
+  const y = new Animated.Value(0);
+
+  const onScroll = Animated.event([{nativeEvent: {contentOffset: {y}}}], {
+    useNativeDriver: true,
+  });
+
+  const {data, updateParamsRef, onRefresh: refreshData} = useGetNotes();
 
   const onRefresh = async () => {
     await refreshData();
@@ -33,7 +34,6 @@ export default function HomeScreen() {
 
   const onEndReached = async () => {
     loadMore.current = true;
-    // await onLoadMore();
     loadMore.current = false;
   };
 
@@ -41,14 +41,10 @@ export default function HomeScreen() {
     updateParamsRef(e);
   };
 
-  const renderNote = ({item, index}: any) => (
-    <RenderNote item={item} index={index} />
-  );
-
   const listEmpty = () => {
     return (
       <View style={styles.viewEmpty}>
-        <Text>Đức</Text>
+        <></>
       </View>
     );
   };
@@ -61,26 +57,24 @@ export default function HomeScreen() {
         onRefresh={onRefresh}
         onSubmitEditing={(e: any) => onSearch({title: e})}
       />
-      <FlatList
+      <AnimatedFlatList
         data={data}
+        // data={[...data, ...data, ...data]}
         ref={scrollRef}
         scrollEnabled={true}
-        renderItem={renderNote}
         scrollEventThrottle={16}
         onEndReached={onEndReached}
         ListEmptyComponent={listEmpty}
-        onScroll={Animated.event(
-          [{nativeEvent: {contentOffset: {y: scrollY}}}],
-          {useNativeDriver: false},
-        )}
         refreshControl={
           <RefreshControl
             onRefresh={onRefresh}
             refreshing={refreshControl.current}
           />
         }
-        showsHorizontalScrollIndicator={false}
+        showsVerticalScrollIndicator={false}
         keyExtractor={(_, index) => `${index}`}
+        renderItem={({index, item}) => <WalletCard {...{index, y, item}} />}
+        {...{onScroll}}
       />
     </SafeAreaView>
   );
