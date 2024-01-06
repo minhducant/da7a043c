@@ -8,7 +8,7 @@
   "create_new": "Tạo mới",
   "friends": "Bạn bè",
   "support": "Hỗ trợ",
-  "chat_gpt": "Chat GPT",
+  "chat_gpt": "AI Chat",
   "settings": "Cài đặt",
   "invite_friends": "Giới thiệu bạn bè",
   "about_us": "Về chúng tôi",
@@ -26,5 +26,10 @@
   "privacy_policy": "Chính sách bảo mật",
   "about_spendsync": "Về SpendSync",
   "delete_account": "Xoá tài khoản",
-  "e_wallet": "Ví điện tử"
+  "e_wallet": "Ví điện tử",
+  "app_version": "Phiên bản ứng dụng",
+  "language": "Ngôn ngữ",
+  "function_under_development": "Chức năng này đang phát triển, vui lòng thử lại sau!",
+  "entertainment": "Giải trí",
+  "tools": "Công cụ"
 }

@@ -7,6 +7,7 @@ import {
 } from './Storage';
 import {LogTelegram} from './LogTelegram';
 import {AsyncApp} from './AsyncApp';
+import {showMessage} from './Toast';
 
 export {
   getAccessToken,
@@ -16,4 +17,5 @@ export {
   getStorage,
   multiRemove,
   AsyncApp,
+  showMessage,
 };

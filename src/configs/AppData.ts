@@ -78,3 +78,48 @@ export const getNoteLabel: any = (
     },
   };
 };
+
+export const listSetting = [
+  {
+    title: t('update_information'),
+    screen: '',
+    icon: 'user',
+    library: 'FontAwesome',
+  },
+  {
+    title: t('language'),
+    screen: 'ChangeLanguageScreen',
+    icon: 'language',
+    library: 'FontAwesome',
+  },
+  {
+    title: t('notifications'),
+    screen: '',
+    icon: 'notifications',
+    library: 'Ionicons',
+  },
+  {
+    title: t('e_wallet'),
+    screen: '',
+    icon: 'wallet',
+    library: 'Entypo',
+  },
+  {
+    title: t('feedback'),
+    screen: '',
+    icon: 'feedback',
+    library: 'MaterialIcons',
+  },
+  {
+    title: t('privacy_policy'),
+    screen: '',
+    icon: 'verified-user',
+    library: 'MaterialIcons',
+  },
+  {
+    title: t('about_spendsync'),
+    screen: '',
+    icon: 'policy',
+    library: 'MaterialIcons',
+  },
+];

@@ -8,7 +8,7 @@
   "create_new": "新規作成",
   "friends": "友達",
   "support": "サポート",
-  "chat_gpt": "GPT チャット",
+  "chat_gpt": "AI Chat",
   "settings": "設定",
   "invite_friends": "友達を招待する",
   "about_us": "私たちについて",
@@ -26,5 +26,10 @@
   "privacy_policy": "プライバシーポリシー",
   "about_spendsync": "SpendSyncについて",
   "delete_account": "アカウントを削除",
-  "e_wallet": "電子ウォレット"
+  "e_wallet": "電子ウォレット",
+  "app_version": "アプリのバージョン",
+  "language": "言語",
+  "function_under_development": "この機能は開発中です。後で再試行してください!",
+  "entertainment": "エンターテインメント",
+  "tools": "ツール"
 }

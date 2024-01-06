@@ -8,7 +8,7 @@
   "create_new": "Create New",
   "friends": "Friends",
   "support": "Support",
-  "chat_gpt": "Chat GPT",
+  "chat_gpt": "AI Chat",
   "settings": "Settings",
   "invite_friends": "Invite Friends",
   "about_us": "About Us",
@@ -26,5 +26,10 @@
   "privacy_policy": "Privacy Policy",
   "about_spendsync": "About SpendSync",
   "delete_account": "Delete Account",
-  "e_wallet": "E-Wallet"
+  "e_wallet": "E-Wallet",
+  "app_version": "App Version",
+  "language": "Language",
+  "function_under_development": "This feature is under development, please try again later!",
+  "entertainment": "Entertainment",
+  "tools": "Tools"
 }

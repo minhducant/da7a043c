@@ -26,8 +26,8 @@ export const toastStyle: any = {
     left: normalize(45),
   },
   toastMessage: {
-    fontFamily: themeStyle.FONT_BOLD,
-    fontSize: 14,
+    fontFamily: themeStyle.FONT_FAMILY,
+    fontSize: 16,
     color: color.WHITE,
     paddingTop: normalize(5),
   },

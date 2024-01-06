@@ -2,25 +2,21 @@ import React from 'react';
 import {useTranslation} from 'react-i18next';
 import {ScrollView, Text, TouchableOpacity, View} from 'react-native';
 
-import {onLogout} from '@utils/Logout';
 import UserInfo from '@components/Home/UserInfo';
 import {navigate} from '@navigation/RootNavigation';
 import {userScreenStyle as styles} from '@styles/user.style';
 
 export default function UserScreen() {
-  const {t} = useTranslation();
+  // const {t} = useTranslation();
 
   return (
     <View style={styles.container}>
       <UserInfo />
       <ScrollView showsVerticalScrollIndicator={false} style={styles.container}>
-        <ProfileItem title={'friends'} />
-        <ProfileItem title={'settings'} navigation="SettingScreen" />
+        <ProfileItem title={'friends'} navigation="TimerCountdownScreen" />
         <ProfileItem title={'chat_gpt'} navigation="ChatGPTScreen" />
         <ProfileItem title={'utilities'} navigation="UtilitiesScreen" />
-        <TouchableOpacity style={styles.signOut} onPress={onLogout}>
-          <Text style={styles.txtSignOut}>{t('sign_out')}</Text>
-        </TouchableOpacity>
+        <ProfileItem title={'settings'} navigation="SettingScreen" />
       </ScrollView>
     </View>
   );

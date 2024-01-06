@@ -15,6 +15,9 @@ import IconAdd from './SvgIconAdd';
 import IconDot from './SvgIconDot';
 import HeaderBackground from './SvgHeaderBackground';
 import IconForward from './SvgIconForward';
+import Chatbot from './SvgChatbot';
+import IconMic from './SvgIconMic';
+
 export {
   IconClose,
   IconGoogle,
@@ -33,4 +36,6 @@ export {
   IconDot,
   HeaderBackground,
   IconForward,
+  Chatbot,
+  IconMic,
 };
