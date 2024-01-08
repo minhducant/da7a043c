@@ -38,6 +38,11 @@
   return [self getBundleURL];
 }
 
+- (BOOL)bridgelessEnabled
+{
+    return YES;
+}
+
 - (NSURL *)getBundleURL
 {
 #if DEBUG

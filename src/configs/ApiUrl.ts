@@ -1,4 +1,4 @@
-export const MAIN_DOMAIN = 'http://192.168.100.46:3343';
+export const MAIN_DOMAIN = 'http://192.168.100.62:3343';
 
 export const ApiUrl = {
   Auth: {

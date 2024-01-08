@@ -7,6 +7,7 @@ import {
   SafeAreaView,
   TouchableWithoutFeedback,
 } from 'react-native';
+import {BlurView} from '@react-native-community/blur';
 
 import color from '@styles/color';
 import {navigationStyle as styles} from '@styles/navigation.style';
