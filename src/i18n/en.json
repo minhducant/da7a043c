@@ -31,5 +31,6 @@
   "language": "Language",
   "function_under_development": "This feature is under development, please try again later!",
   "entertainment": "Entertainment",
-  "tools": "Tools"
+  "tools": "Tools",
+  "language_change_success": "Language change successful!"
 }

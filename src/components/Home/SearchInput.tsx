@@ -13,7 +13,7 @@ import {t} from '@i18n/index';
 // import {IconQrcode} from '@assets/icons/index';
 import COLORS from '@styles/color';
 import theme from '@styles/theme.style';
-import {IconLibrary} from '@components/BaseComponent/IconLibrary';
+import {IconLibrary} from '@components/Base/IconLibrary';
 
 interface InputProps {
   onRefresh?: () => void;

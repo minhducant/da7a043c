@@ -14,11 +14,12 @@ import {useNavigation} from '@react-navigation/native';
 import Colors from '@styles/color';
 import theme from '@styles/theme.style';
 import {IconHome} from '@assets/icons/index';
-import {IconLibrary} from '@components/BaseComponent/IconLibrary';
+import {IconLibrary} from '@components/Base/IconLibrary';
 
 interface HeaderProps {
-  title: string;
+  title?: string;
   hasLeft?: boolean;
+  hasRight?: boolean;
 }
 
 interface NavigationProps {
@@ -39,6 +40,7 @@ const UPPER_HEADER_PADDING_TOP =
 export default function HeaderWithTitle({
   title = '',
   hasLeft = true,
+  hasRight = true,
 }: HeaderProps) {
   const navigation: NavigationProps = useNavigation();
 
@@ -73,16 +75,17 @@ export default function HeaderWithTitle({
           <Text style={styles.title} numberOfLines={1}>
             {title}
           </Text>
-          <TouchableOpacity
-            style={styles.viewBack}
-            onPress={onGoHome}
-            activeOpacity={0.7}>
-            <IconHome
-              fill="#757575"
-              width={normalize(21)}
-              height={normalize(21)}
-            />
-          </TouchableOpacity>
+          <View style={styles.viewBack}>
+            {hasRight && (
+              <TouchableOpacity onPress={onGoHome} activeOpacity={0.7}>
+                <IconHome
+                  fill="#757575"
+                  width={normalize(21)}
+                  height={normalize(21)}
+                />
+              </TouchableOpacity>
+            )}
+          </View>
         </View>
       </SafeAreaView>
     </View>

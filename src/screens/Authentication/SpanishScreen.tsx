@@ -3,7 +3,7 @@ import {SafeAreaView, Text} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 
 import {setAppStatus} from '@stores/action';
-import TemplateLogin from '@components/Authentication/TemplateLogin';
+import TemplateLogin from '@components/Auth/TemplateLogin';
 import {authenticationStyle as styles} from '@styles/authentication.style';
 
 const SpanishScreen = () => {

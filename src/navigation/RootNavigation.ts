@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {StackActions} from '@react-navigation/native';
 
-import DrawerRef from '@components/BaseComponent/DrawerLib';
+import DrawerRef from '@components/Base/DrawerLib';
 
 export const isReadyRef = React.createRef();
 

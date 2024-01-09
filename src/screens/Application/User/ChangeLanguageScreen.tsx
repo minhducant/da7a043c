@@ -14,6 +14,7 @@ import {
 
 import i18n from '@i18n/index';
 import color from '@styles/color';
+import {showMessage} from '@utils/Toast';
 import {USER_LANG} from '@utils/DeviceLang';
 import themeStyle from '@styles/theme.style';
 import {DataLanguage} from '@configs/DataLanguage';
@@ -26,6 +27,7 @@ const ChangeLanguageScreen = ({navigation}: any) => {
   const onChangeLanguage = async (item: any) => {
     await i18n.changeLanguage(item);
     await AsyncStorage.setItem(USER_LANG, item);
+    showMessage.success(t('language_change_success'));
     navigation.goBack();
   };
 

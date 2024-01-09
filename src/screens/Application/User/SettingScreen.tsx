@@ -12,8 +12,8 @@ import DeviceInfo from 'react-native-device-info';
 
 import {onLogout} from '@utils/Logout';
 import {showMessage} from '@utils/index';
+import {IconLibrary} from '@components/Base';
 import {navigate} from '@navigation/RootNavigation';
-import {IconLibrary} from '@components/BaseComponent';
 import {userScreenStyle as styles} from '@styles/user.style';
 import HeaderWithTitle from '@components/Header/HeaderWithTitle';
 

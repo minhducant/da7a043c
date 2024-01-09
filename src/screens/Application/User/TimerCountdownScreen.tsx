@@ -15,7 +15,7 @@ import {
 } from 'react-native';
 import normalize from 'react-native-normalize';
 
-import {IconLibrary} from '@components/BaseComponent/IconLibrary';
+import {IconLibrary} from '@components/Base/IconLibrary';
 
 const colors = {
   black: '#323F4E',

@@ -23,7 +23,7 @@ import {
 import {AuthApi} from '@api/AuthApi';
 import {setStorage, LogTelegram} from '@utils/index';
 import {setAppStatus, setIsLoading} from '@stores/action';
-import TemplateLogin from '@components/Authentication/TemplateLogin';
+import TemplateLogin from '@components/Auth/TemplateLogin';
 import {authenticationStyle as styles} from '@styles/authentication.style';
 
 const LoginScreen = () => {
@@ -106,14 +106,14 @@ const LoginScreen = () => {
             activeOpacity={0.5}>
             <IconFacebook />
           </TouchableOpacity>
-          {Platform.OS === 'ios' && (
-            <TouchableOpacity
-              style={[styles.btnLogin]}
-              onPress={onAppleButtonPress}
-              activeOpacity={0.5}>
-              <IconApple />
-            </TouchableOpacity>
-          )}
+          {/* {Platform.OS === 'ios' && ( */}
+          <TouchableOpacity
+            style={[styles.btnLogin]}
+            onPress={onAppleButtonPress}
+            activeOpacity={0.5}>
+            <IconApple />
+          </TouchableOpacity>
+          {/* )} */}
           <TouchableOpacity
             style={[styles.btnLogin]}
             onPress={onLoginGoogle}

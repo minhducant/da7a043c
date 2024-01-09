@@ -1,7 +1,7 @@
 import React from 'react';
 import {Provider} from 'react-redux';
 import {StatusBar} from 'react-native';
-import CodePush from 'react-native-code-push';
+// import CodePush from 'react-native-code-push';
 import {I18nextProvider} from 'react-i18next';
 import {PersistGate} from 'redux-persist/integration/react';
 import {Provider as ProviderPaper} from 'react-native-paper';
@@ -12,10 +12,10 @@ import {AppNavigation} from '@navigation/AppNavigation';
 import ModalToastMessage from '@components/Modal/ModalToastMessage';
 import ModalLoadingLottie from '@components/Modal/ModalLoadingLottie';
 
-const codePushOptions = {
-  installMode: CodePush.InstallMode.IMMEDIATE,
-  checkFrequency: CodePush.CheckFrequency.ON_APP_START,
-};
+// const codePushOptions = {
+//   installMode: CodePush.InstallMode.IMMEDIATE,
+//   checkFrequency: CodePush.CheckFrequency.ON_APP_START,
+// };
 
 const App = () => {
   return (
@@ -38,4 +38,6 @@ const App = () => {
   );
 };
 
-export default CodePush(codePushOptions)(App);
+// export default CodePush(codePushOptions)(App);
+
+export default App;

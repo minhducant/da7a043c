@@ -12,7 +12,7 @@ import {
   InputText,
   BottomSheet,
   InputColorCurrency,
-} from '@components/BaseComponent/index';
+} from '@components/Base/index';
 import {getNoteLabel} from '@configs/AppData';
 import {homeStyle as styles} from '@styles/home.style';
 import HeaderWithTitle from '@components/Header/HeaderWithTitle';

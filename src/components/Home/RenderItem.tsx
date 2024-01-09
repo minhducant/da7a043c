@@ -13,8 +13,8 @@ import {
   TouchableOpacity,
 } from 'react-native';
 
+import {IconLibrary} from '@components/Base';
 import {navigate} from '@navigation/RootNavigation';
-import {IconLibrary} from '@components/BaseComponent';
 import {homeStyle as styles} from '@styles/home.style';
 import {currencies, Currency, colors} from '@configs/AppData';
 

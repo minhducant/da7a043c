@@ -1,3 +1,4 @@
+import {Platform} from 'react-native';
 import normalize from 'react-native-normalize';
 
 import color from '@styles/color';
@@ -15,7 +16,7 @@ export const userScreenStyle: any = {
     borderRadius: normalize(15),
     backgroundColor: '#EB5758',
     marginHorizontal: normalize(16),
-    // marginBottom: normalize(50),
+    marginBottom: Platform.OS === 'android' ? normalize(15) : 0,
     marginTop: normalize(16),
     height: normalize(45),
   },

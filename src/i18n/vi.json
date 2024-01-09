@@ -31,5 +31,6 @@
   "language": "Ngôn ngữ",
   "function_under_development": "Chức năng này đang phát triển, vui lòng thử lại sau!",
   "entertainment": "Giải trí",
-  "tools": "Công cụ"
+  "tools": "Công cụ",
+  "language_change_success": "Thay đổi ngôn ngữ thành công!"
 }

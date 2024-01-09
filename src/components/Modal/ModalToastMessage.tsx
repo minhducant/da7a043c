@@ -5,8 +5,8 @@ import {
   Platform,
   PanResponder,
   TouchableOpacity,
-  InteractionManager,
   DeviceEventEmitter,
+  InteractionManager,
 } from 'react-native';
 import Animated, {
   withDelay,
@@ -32,7 +32,7 @@ const ToastMessage = () => {
   const showingRef = useRef<any>(false);
   const toastBottomAnimation = useSharedValue(-100);
   const [toastOptions, setToastOptions] = useState<any>({});
-  const BOTTOM_VALUE = Platform.OS === 'ios' ? normalize(60) : normalize(20);
+  const BOTTOM_VALUE = Platform.OS === 'ios' ? normalize(60) : normalize(40);
 
   const showToastMessage = useCallback(
     (options: any) => {
