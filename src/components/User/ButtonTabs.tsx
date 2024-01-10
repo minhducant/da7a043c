@@ -29,7 +29,7 @@ const ButtonTabs = ({onPress, x}: any) => {
 
   const translateX = x.interpolate({
     inputRange: [0, SCREEN_WIDTH * 2],
-    outputRange: [0, SCREEN_WIDTH / 3.5],
+    outputRange: [0, SCREEN_WIDTH - 16],
     extrapolate: 'clamp',
   });
 
@@ -58,6 +58,7 @@ const styles = StyleSheet.create({
   indicator: {
     backgroundColor: Colors.FUN_BLUE,
     width: (SCREEN_WIDTH - 32) / 2,
+    borderRadius: normalize(16),
     zIndex: -1,
     ...StyleSheet.absoluteFillObject,
   },

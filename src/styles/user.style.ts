@@ -10,7 +10,7 @@ export const userScreenStyle: any = {
     backgroundColor: color.WHITE,
   },
   signOut: {
-    paddingVertical: normalize(10),
+    // paddingVertical: normalize(10),
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: normalize(15),

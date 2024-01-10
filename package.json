@@ -11,7 +11,7 @@
     "asset": "npx react-native-asset",
     "android": "react-native run-android",
     "env-staging": "cp .env.staging .env",
-    "adb": "adb reverse tcp:8001 tcp:8001",
+    "adb": "adb reverse tcp:8081 tcp:8081",
     "pod": "cd ios && pod install && cd ..",
     "env-production": "cp .env.production .env",
     "env-development": "cp .env.development .env",

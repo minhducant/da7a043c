@@ -58,8 +58,8 @@ export default function HomeScreen() {
         onSubmitEditing={(e: any) => onSearch({title: e})}
       />
       <AnimatedFlatList
-        // data={data}
-        data={[...data, ...data, ...data]}
+        data={data}
+        // data={[...data, ...data, ...data]}
         ref={scrollRef}
         scrollEnabled={true}
         scrollEventThrottle={16}
