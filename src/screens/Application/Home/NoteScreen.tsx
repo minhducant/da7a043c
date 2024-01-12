@@ -11,7 +11,7 @@ import {t} from '@i18n/index';
 import {
   InputText,
   BottomSheet,
-  InputColorCurrency,
+  // InputColorCurrency,
 } from '@components/Base/index';
 import {getNoteLabel} from '@configs/AppData';
 import {homeStyle as styles} from '@styles/home.style';
@@ -47,10 +47,10 @@ export default function NoteScreen() {
             {...noteLabel.title}
             ref={(ref: any) => (formRef.current.title = ref)}
           />
-          <InputColorCurrency
+          {/* <InputColorCurrency
             {...noteLabel.color_currency}
             ref={(ref: any) => (formRef.current.color_currency = ref)}
-          />
+          /> */}
           <InputText
             {...noteLabel.description}
             ref={(ref: any) => (formRef.current.description = ref)}

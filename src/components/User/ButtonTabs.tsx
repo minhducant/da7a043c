@@ -29,7 +29,7 @@ const ButtonTabs = ({onPress, x}: any) => {
 
   const translateX = x.interpolate({
     inputRange: [0, SCREEN_WIDTH * 2],
-    outputRange: [0, SCREEN_WIDTH - 16],
+    outputRange: [0, SCREEN_WIDTH - 32],
     extrapolate: 'clamp',
   });
 

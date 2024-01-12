@@ -58,12 +58,14 @@ export const getNoteLabel: any = (
 ) => {
   return {
     title: {
+      title: t('title'),
       valueInit: '',
       placeholder: `${t('input')} ${t('title').toLowerCase()}`,
       required: true,
     },
     description: {
       valueInit: '',
+      title: t('description'),
       placeholder: `${t('input')} ${t('description').toLowerCase()}`,
       multiline: true,
     },
