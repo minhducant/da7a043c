@@ -43,7 +43,7 @@ const LoginScreen = () => {
         console.log('Đăng nhập thất bại, vui lòng thử lại!');
         return;
       }
-      dispatch(setIsLoading(true));
+      // dispatch(setIsLoading(true));
       const {accessToken} = await GoogleSignin.getTokens();
       const dataLogin = await AuthApi.LoginGoogle({accessToken});
       await setStorage('accessToken', dataLogin?.data?.accessToken);
@@ -71,8 +71,10 @@ const LoginScreen = () => {
       return;
     }
     let accessToken: any = data.accessToken;
-    dispatch(setIsLoading(true));
+    console.log(accessToken);
+    // dispatch(setIsLoading(true));
     const dataLogin = await AuthApi.LoginFacebook({accessToken});
+    console.log(dataLogin);
     await setStorage('accessToken', dataLogin.data.accessToken);
     await setStorage('refreshToken', dataLogin.data.refreshToken);
     dispatch(setIsLoading(false));

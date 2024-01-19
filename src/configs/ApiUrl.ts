@@ -3,9 +3,9 @@ export const MAIN_DOMAIN = 'http://192.168.100.62:3343';
 export const ApiUrl = {
   Auth: {
     get_user_info: '/api/v1/auth/user/current',
-    login_google: '/api/v1/auth/user/google/login',
-    login_facebook: '/api/v1/auth/user/facebook/login',
-    refresh_access_token: '/api/v1/auth/user/facebook/login',
+    login_google: '/api/v1/auth/user/login_google',
+    login_facebook: '/api/v1/auth/user/login_facebook',
+    refresh_access_token: '/api/v1/auth/user/refresh_access_token',
   },
   User: {},
   Friend: {},
