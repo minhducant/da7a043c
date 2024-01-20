@@ -121,7 +121,7 @@ const styles = StyleSheet.create({
     marginBottom: Platform.OS === 'android' ? 0 : 15,
     justifyContent: 'center',
     alignItems: 'center',
-    borderWidth: 0.5,
+    borderWidth: Platform.OS === 'android' ? 0 : normalize(2),
     borderRadius: normalize(10),
     borderColor: '#F3F4F6',
   },

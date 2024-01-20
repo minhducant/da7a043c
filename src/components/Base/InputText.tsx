@@ -3,6 +3,7 @@ import React, {useState, useRef, forwardRef, useImperativeHandle} from 'react';
 import {
   View,
   Text,
+  Platform,
   TextStyle,
   TextInput,
   StyleSheet,
@@ -97,7 +98,7 @@ const styles: any = StyleSheet.create({
     borderColor: '#9398AA',
     // marginTop: normalize(16),
     marginHorizontal: normalize(16),
-    borderWidth: normalize(1.5),
+    borderWidth: Platform.OS === 'ios' ? normalize(1.4) : normalize(3.5),
   },
   title: {
     fontSize: 18,

@@ -8,7 +8,9 @@ export const ApiUrl = {
     refresh_access_token: '/api/v1/auth/user/refresh_access_token',
   },
   User: {},
-  Friend: {},
+  Friend: {
+    friends: '/api/v1/friend',
+  },
   Upload: {},
   Firebase: {},
   Invite: {},

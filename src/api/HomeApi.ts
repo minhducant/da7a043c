@@ -9,4 +9,10 @@ export class HomeApi {
     );
     return response;
   }
+  static async getFriends(params: any) {
+    const response = await client.get(
+      ApiUrl.Friend.friends + extraParams(params),
+    );
+    return response.data;
+  }
 }

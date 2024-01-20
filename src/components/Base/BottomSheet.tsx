@@ -9,7 +9,7 @@ import Animated, {
   useAnimatedProps,
   useAnimatedStyle,
 } from 'react-native-reanimated';
-import {Dimensions, StyleSheet, View} from 'react-native';
+import {Dimensions, StyleSheet, View, Keyboard} from 'react-native';
 import {Gesture, GestureDetector} from 'react-native-gesture-handler';
 
 const {height: SCREEN_HEIGHT} = Dimensions.get('window');
@@ -94,6 +94,7 @@ const BottomSheet = React.forwardRef<BottomSheetRefProps, BottomSheetProps>(
         <Animated.View
           onTouchStart={() => {
             scrollTo(0);
+            Keyboard.dismiss();
           }}
           animatedProps={rBackdropProps}
           style={[
@@ -106,6 +107,9 @@ const BottomSheet = React.forwardRef<BottomSheetRefProps, BottomSheetProps>(
         />
         <GestureDetector gesture={gesture}>
           <Animated.View
+            onTouchStart={() => {
+              Keyboard.dismiss();
+            }}
             style={[styles.bottomSheetContainer, rBottomSheetStyle]}>
             <View style={styles.line} />
             {children}

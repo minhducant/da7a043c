@@ -59,7 +59,6 @@ export default function HomeScreen() {
       />
       <AnimatedFlatList
         data={data}
-        // data={[...data, ...data, ...data]}
         ref={scrollRef}
         scrollEnabled={true}
         scrollEventThrottle={16}

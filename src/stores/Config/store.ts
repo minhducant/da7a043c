@@ -1,6 +1,7 @@
 import {createSlice, createAsyncThunk} from '@reduxjs/toolkit';
 
 import {AuthApi} from '@api/AuthApi';
+import {HomeApi} from '@api/HomeApi';
 
 const initialState = {
   userInfo: {},
@@ -9,6 +10,7 @@ const initialState = {
   isLoading: false,
   firebaseToken: '',
   isFirstUse: true,
+  friends: [],
 };
 
 const store = createSlice({
@@ -39,11 +41,19 @@ const store = createSlice({
       state.appStatus = action.payload;
       return state;
     },
+    setFriends(state, action) {
+      state.friends = action.payload;
+      return state;
+    },
   },
   extraReducers(builder) {
     builder.addCase(getUserInfo.fulfilled, (state, action) => {
       state.isLoading = false;
       state.userInfo = action.payload;
+    });
+    builder.addCase(getFriends.fulfilled, (state, action) => {
+      state.isLoading = false;
+      state.friends = action.payload;
     });
   },
 });
@@ -52,7 +62,11 @@ const getUserInfo: any = createAsyncThunk('getUserInfo', async () => {
   return await AuthApi.getUserInfo({});
 });
 
-export {getUserInfo};
+const getFriends: any = createAsyncThunk('getFriends', async () => {
+  return await HomeApi.getFriends({});
+});
+
+export {getUserInfo, getFriends};
 
 export const {
   setNumNotify,

@@ -54,6 +54,7 @@ export const colors = [
 
 export const getNoteLabel: any = (
   colorSheetRef: MutableRefObject<any>,
+  memberSheetRef: MutableRefObject<any>,
   currencySheetRef: MutableRefObject<any>,
 ) => {
   return {
@@ -76,6 +77,8 @@ export const getNoteLabel: any = (
       currencySheetRef: currencySheetRef,
     },
     members: {
+      data: [],
+      memberSheetRef: memberSheetRef,
       title: t('who_sharing_the_bill'),
     },
   };

@@ -4,6 +4,7 @@ import {useTranslation} from 'react-i18next';
 import normalize from 'react-native-normalize';
 import {
   View,
+  Text,
   Keyboard,
   TextInput,
   StyleSheet,
@@ -20,14 +21,16 @@ interface InputProps {
   onPressIn?: () => void;
   onSubmitEditing?: any;
   ref: Ref<any>;
+  onAddNew?: any;
 }
 
-const SearchInput: React.FC<InputProps> = React.forwardRef(
+const SearchMember: React.FC<InputProps> = React.forwardRef(
   (
     {
       onFocus = () => {},
       onPressIn = () => {},
       onRefresh = () => {},
+      onAddNew = () => {},
       onSubmitEditing,
     },
     ref,
@@ -83,7 +86,7 @@ const SearchInput: React.FC<InputProps> = React.forwardRef(
               onFocus();
             }}
             onSubmitEditing={handleTextSubmit}
-            placeholder={`${t('search')}...`}
+            placeholder={`${t('who_sharing_the_bill')}...`}
             returnKeyLabel="search"
             autoCapitalize="none"
             style={{
@@ -104,9 +107,13 @@ const SearchInput: React.FC<InputProps> = React.forwardRef(
             </TouchableOpacity>
           )}
         </View>
-        {/* <TouchableOpacity style={style.qrcodeBtn}>
-          <IconQrcode />
-        </TouchableOpacity> */}
+        <TouchableOpacity
+          onPress={() => {
+            onAddNew(value);
+            setValue('');
+          }}>
+          <Text style={style.txtAdd}>{t('add')}</Text>
+        </TouchableOpacity>
       </View>
     );
   },
@@ -119,11 +126,11 @@ const style = StyleSheet.create({
     fontFamily: theme.FONT_FAMILY,
   },
   inputContainer: {
-    height: normalize(48),
+    height: normalize(40),
     flexDirection: 'row',
     paddingHorizontal: 15,
     borderWidth: 0.5,
-    borderRadius: normalize(16),
+    borderRadius: normalize(13),
     alignSelf: 'center',
     borderColor: '#D1D5DB',
     alignItems: 'center',
@@ -134,20 +141,15 @@ const style = StyleSheet.create({
     alignItems: 'center',
     margin: normalize(16),
     // marginTop: 0,
-    marginBottom: normalize(20),
+    marginBottom: normalize(16),
     marginVertical: normalize(10),
   },
-  qrcodeBtn: {
-    borderWidth: 0.5,
-    height: normalize(48),
-    borderRadius: normalize(16),
-    width: normalize(48),
-    alignItems: 'center',
-    borderColor: '#D1D5DB',
-    justifyContent: 'center',
-    backgroundColor: '#D1D5DB',
+  txtAdd: {
+    fontSize: 15,
+    color: '#6763FD',
+    fontFamily: theme.FONT_BOLD,
     marginLeft: normalize(16),
   },
 });
 
-export default SearchInput;
+export default SearchMember;

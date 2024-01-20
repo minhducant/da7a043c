@@ -67,26 +67,34 @@ const InputColorCurrency = forwardRef<InputRef, InputProps>(
 
     return (
       <View style={styles.container}>
-        <TouchableOpacity
-          style={styles.input}
-          activeOpacity={0.5}
-          onPress={onShowColorSheet}>
-          <Text style={styles.txtInput}>
-            {t('color')}:{'  '}
+        <View style={styles.containerInput}>
+          <Text style={styles.title}>{t('color')}:</Text>
+          <TouchableOpacity
+            style={styles.input}
+            activeOpacity={0.5}
+            onPress={onShowColorSheet}>
+            {/* <Text style={styles.txtInput}>
+              {t('color')}:{'  '}
+            </Text> */}
+            <View style={[styles.colorView, {backgroundColor: colors}]} />
+          </TouchableOpacity>
+        </View>
+        <View style={styles.containerInput}>
+          <Text style={[styles.title, {marginLeft: normalize(25)}]}>
+            {t('currency')}:
           </Text>
-          <View style={[styles.colorView, {backgroundColor: colors}]} />
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={[styles.input, {marginLeft: normalize(15)}]}
-          activeOpacity={0.5}
-          onPress={onShowCurrencySheet}>
-          <Text style={styles.txtInput}>
-            {t('currency')}:{'  '}
-            <Text style={styles.txtCurrency}>
-              {findCurrencyNameById(currencies, currency)}
+          <TouchableOpacity
+            style={[styles.input, {marginLeft: normalize(15)}]}
+            activeOpacity={0.5}
+            onPress={onShowCurrencySheet}>
+            <Text style={styles.txtInput}>
+              {/* {t('currency')}:{'  '} */}
+              <Text style={styles.txtCurrency}>
+                {findCurrencyNameById(currencies, currency)}
+              </Text>
             </Text>
-          </Text>
-        </TouchableOpacity>
+          </TouchableOpacity>
+        </View>
       </View>
     );
   },
@@ -105,16 +113,16 @@ const styles: any = StyleSheet.create({
     marginHorizontal: normalize(16),
   },
   input: {
-    flex: 0.5,
+    flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
     borderColor: '#9398AA',
-    marginTop: normalize(16),
+    // marginTop: normalize(16),
     minHeight: normalize(50),
     borderRadius: normalize(15),
-    borderWidth: normalize(1.5),
     padding: normalize(10),
     paddingLeft: normalize(16),
+    borderWidth: Platform.OS === 'ios' ? normalize(1.4) : normalize(3.5),
   },
   txtInput: {
     fontSize: 18,
@@ -130,5 +138,14 @@ const styles: any = StyleSheet.create({
     fontSize: 18,
     color: color.BLACK,
     fontFamily: themeStyle.FONT_FAMILY,
+  },
+  title: {
+    fontSize: 18,
+    marginLeft: normalize(16),
+    marginVertical: normalize(16),
+    fontFamily: themeStyle.FONT_FAMILY,
+  },
+  containerInput: {
+    flex: 1,
   },
 });

@@ -32,5 +32,9 @@
   "function_under_development": "この機能は開発中です。後で再試行してください!",
   "entertainment": "エンターテインメント",
   "tools": "ツール",
-  "language_change_success": "言語の変更に成功しました！"
+  "language_change_success": "言語の変更に成功しました！",
+  "add": "追加",
+  "members": "メンバー",
+  "suggestion": "提案",
+  "selected": "選択済み"
 }
