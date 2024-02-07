@@ -45,7 +45,7 @@ const LoginScreen = () => {
       }
       // dispatch(setIsLoading(true));
       const {accessToken} = await GoogleSignin.getTokens();
-      console.log(accessToken);
+      // console.log(accessToken);
       const dataLogin = await AuthApi.LoginGoogle({accessToken});
       await setStorage('accessToken', dataLogin?.data?.accessToken);
       await setStorage('refreshToken', dataLogin?.data?.refreshToken);
@@ -74,7 +74,7 @@ const LoginScreen = () => {
     let accessToken: any = data.accessToken;
     // dispatch(setIsLoading(true));
     const dataLogin = await AuthApi.LoginFacebook({accessToken});
-    console.log(dataLogin);
+    console.log(accessToken);
     await setStorage('accessToken', dataLogin.data.accessToken);
     await setStorage('refreshToken', dataLogin.data.refreshToken);
     dispatch(setIsLoading(false));

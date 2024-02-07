@@ -136,4 +136,21 @@ export const homeStyle: any = {
     alignItems: 'center',
     justifyContent: 'center',
   },
+  contentContainer: {
+    flexGrow: 1,
+  },
+  headerInputMember: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingHorizontal: normalize(16),
+    paddingBottom: normalize(10),
+  },
+  txtDone : {
+    color:'red',
+    fontSize: 18,
+    textAlign: 'center',
+    alignSelf: 'center',
+    fontFamily: themeStyle.FONT_FAMILY,
+  }
 };

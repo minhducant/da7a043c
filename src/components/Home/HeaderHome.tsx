@@ -9,7 +9,7 @@ export default function HeaderHome() {
 
   return (
     <View>
-      <Text style={styles.txtTitle}>Good day, {userInfo?.name}</Text>
+      <Text style={styles.txtTitle}>Good day, {userInfo?.name || "Đỗ Minh Đức"}</Text>
     </View>
   );
 }

@@ -29,7 +29,7 @@ const ButtonTabs = ({onPress, x}: any) => {
 
   const translateX = x.interpolate({
     inputRange: [0, SCREEN_WIDTH * 2],
-    outputRange: [0, SCREEN_WIDTH - 32],
+    outputRange: [0, SCREEN_WIDTH - (SCREEN_WIDTH / 100) * 25 ],
     extrapolate: 'clamp',
   });
 
@@ -56,30 +56,33 @@ export default memo(ButtonTabs);
 
 const styles = StyleSheet.create({
   indicator: {
-    backgroundColor: Colors.FUN_BLUE,
-    width: (SCREEN_WIDTH - 32) / 2,
-    borderRadius: normalize(16),
+    backgroundColor: '#FFFFFF',
+    width: (SCREEN_WIDTH / 100) * 40,
+    borderRadius: normalize(10),
     zIndex: -1,
+    margin: normalize(5),
     ...StyleSheet.absoluteFillObject,
   },
   buttonTabsCon: {
     flexDirection: 'row',
     backgroundColor: Colors.IRON,
-    paddingVertical: normalize(8),
-    margin: normalize(16),
-    borderRadius: normalize(16),
+    width: (SCREEN_WIDTH / 100) * 80,
+    marginTop: normalize(10),
+    borderRadius: normalize(10),
+    height: normalize(45),
+    marginVertical: normalize(16),
+    alignSelf: 'center',
   },
   buttonTab: {
     backgroundColor: 'transparent',
     justifyContent: 'center',
     alignItems: 'center',
-    width: (SCREEN_WIDTH - 32) / 2,
-    flex: 1,
+    width: (SCREEN_WIDTH / 100) * 39,
     overflow: 'hidden',
-    borderRadius: normalize(16),
+    borderRadius: normalize(10),
   },
   txtTab: {
-    color: 'white',
+    color: '#41194A',
     fontFamily: themeStyle.FONT_FAMILY,
     fontSize: 18,
   },

@@ -46,10 +46,10 @@ export default function UtilitiesScreen() {
         scrollEventThrottle={16}
         showsHorizontalScrollIndicator={false}>
         <Suspense fallback={<ActivityIndicator size="large" color="#0000ff" />}>
-          <View style={{width: SCREEN_WIDTH, backgroundColor: 'red'}}>
+          <View style={{width: SCREEN_WIDTH}}>
             <></>
           </View>
-          <View style={{width: SCREEN_WIDTH, backgroundColor: 'blue'}}>
+          <View style={{width: SCREEN_WIDTH}}>
             <></>
           </View>
         </Suspense>

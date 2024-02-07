@@ -29,8 +29,8 @@ export interface InputProps extends TextInputProps {
   valueInit?: string;
   placeholder?: string;
   disable?: boolean;
-  style?: StyleProp<TextStyle>;
   multiline?: boolean;
+  style?: StyleProp<TextStyle>;
 }
 
 export const InputText = forwardRef<InputRef, InputProps>(
@@ -90,15 +90,13 @@ const styles: any = StyleSheet.create({
     fontFamily: themeStyle.FONT_FAMILY,
   },
   inputButton: {
-    // backgroundColor: '#F6F7F9',
     minHeight: normalize(50),
     borderRadius: normalize(15),
     overflow: 'hidden',
     paddingHorizontal: normalize(10),
     borderColor: '#9398AA',
-    // marginTop: normalize(16),
     marginHorizontal: normalize(16),
-    borderWidth: Platform.OS === 'ios' ? normalize(1.4) : normalize(3.5),
+    borderWidth: Platform.OS === 'ios' ? normalize(1.32) : normalize(3.5),
   },
   title: {
     fontSize: 18,

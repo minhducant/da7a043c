@@ -36,5 +36,6 @@
   "add": "Add",
   "members": "Members",
   "suggestion": "Suggestion",
-  "selected": "Selected"
+  "selected": "Selected",
+  "done": "Done"
 }

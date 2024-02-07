@@ -8,6 +8,7 @@ import FastImage from 'react-native-fast-image';
 import CountryFlag from 'react-native-country-flag';
 import {View, Text, FlatList, Animated, TouchableOpacity} from 'react-native';
 
+import {IconClose} from '@assets/icons';
 import {IconLibrary} from '@components/Base';
 import {navigate} from '@navigation/RootNavigation';
 import {homeStyle as styles} from '@styles/home.style';
@@ -129,15 +130,26 @@ function RenderColor(
 
 function RenderMember(
   memberSheetRef: React.MutableRefObject<any>,
-  onSelectMember: (selectedCurrency: number) => Promise<void>,
+  onSelectMember: (selectedCurrency: any) => Promise<void>,
 ) {
   const {t} = useTranslation();
   const searchRef = useRef<any>(null);
   const [selected, setSelected] = useState<any>([]);
   const friends = useSelector((state: any) => state.Config.friends);
 
-  const onPress = useCallback(() => {
+  const onDone = useCallback(() => {
     onSelectMember(selected);
+    const isActive = memberSheetRef?.current?.isActive();
+    if (isActive) {
+      memberSheetRef?.current?.scrollTo(0);
+    } else {
+      memberSheetRef?.current?.scrollTo(-200);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const onClose = useCallback(() => {
+    onSelectMember([]);
     const isActive = memberSheetRef?.current?.isActive();
     if (isActive) {
       memberSheetRef?.current?.scrollTo(0);
@@ -193,9 +205,25 @@ function RenderMember(
     );
   };
 
+  const renderUsers = ({item, index}: any) => {
+    return (
+      <View key={index} style={{}}>
+        <Text>{item}</Text>
+      </View>
+    );
+  };
+
   return (
-    <View>
-      <Text style={styles.txtTitleSheet}>{t('members')}</Text>
+    <View style={{aspectRatio: 1}}>
+      <View style={styles.headerInputMember}>
+        <TouchableOpacity onPress={onClose}>
+          <IconClose fill="#000000" />
+        </TouchableOpacity>
+        <Text style={styles.txtTitleSheet}>{t('members')}</Text>
+        <TouchableOpacity onPress={onDone}>
+          <Text style={styles.txtDone}>{t('done')}</Text>
+        </TouchableOpacity>
+      </View>
       <SearchMember
         ref={searchRef}
         onAddNew={onAddNew}
@@ -220,10 +248,15 @@ function RenderMember(
             />
           </View>
         )}
+        <FlatList
+          data={[]}
+          renderItem={renderUsers}
+          stickyHeaderIndices={[0]}
+          showsHorizontalScrollIndicator={false}
+          keyExtractor={(_, index) => `${index}`}
+          contentContainerStyle={styles.contentContainer}
+        />
       </View>
-      <TouchableOpacity style={styles.addNew} onPress={onPress}>
-        <Text style={styles.txtAdd}>{t('add')}</Text>
-      </TouchableOpacity>
     </View>
   );
 }

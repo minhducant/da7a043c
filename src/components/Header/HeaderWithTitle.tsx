@@ -95,8 +95,8 @@ export default function HeaderWithTitle({
 const styles = StyleSheet.create({
   container: {
     backgroundColor: 'white',
-    paddingBottom: Platform.OS === 'android' ? normalize(10) : 0,
-    marginBottom: Platform.OS === 'android' ? normalize(10) : 0,
+    // paddingBottom: Platform.OS === 'android' ? normalize(10) : 0,
+    // marginBottom: Platform.OS === 'android' ? normalize(10) : 0,
   },
   upperHeaderPlaceholder: {
     height: UPPER_HEADER_HEIGHT + UPPER_HEADER_PADDING_TOP,
@@ -118,10 +118,10 @@ const styles = StyleSheet.create({
   viewBack: {
     width: normalize(28, 'height'),
     height: normalize(28, 'height'),
-    marginBottom: Platform.OS === 'android' ? 0 : 15,
+    marginBottom: Platform.OS === 'android' ? 0 : normalize(12),
     justifyContent: 'center',
     alignItems: 'center',
-    borderWidth: Platform.OS === 'android' ? 0 : normalize(2),
+    // borderWidth: Platform.OS === 'android' ? 0 : normalize(2),
     borderRadius: normalize(10),
     borderColor: '#F3F4F6',
   },
@@ -137,7 +137,7 @@ const styles = StyleSheet.create({
   },
   title: {
     flex: 1,
-    fontSize: 18,
+    fontSize: 20,
     fontFamily: theme.FONT_BOLD,
     height: normalize(25, 'height'),
     textAlignVertical: 'center',
@@ -149,6 +149,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     height: normalize(45),
-    marginBottom: Platform.OS === 'android' ? 0 : normalize(15),
+    // marginBottom: Platform.OS === 'android' ? 0 : normalize(15),
   },
 });

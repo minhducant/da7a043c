@@ -43,7 +43,7 @@ export const InputMember = forwardRef<InputRef, InputProps>(
         props?.memberSheetRef?.current?.scrollTo(0);
       } else {
         props?.memberSheetRef?.current?.scrollTo(
-          Platform.OS === 'android' ? -600 : -750,
+          Platform.OS === 'android' ? -600 : -740,
         );
       }
       // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -102,8 +102,8 @@ const styles: any = StyleSheet.create({
     marginHorizontal: normalize(24),
   },
   addButton: {
-    height: normalize(50),
-    width: normalize(50),
+    height: normalize(45),
+    width: normalize(45),
     alignItems: 'center',
     justifyContent: 'center',
     borderWidth: 1,
