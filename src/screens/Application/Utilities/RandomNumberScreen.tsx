@@ -1,6 +1,6 @@
+/* eslint-disable react-native/no-inline-styles */
 import React, {useState, useRef} from 'react';
 import {
-  View,
   Text,
   Keyboard,
   Platform,
@@ -19,19 +19,17 @@ import HeaderWithTitle from '@components/Header/HeaderWithTitle';
 
 const RandomNumberScreen = () => {
   const {t} = useTranslation();
-  const [to, setTo] = useState('100');
-  const [from, setFrom] = useState('1');
   const [result, setResult] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const randomLabel = {
     from: {
       title: t('from'),
-      valueInit: from,
+      valueInit: '1',
       required: true,
     },
     to: {
       title: t('to'),
-      valueInit: to,
+      valueInit: '100',
       required: true,
     },
   };
@@ -51,9 +49,13 @@ const RandomNumberScreen = () => {
     Keyboard.dismiss();
     const toNumber = await formRef.current.to.getValue();
     const fromNumber = await formRef.current.from.getValue();
+    setIsLoading(true);
     if (!toNumber && !fromNumber) {
-      await formRef.current.from.setValue('1');
-      await formRef.current.to.setValue('100');
+      await Promise.all([
+        formRef.current.from.setValue('1'),
+        formRef.current.to.setValue('100'),
+      ]);
+      setIsLoading(false);
       setResult(getRandomNumberInRange('1', '100'));
     } else if (!fromNumber) {
       await formRef.current.from.setValue('1');
@@ -62,13 +64,16 @@ const RandomNumberScreen = () => {
       const to_number =
         Number(fromNumber) < 100 ? '100' : (Number(fromNumber) + 1).toString();
       await formRef.current.to.setValue(to_number);
+      setIsLoading(false);
       setResult(getRandomNumberInRange(fromNumber, to_number));
     } else if (Number(fromNumber) > Number(toNumber)) {
       await formRef.current.to.setValue((Number(fromNumber) + 1).toString());
+      setIsLoading(false);
       setResult(
         getRandomNumberInRange(fromNumber, (Number(fromNumber) + 1).toString()),
       );
     } else {
+      setIsLoading(false);
       setResult(getRandomNumberInRange(fromNumber, toNumber));
     }
   };
@@ -86,13 +91,11 @@ const RandomNumberScreen = () => {
         <Text style={styles.txtHeaderRadom}>{t('select_range')}</Text>
         <InputText
           {...randomLabel.from}
-          valueInit={from}
           keyboardType="numeric"
           ref={(ref: any) => (formRef.current.from = ref)}
         />
         <InputText
           {...randomLabel.to}
-          valueInit={to}
           keyboardType="numeric"
           ref={(ref: any) => (formRef.current.to = ref)}
         />
@@ -100,6 +103,7 @@ const RandomNumberScreen = () => {
         {isLoading && (
           <ActivityIndicator size={'large'} style={styles.activityIndicator} />
         )}
+        {result && <Text>{result}</Text>}
       </ScrollView>
       <SafeAreaView>
         <TouchableOpacity
