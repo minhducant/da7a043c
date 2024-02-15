@@ -10,10 +10,10 @@ import {View, Text, FlatList, Animated, TouchableOpacity} from 'react-native';
 
 import {IconClose} from '@assets/icons';
 import {IconLibrary} from '@components/Base';
+import {currencies, colors} from '@configs/AppData';
 import {navigate} from '@navigation/RootNavigation';
 import {homeStyle as styles} from '@styles/home.style';
 import SearchMember from '@components/Home/SearchMember';
-import {currencies, Currency, colors} from '@configs/AppData';
 
 interface NavigationProps {
   navigate: (route: string, params: {screen: string; params: any}) => void;
@@ -51,7 +51,7 @@ function RenderCurrency(
 ) {
   const {t} = useTranslation();
 
-  const onPress = useCallback((item: Currency) => {
+  const onPress = useCallback((item: any) => {
     onSelectCurrency(item.id);
     const isActive = currencySheetRef?.current?.isActive();
     if (isActive) {
@@ -65,7 +65,7 @@ function RenderCurrency(
   return (
     <View>
       <Text style={styles.txtTitleSheet}>{t('currency')}</Text>
-      {currencies.map((item: Currency, index: number) => (
+      {currencies.map((item: any, index: number) => (
         <TouchableOpacity
           key={index}
           style={[styles.itemCurrency]}

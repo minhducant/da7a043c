@@ -17,6 +17,16 @@ import HeaderBackground from './SvgHeaderBackground';
 import IconForward from './SvgIconForward';
 import Chatbot from './SvgChatbot';
 import IconMic from './SvgIconMic';
+import IconCalculator from './SvgIconCalculator';
+import IconCoinFlip from './SvgIconCoinFlip';
+import IconRandom from './SvgIconRandom';
+import IconDescending from './SvgIconDescending';
+import IconDice from './SvgIconDice';
+import IconWheel from './SvgIconWheel';
+import IconChess from './SvgIconChess';
+import IconCaro from './SvgIconCaro';
+import IconSnake from './SvgIconSnake';
+import IconMiner from './SvgIconMiner';
 
 export {
   IconClose,
@@ -38,4 +48,14 @@ export {
   IconForward,
   Chatbot,
   IconMic,
+  IconCalculator,
+  IconCoinFlip,
+  IconRandom,
+  IconDescending,
+  IconDice,
+  IconWheel,
+  IconChess,
+  IconCaro,
+  IconSnake,
+  IconMiner,
 };

@@ -37,5 +37,22 @@
   "members": "Thành viên",
   "suggestion": "Gợi ý",
   "selected": "Đã chọn",
-  "done": "Xong"
+  "done": "Xong",
+  "calculator": "Máy tính",
+  "countdown": "Đếm ngược số",
+  "coin_flip": "Lật đồng xu",
+  "random_number": "Random số",
+  "roll_dice": "Roll Dice",
+  "wheel_decide": "Wheel Decide",
+  "timer": "Bấm giờ",
+  "minesweeper": "Dò mìn",
+  "chess": "Cờ vua",
+  "caro": "Caro",
+  "numbric_combat": "NumbricCombat",
+  "snake": "Rắn săn mồi",
+  "generate": "Tạo",
+  "from": "Từ",
+  "to": "Đến",
+  "select_range": "Chọn một khoảng sau đó tạo một số ngẫu nhiên!",
+  "result": "Kết quả"
 }

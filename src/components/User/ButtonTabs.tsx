@@ -1,5 +1,4 @@
 import React, {memo} from 'react';
-import {useTranslation} from 'react-i18next';
 import {
   View,
   Text,
@@ -8,6 +7,7 @@ import {
   Dimensions,
   TouchableOpacity,
 } from 'react-native';
+import {useTranslation} from 'react-i18next';
 import normalize from 'react-native-normalize';
 
 import Colors from '@styles/color';
@@ -29,19 +29,23 @@ const ButtonTabs = ({onPress, x}: any) => {
 
   const translateX = x.interpolate({
     inputRange: [0, SCREEN_WIDTH * 2],
-    outputRange: [0, SCREEN_WIDTH - (SCREEN_WIDTH / 100) * 25 ],
+    outputRange: [0, SCREEN_WIDTH - (SCREEN_WIDTH / 100) * 25],
     extrapolate: 'clamp',
   });
 
   return (
     <View style={styles.buttonTabsCon}>
       <TouchableOpacity onPress={onCustomerActiveTab} style={styles.buttonTab}>
-        <Text style={styles.txtTab}>{t('entertainment')}</Text>
+        <Text style={styles.txtTab} numberOfLines={1}>
+          {t('tools')}
+        </Text>
       </TouchableOpacity>
       <TouchableOpacity
         onPress={onCheckOrderActiveTab}
         style={styles.buttonTab}>
-        <Text style={styles.txtTab}>{t('tools')}</Text>
+        <Text style={styles.txtTab} numberOfLines={1}>
+          {t('entertainment')}
+        </Text>
       </TouchableOpacity>
       <AnimatedView
         style={{

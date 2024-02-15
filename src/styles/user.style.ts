@@ -108,4 +108,24 @@ export const userScreenStyle: any = {
     backgroundColor: 'green',
     borderRadius: normalize(99999),
   },
+  itemUtilities: {
+    width: normalize(45),
+    height: normalize(45),
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius:  normalize(5),
+    borderWidth: 1
+  },
+  utility: {
+    width: '25%',
+    alignItems: 'center',
+    marginTop: normalize(10),
+  },
+  titleItemUtilities: {
+    fontSize: 16,
+    color: '#253255',
+    textAlign: 'center',
+    marginTop: normalize(10),
+    fontFamily: themeStyle.FONT_FAMILY,
+  },
 };

@@ -37,5 +37,22 @@
   "members": "Members",
   "suggestion": "Suggestion",
   "selected": "Selected",
-  "done": "Done"
+  "done": "Done",
+  "calculator": "Calculator",
+  "countdown": "Countdown",
+  "coin_flip": "Coin Flip",
+  "random_number": "Random Number",
+  "roll_dice": "Roll Dice",
+  "wheel_decide": "Wheel Decide",
+  "timer": "Timer",
+  "minesweeper": "Minesweeper",
+  "chess": "Chess",
+  "caro": "Caro",
+  "numbric_combat": "NumbricCombat",
+  "snake": "Snake",
+  "generate": "Generate",
+  "from": "From",
+  "to": "To",
+  "select_range": "Select a range then generate a random number!",
+  "result": "Result"
 }

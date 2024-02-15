@@ -64,6 +64,7 @@ export const InputText = forwardRef<InputRef, InputProps>(
             editable={!props.disable}
             ref={inputRef}
             value={value}
+            keyboardType={props.keyboardType || 'default'}
             textAlignVertical="top"
             onChangeText={setValue}
             placeholder={props.placeholder}

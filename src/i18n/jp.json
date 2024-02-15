@@ -37,5 +37,22 @@
   "members": "メンバー",
   "suggestion": "提案",
   "selected": "選択済み",
-  "done": "完了"
+  "done": "完了",
+  "calculator": "電卓",
+  "countdown": "カウントダウン",
+  "coin_flip": "コインを投げる",
+  "random_number": "ランダムな数字",
+  "roll_dice": "サイコロを振る",
+  "wheel_decide": "ルーレットを回す",
+  "timer": "タイマー",
+  "minesweeper": "マインスイーパー",
+  "chess": "チェス",
+  "caro": "カロ",
+  "numbric_combat": "NumbricCombat",
+  "snake": "スネーク",
+  "generate": "生成する",
+  "from": "から",
+  "to": "に",
+  "select_range": "範囲を選択してからランダムな数字を生成してください！",
+  "result": "結果"
 }

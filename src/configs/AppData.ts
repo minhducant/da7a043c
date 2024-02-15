@@ -1,15 +1,20 @@
 import {t} from '@i18n/index';
 import {MutableRefObject} from 'react';
 
-export interface Currency {
-  id: number;
-  name: string;
-  code: string;
-  country: string;
-  symbol: string;
-}
+import {
+  IconChess,
+  IconCaro,
+  IconSnake,
+  IconMiner,
+  IconDice,
+  IconWheel,
+  IconRandom,
+  IconCoinFlip,
+  IconCalculator,
+  IconDescending,
+} from '@assets/icons';
 
-export const currencies: Currency[] = [
+export const currencies: any = [
   {id: 1, name: 'Vietnamese Dong', code: 'VND', country: 'vn', symbol: '₫'},
   {
     id: 2,
@@ -126,5 +131,71 @@ export const listSetting = [
     screen: '',
     icon: 'policy',
     library: 'MaterialIcons',
+  },
+];
+
+export const listGame: any = [
+  {
+    title: 'minesweeper',
+    screen: '',
+    color: '',
+    icon: IconMiner,
+  },
+  {
+    title: 'chess',
+    screen: '',
+    color: '',
+    icon: IconChess,
+  },
+  {
+    title: 'caro',
+    screen: '',
+    color: '',
+    icon: IconCaro,
+  },
+  {
+    title: 'snake',
+    screen: '',
+    color: '',
+    icon: IconSnake,
+  },
+];
+
+export const listTool: any = [
+  {
+    title: 'calculator',
+    screen: '',
+    color: '',
+    icon: IconCalculator,
+  },
+  {
+    title: 'timer',
+    screen: 'TimerCountdownScreen',
+    color: '',
+    icon: IconDescending,
+  },
+  {
+    title: 'coin_flip',
+    screen: '',
+    color: '',
+    icon: IconCoinFlip,
+  },
+  {
+    title: 'random_number',
+    screen: 'RandomNumberScreen',
+    color: '',
+    icon: IconRandom,
+  },
+  {
+    title: 'roll_dice',
+    screen: '',
+    color: '',
+    icon: IconDice,
+  },
+  {
+    title: 'wheel_decide',
+    screen: '',
+    color: '',
+    icon: IconWheel,
   },
 ];

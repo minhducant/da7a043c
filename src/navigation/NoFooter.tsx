@@ -13,7 +13,10 @@ import ChatGPTScreen from '@screens/Application/User/ChatGPTScreen';
 import FeedbackScreen from '@screens/Application/User/FeedbackScreen';
 import UtilitiesScreen from '@screens/Application/User/UtilitiesScreen';
 import ChangeLanguageScreen from '@screens/Application/User/ChangeLanguageScreen';
-import TimerCountdownScreen from '@screens/Application/User/TimerCountdownScreen';
+
+//Utilities
+import RandomNumberScreen from '@screens/Application/Utilities/RandomNumberScreen';
+import TimerCountdownScreen from '@screens/Application/Utilities/TimerCountdownScreen';
 
 const Stack = createStackNavigator<any>();
 
@@ -34,6 +37,8 @@ function NoFooter() {
     FeedbackScreen,
     UtilitiesScreen,
     ChangeLanguageScreen,
+    //Utilities
+    RandomNumberScreen,
     TimerCountdownScreen,
   ];
   return (
