@@ -47,12 +47,21 @@
   "timer": "Timer",
   "minesweeper": "Minesweeper",
   "chess": "Chess",
-  "caro": "Caro",
+  "caro": "Tic Tac Toe",
   "numbric_combat": "NumbricCombat",
   "snake": "Snake",
   "generate": "Generate",
   "from": "From",
   "to": "To",
   "select_range": "Select a range then generate a random number!",
-  "result": "Result"
+  "result": "Result",
+  "toss": "Toss",
+  "head": "HEADS",
+  "tail": "TAILS",
+  "play_again": "Play Again",
+  "winner": "Winner",
+  "next_player": "Next Player",
+  "draw": "Draw",
+  "close": "Close",
+  "win": "Win"
 }

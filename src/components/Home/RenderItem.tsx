@@ -6,7 +6,26 @@ import {useTranslation} from 'react-i18next';
 import normalize from 'react-native-normalize';
 import FastImage from 'react-native-fast-image';
 import CountryFlag from 'react-native-country-flag';
-import {View, Text, FlatList, Animated, TouchableOpacity} from 'react-native';
+import {
+  View,
+  Text,
+  FlatList,
+  Dimensions,
+  PanResponder,
+  TouchableOpacity,
+} from 'react-native';
+import {
+  PanGestureHandler,
+  PanGestureHandlerProps,
+  PanGestureHandlerGestureEvent,
+} from 'react-native-gesture-handler';
+import Animated, {
+  runOnJS,
+  withTiming,
+  useSharedValue,
+  useAnimatedStyle,
+  useAnimatedGestureHandler,
+} from 'react-native-reanimated';
 
 import {IconClose} from '@assets/icons';
 import {IconLibrary} from '@components/Base';
@@ -15,32 +34,103 @@ import {navigate} from '@navigation/RootNavigation';
 import {homeStyle as styles} from '@styles/home.style';
 import SearchMember from '@components/Home/SearchMember';
 
-interface NavigationProps {
-  navigate: (route: string, params: {screen: string; params: any}) => void;
-}
+const LIST_ITEM_HEIGHT = normalize(180);
+const {width: SCREEN_WIDTH} = Dimensions.get('window');
+const TRANSLATE_X_THRESHOLD = -SCREEN_WIDTH * 0.3;
 
-interface WalletCardProps {
-  y: Animated.Value;
-  index: number;
-  item: any;
-}
-
-const WalletCard = ({item, y, index}: WalletCardProps) => {
+const WalletCard = ({item, index}: any) => {
   const {t} = useTranslation();
+  const opacity = useSharedValue(1);
+  const translateX = useSharedValue(0);
+  const marginVertical = useSharedValue(10);
+  const itemHeight = useSharedValue(LIST_ITEM_HEIGHT);
+
+  const panGesture = useAnimatedGestureHandler<PanGestureHandlerGestureEvent>({
+    onActive: event => {
+      translateX.value = event.translationX;
+    },
+    onEnd: () => {
+      const shouldBeDismissed = translateX.value < TRANSLATE_X_THRESHOLD;
+      if (shouldBeDismissed) {
+        translateX.value = withTiming(-SCREEN_WIDTH);
+        itemHeight.value = withTiming(0);
+        marginVertical.value = withTiming(0);
+        opacity.value = withTiming(0, undefined, isFinished => {
+          // if (isFinished && onDismiss) {
+          //   runOnJS(onDismiss)(task);
+          // }
+        });
+      } else {
+        translateX.value = withTiming(0);
+      }
+    },
+  });
+
+  const rStyle = useAnimatedStyle(() => ({
+    transform: [
+      {
+        translateX: translateX.value,
+      },
+    ],
+  }));
+
+  const rIconContainerStyle = useAnimatedStyle(() => {
+    const opacity = withTiming(
+      translateX.value < TRANSLATE_X_THRESHOLD ? 1 : 0,
+    );
+    return {opacity};
+  });
+
+  const rTaskContainerStyle = useAnimatedStyle(() => {
+    return {
+      height: itemHeight.value,
+      marginVertical: marginVertical.value,
+      opacity: opacity.value,
+    };
+  });
 
   const onPress = (note: any) => {
-    navigate('NoteScreen');
+    navigate('DetailNoteScreen');
   };
 
   return (
-    <Animated.View style={[styles.itemNote]} key={index}>
-      <TouchableOpacity
-        key={index}
-        activeOpacity={0.7}
-        onPress={() => onPress(item)}
-        style={[styles.itemNote, {backgroundColor: item.color}]}>
-        <></>
-      </TouchableOpacity>
+    <Animated.View style={[styles.taskContainer, rTaskContainerStyle]}>
+      <PanGestureHandler
+        onGestureEvent={panGesture}>
+        <TouchableOpacity
+          key={index}
+          activeOpacity={0.7}
+          onPress={() => onPress(item)}
+          style={[styles.itemNote, {backgroundColor: item.color}]}>
+          <View style={styles.headerItemNote}>
+            <View
+              style={[
+                styles.statusDot,
+                {
+                  backgroundColor:
+                    item.status === 0
+                      ? '#999999'
+                      : item.status === 1
+                      ? '#FF0000'
+                      : item.status === 2
+                      ? '#008000'
+                      : item.status === 3
+                      ? '#0000FF'
+                      : item.status === 4
+                      ? '#FFA500'
+                      : item.status === 5
+                      ? '#A9A9A9'
+                      : '#333333 ',
+                },
+              ]}
+            />
+            <Text numberOfLines={1} style={styles.txtTitleNote}>
+              {item.name}
+            </Text>
+            <TouchableOpacity></TouchableOpacity>
+          </View>
+        </TouchableOpacity>
+      </PanGestureHandler>
     </Animated.View>
   );
 };
@@ -130,14 +220,14 @@ function RenderColor(
 
 function RenderMember(
   memberSheetRef: React.MutableRefObject<any>,
-  onSelectMember: (selectedCurrency: any) => Promise<void>,
+  onSelectMember: any,
 ) {
   const {t} = useTranslation();
   const searchRef = useRef<any>(null);
   const [selected, setSelected] = useState<any>([]);
   const friends = useSelector((state: any) => state.Config.friends);
 
-  const onDone = useCallback(() => {
+  const onDone = useCallback((selected: any) => {
     onSelectMember(selected);
     const isActive = memberSheetRef?.current?.isActive();
     if (isActive) {
@@ -169,6 +259,7 @@ function RenderMember(
           _id: '',
           name: value,
           image_url: '',
+          user_id: '',
         },
       ]);
     }
@@ -220,7 +311,7 @@ function RenderMember(
           <IconClose fill="#000000" />
         </TouchableOpacity>
         <Text style={styles.txtTitleSheet}>{t('members')}</Text>
-        <TouchableOpacity onPress={onDone}>
+        <TouchableOpacity onPress={() => onDone(selected)}>
           <Text style={styles.txtDone}>{t('done')}</Text>
         </TouchableOpacity>
       </View>

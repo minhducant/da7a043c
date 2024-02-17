@@ -16,7 +16,6 @@ export const homeStyle: any = {
   },
   txtTitle: {
     fontSize: 24,
-    marginLeft: normalize(16),
     color: color.BLACK,
     marginVertical: normalize(10),
     marginBottom: normalize(10),
@@ -28,6 +27,7 @@ export const homeStyle: any = {
     width: width - normalize(16 * 2),
     borderRadius: normalize(16),
     marginBottom: normalize(16),
+    padding: normalize(16),
   },
   containerNote: {
     flex: 1,
@@ -146,11 +146,33 @@ export const homeStyle: any = {
     paddingHorizontal: normalize(16),
     paddingBottom: normalize(10),
   },
-  txtDone : {
-    color:'red',
+  txtDone: {
+    color: 'red',
     fontSize: 18,
     textAlign: 'center',
     alignSelf: 'center',
     fontFamily: themeStyle.FONT_FAMILY,
-  }
+  },
+  viewHeaderHome: {
+    marginHorizontal: normalize(28),
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  txtTitleNote: {
+    fontSize: 18,
+    flex: 1,
+    fontFamily: themeStyle.FONT_BOLD,
+  },
+  headerItemNote: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  statusDot: {
+    alignSelf: 'center',
+    height: normalize(10),
+    width: normalize(10),
+    marginRight: normalize(6),
+    borderRadius: normalize(28),
+  },
 };

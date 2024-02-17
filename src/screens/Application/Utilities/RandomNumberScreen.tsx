@@ -19,8 +19,8 @@ import HeaderWithTitle from '@components/Header/HeaderWithTitle';
 
 const RandomNumberScreen = () => {
   const {t} = useTranslation();
-  const [result, setResult] = useState(0);
-  const [isLoading, setIsLoading] = useState(false);
+  const [result, setResult] = useState<any>();
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const randomLabel = {
     from: {
       title: t('from'),
@@ -47,34 +47,41 @@ const RandomNumberScreen = () => {
 
   const onGenerate = async () => {
     Keyboard.dismiss();
-    const toNumber = await formRef.current.to.getValue();
-    const fromNumber = await formRef.current.from.getValue();
+    const toNumberPromise = formRef.current.to.getValue();
+    const fromNumberPromise = formRef.current.from.getValue();
     setIsLoading(true);
-    if (!toNumber && !fromNumber) {
-      await Promise.all([
-        formRef.current.from.setValue('1'),
-        formRef.current.to.setValue('100'),
+    try {
+      const [toNumber, fromNumber] = await Promise.all([
+        toNumberPromise,
+        fromNumberPromise,
       ]);
+      let resultFrom: any, resultTo: any;
+      if (!fromNumber) {
+        resultFrom = '1';
+      } else {
+        resultFrom = fromNumber;
+      }
+      if (!toNumber) {
+        resultTo =
+          Number(fromNumber) < 100
+            ? '100'
+            : (Number(fromNumber) + 1).toString();
+      } else {
+        resultTo = toNumber;
+      }
+      if (Number(resultFrom) > Number(resultTo)) {
+        resultTo = (Number(resultFrom) + 1).toString();
+      }
+      await Promise.all([
+        formRef.current.from.setValue(resultFrom),
+        formRef.current.to.setValue(resultTo),
+      ]);
+      setTimeout(() => {
+        setIsLoading(false);
+        setResult(getRandomNumberInRange(resultFrom, resultTo));
+      }, 700);
+    } catch (error) {
       setIsLoading(false);
-      setResult(getRandomNumberInRange('1', '100'));
-    } else if (!fromNumber) {
-      await formRef.current.from.setValue('1');
-      setResult(getRandomNumberInRange('1', toNumber));
-    } else if (!toNumber) {
-      const to_number =
-        Number(fromNumber) < 100 ? '100' : (Number(fromNumber) + 1).toString();
-      await formRef.current.to.setValue(to_number);
-      setIsLoading(false);
-      setResult(getRandomNumberInRange(fromNumber, to_number));
-    } else if (Number(fromNumber) > Number(toNumber)) {
-      await formRef.current.to.setValue((Number(fromNumber) + 1).toString());
-      setIsLoading(false);
-      setResult(
-        getRandomNumberInRange(fromNumber, (Number(fromNumber) + 1).toString()),
-      );
-    } else {
-      setIsLoading(false);
-      setResult(getRandomNumberInRange(fromNumber, toNumber));
     }
   };
 
@@ -100,13 +107,17 @@ const RandomNumberScreen = () => {
           ref={(ref: any) => (formRef.current.to = ref)}
         />
         <Text style={styles.txtResultRadom}>{t('result')}:</Text>
-        {isLoading && (
+        {isLoading ? (
           <ActivityIndicator size={'large'} style={styles.activityIndicator} />
+        ) : result ? (
+          <Text style={styles.txtResultNumber}>{result}</Text>
+        ) : (
+          <></>
         )}
-        {result && <Text>{result}</Text>}
       </ScrollView>
       <SafeAreaView>
         <TouchableOpacity
+          activeOpacity={0.5}
           style={[
             styles.viewGenerate,
             {backgroundColor: isLoading ? 'gray' : '#EB5758'},

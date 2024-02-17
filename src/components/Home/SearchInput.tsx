@@ -134,7 +134,7 @@ const style = StyleSheet.create({
     alignItems: 'center',
     margin: normalize(16),
     // marginTop: 0,
-    marginBottom: normalize(20),
+    // marginBottom: normalize(20),
     marginVertical: normalize(10),
   },
   qrcodeBtn: {

@@ -149,7 +149,7 @@ export const listGame: any = [
   },
   {
     title: 'caro',
-    screen: '',
+    screen: 'TicTacToeScreen',
     color: '',
     icon: IconCaro,
   },
@@ -176,7 +176,7 @@ export const listTool: any = [
   },
   {
     title: 'coin_flip',
-    screen: '',
+    screen: 'CoinFlipScreen',
     color: '',
     icon: IconCoinFlip,
   },
@@ -188,7 +188,7 @@ export const listTool: any = [
   },
   {
     title: 'roll_dice',
-    screen: '',
+    screen: 'RollDiceScreen',
     color: '',
     icon: IconDice,
   },

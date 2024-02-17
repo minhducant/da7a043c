@@ -28,7 +28,7 @@ export interface InputProps {
 
 export const InputMember = forwardRef<InputRef, InputProps>(
   ({...props}, ref) => {
-    const [data, setData] = useState(props.data || []);
+    const [data, setData] = useState<any>(props.data || []);
 
     useImperativeHandle(ref, () => ({
       data,
@@ -67,8 +67,19 @@ export const InputMember = forwardRef<InputRef, InputProps>(
 
     const renderMembers = ({item, index}: any) => {
       return (
-        <View key={index}>
-          <Text>{item}</Text>
+        <View key={index} style={styles.viewMembers}>
+          <View style={styles.avatarFrame}>
+            <Text style={styles.txtAvatar}>{item.name.charAt(0)}</Text>
+          </View>
+          <Text style={styles.txtNameMember} numberOfLines={2}>
+            {item.name}
+          </Text>
+          <TouchableOpacity
+            activeOpacity={0.6}
+            // onPress={() => removeItemByIndex(index)}
+            style={styles.deleteMember}>
+            <IconLibrary size={12} library="AntDesign" name="close" />
+          </TouchableOpacity>
         </View>
       );
     };
@@ -111,12 +122,57 @@ const styles: any = StyleSheet.create({
     borderColor: '#6763FD',
     borderCurve: 'continuous',
     borderStyle: 'dashed',
+    marginRight: normalize(10),
+    marginBottom: normalize(10),
   },
   txtAdd: {
     color: '#6763FD',
     alignSelf: 'center',
     marginTop: normalize(5),
     fontFamily: themeStyle.FONT_FAMILY,
+  },
+  txtTitleMember: {
+    fontSize: 16,
+    fontFamily: themeStyle.FONT_BOLD,
+  },
+  avatarFrame: {
+    height: normalize(50),
+    width: normalize(50),
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 999999999,
+    marginBottom: normalize(10),
+    backgroundColor: '#6763FD',
+  },
+  txtNameMember: {
+    fontSize: 16,
+    textAlign: 'center',
+    alignSelf: 'center',
+    fontFamily: themeStyle.FONT_FAMILY,
+  },
+  viewMembers: {
+    marginLeft: normalize(10),
+    width: normalize(70),
+    alignItems: 'center',
+    height: normalize(110),
+  },
+  txtAvatar: {
+    fontSize: 20,
+    color: '#FFFFFF',
+    textAlign: 'center',
+    alignSelf: 'center',
+    fontFamily: themeStyle.FONT_BOLD,
+  },
+  deleteMember: {
+    position: 'absolute',
+    height: normalize(20),
+    width: normalize(20),
+    borderRadius: 999999999,
+    backgroundColor: 'white',
+    right: normalize(10),
+    top: normalize(4),
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });
 

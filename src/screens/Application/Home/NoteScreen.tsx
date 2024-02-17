@@ -44,8 +44,7 @@ export default function NoteScreen({navigation}: any) {
   };
 
   const onSelectMember = async (members: any) => {
-    console.log(members);
-    // await formRef.current.members.setData(members);
+    await formRef.current.members.setData(members);
   };
 
   const onAddNew = () => {

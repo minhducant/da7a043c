@@ -27,6 +27,9 @@ import IconChess from './SvgIconChess';
 import IconCaro from './SvgIconCaro';
 import IconSnake from './SvgIconSnake';
 import IconMiner from './SvgIconMiner';
+import IconX from './SvgIconX';
+import IconO from './SvgIconO';
+import IconCrown from './SvgIconCrown';
 
 export {
   IconClose,
@@ -58,4 +61,7 @@ export {
   IconCaro,
   IconSnake,
   IconMiner,
+  IconX,
+  IconO,
+  IconCrown,
 };

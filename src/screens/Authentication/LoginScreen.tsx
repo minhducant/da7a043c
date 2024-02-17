@@ -45,7 +45,7 @@ const LoginScreen = () => {
       }
       // dispatch(setIsLoading(true));
       const {accessToken} = await GoogleSignin.getTokens();
-      // console.log(accessToken);
+      console.log(accessToken);
       const dataLogin = await AuthApi.LoginGoogle({accessToken});
       await setStorage('accessToken', dataLogin?.data?.accessToken);
       await setStorage('refreshToken', dataLogin?.data?.refreshToken);

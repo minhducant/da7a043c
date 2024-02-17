@@ -15,6 +15,11 @@ import UtilitiesScreen from '@screens/Application/User/UtilitiesScreen';
 import ChangeLanguageScreen from '@screens/Application/User/ChangeLanguageScreen';
 
 //Utilities
+import RollDiceScreen from '@screens/Application/Utilities/RollDiceScreen';
+import CoinFlipScreen from '@screens/Application/Utilities/CoinFlipScreen';
+import TicTacToeScreen from '@screens/Application/Utilities/TicTacToeScreen';
+import CalculatorScreen from '@screens/Application/Utilities/CalculatorScreen';
+import MinesweeperScreen from '@screens/Application/Utilities/MinesweeperScreen';
 import RandomNumberScreen from '@screens/Application/Utilities/RandomNumberScreen';
 import TimerCountdownScreen from '@screens/Application/Utilities/TimerCountdownScreen';
 
@@ -38,6 +43,11 @@ function NoFooter() {
     UtilitiesScreen,
     ChangeLanguageScreen,
     //Utilities
+    RollDiceScreen,
+    CoinFlipScreen,
+    TicTacToeScreen,
+    CalculatorScreen,
+    MinesweeperScreen,
     RandomNumberScreen,
     TimerCountdownScreen,
   ];
