@@ -28,6 +28,7 @@ const Stack = createStackNavigator<any>();
 const screenOptions = {
   headerShown: false,
   ...TransitionPresets.SlideFromRightIOS,
+  // ...TransitionPresets.FadeFromBottomAndroid,
 };
 
 function NoFooter() {

@@ -175,4 +175,13 @@ export const homeStyle: any = {
     marginRight: normalize(6),
     borderRadius: normalize(28),
   },
+  iconContainer: {
+    height: normalize(180),
+    width: normalize(100),
+    position: 'absolute',
+    right: normalize(16),
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'red',
+  },
 };

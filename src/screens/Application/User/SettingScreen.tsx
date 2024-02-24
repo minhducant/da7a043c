@@ -54,7 +54,7 @@ export default function SettingScreen() {
     },
     {
       title: t('privacy_policy'),
-      screen: '',
+      screen: 'PolicyScreen',
       icon: 'verified-user',
       library: 'MaterialIcons',
     },
@@ -73,7 +73,9 @@ export default function SettingScreen() {
         return;
       }
       if (item.screen) {
-        navigate(item.screen);
+        item.screen === 'PolicyScreen'
+          ? navigate(item.screen, 'ModalSlide')
+          : navigate(item.screen);
       } else {
         showMessage.help(t('function_under_development'));
       }

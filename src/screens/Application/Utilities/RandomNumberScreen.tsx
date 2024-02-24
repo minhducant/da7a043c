@@ -108,7 +108,11 @@ const RandomNumberScreen = () => {
         />
         <Text style={styles.txtResultRadom}>{t('result')}:</Text>
         {isLoading ? (
-          <ActivityIndicator size={'large'} style={styles.activityIndicator} />
+          <ActivityIndicator
+            size={'large'}
+            color={'#EB5758'}
+            style={styles.activityIndicator}
+          />
         ) : result ? (
           <Text style={styles.txtResultNumber}>{result}</Text>
         ) : (

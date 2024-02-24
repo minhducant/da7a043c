@@ -13,7 +13,6 @@ import {
   InputText,
   BottomSheet,
   InputMember,
-  // InputColorCurrency,
 } from '@components/Base/index';
 import {
   RenderColor,
@@ -64,10 +63,6 @@ export default function NoteScreen({navigation}: any) {
           {...noteLabel.title}
           ref={(ref: any) => (formRef.current.title = ref)}
         />
-        {/* <InputColorCurrency
-          {...noteLabel.color_currency}
-          ref={(ref: any) => (formRef.current.color_currency = ref)}
-        /> */}
         <InputText
           {...noteLabel.description}
           ref={(ref: any) => (formRef.current.description = ref)}

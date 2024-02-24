@@ -134,7 +134,7 @@ export default function RollDiceScreen() {
           disabled={isLoading}>
           <Animated.View style={[styles.dice, animatedStyle]}>
             {isLoading ? (
-              <ActivityIndicator size={'large'} />
+              <ActivityIndicator size={'large'} color={'#EB5758'} />
             ) : (
               renderDiceDots()
             )}

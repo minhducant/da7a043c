@@ -95,8 +95,8 @@ export default function HeaderWithTitle({
 const styles = StyleSheet.create({
   container: {
     backgroundColor: 'white',
-    // paddingBottom: Platform.OS === 'android' ? normalize(10) : 0,
-    // marginBottom: Platform.OS === 'android' ? normalize(10) : 0,
+    paddingBottom: Platform.OS === 'android' ? normalize(10) : 0,
+    // marginTop: Platform.OS === 'android' ? normalize(10) : 0,
   },
   upperHeaderPlaceholder: {
     height: UPPER_HEADER_HEIGHT + UPPER_HEADER_PADDING_TOP,

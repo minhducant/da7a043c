@@ -19,6 +19,7 @@ import {
   PanGestureHandlerProps,
   PanGestureHandlerGestureEvent,
 } from 'react-native-gesture-handler';
+import Swipeable from 'react-native-gesture-handler/Swipeable';
 import Animated, {
   runOnJS,
   withTiming,
@@ -38,8 +39,9 @@ const LIST_ITEM_HEIGHT = normalize(180);
 const {width: SCREEN_WIDTH} = Dimensions.get('window');
 const TRANSLATE_X_THRESHOLD = -SCREEN_WIDTH * 0.3;
 
-const WalletCard = ({item, index}: any) => {
+const WalletCard = ({item, index, scrollRef}: any) => {
   const {t} = useTranslation();
+
   const opacity = useSharedValue(1);
   const translateX = useSharedValue(0);
   const marginVertical = useSharedValue(10);
@@ -49,17 +51,12 @@ const WalletCard = ({item, index}: any) => {
     onActive: event => {
       translateX.value = event.translationX;
     },
-    onEnd: () => {
-      const shouldBeDismissed = translateX.value < TRANSLATE_X_THRESHOLD;
-      if (shouldBeDismissed) {
-        translateX.value = withTiming(-SCREEN_WIDTH);
-        itemHeight.value = withTiming(0);
+    onEnd: event => {
+      if (event.translationX < TRANSLATE_X_THRESHOLD) {
+        opacity.value = withTiming(0);
         marginVertical.value = withTiming(0);
-        opacity.value = withTiming(0, undefined, isFinished => {
-          // if (isFinished && onDismiss) {
-          //   runOnJS(onDismiss)(task);
-          // }
-        });
+        itemHeight.value = withTiming(0);
+        // runOnJS(onSwipeEnd)();
       } else {
         translateX.value = withTiming(0);
       }
@@ -83,53 +80,57 @@ const WalletCard = ({item, index}: any) => {
 
   const rTaskContainerStyle = useAnimatedStyle(() => {
     return {
+      opacity: opacity.value,
       height: itemHeight.value,
       marginVertical: marginVertical.value,
-      opacity: opacity.value,
     };
   });
 
-  const onPress = (note: any) => {
-    navigate('DetailNoteScreen');
-  };
+  const onPress = (note: any) => {};
 
   return (
-    <Animated.View style={[styles.taskContainer, rTaskContainerStyle]}>
+    <Animated.View style={[styles.note, rTaskContainerStyle]}>
+      <Animated.View style={[styles.iconContainer, rIconContainerStyle]}>
+        <Text>Đức</Text>
+      </Animated.View>
       <PanGestureHandler
-        onGestureEvent={panGesture}>
-        <TouchableOpacity
-          key={index}
-          activeOpacity={0.7}
-          onPress={() => onPress(item)}
-          style={[styles.itemNote, {backgroundColor: item.color}]}>
-          <View style={styles.headerItemNote}>
-            <View
-              style={[
-                styles.statusDot,
-                {
-                  backgroundColor:
-                    item.status === 0
-                      ? '#999999'
-                      : item.status === 1
-                      ? '#FF0000'
-                      : item.status === 2
-                      ? '#008000'
-                      : item.status === 3
-                      ? '#0000FF'
-                      : item.status === 4
-                      ? '#FFA500'
-                      : item.status === 5
-                      ? '#A9A9A9'
-                      : '#333333 ',
-                },
-              ]}
-            />
-            <Text numberOfLines={1} style={styles.txtTitleNote}>
-              {item.name}
-            </Text>
-            <TouchableOpacity></TouchableOpacity>
-          </View>
-        </TouchableOpacity>
+        onGestureEvent={panGesture}
+        simultaneousHandlers={scrollRef}>
+        <Animated.View style={[styles.task, rStyle]}>
+          <TouchableOpacity
+            key={index}
+            activeOpacity={0.5}
+            onPress={() => onPress(item)}
+            style={[styles.itemNote, {backgroundColor: item.color}]}>
+            <View style={styles.headerItemNote}>
+              <View
+                style={[
+                  styles.statusDot,
+                  {
+                    backgroundColor:
+                      item.status === 0
+                        ? '#999999'
+                        : item.status === 1
+                        ? '#FF0000'
+                        : item.status === 2
+                        ? '#008000'
+                        : item.status === 3
+                        ? '#0000FF'
+                        : item.status === 4
+                        ? '#FFA500'
+                        : item.status === 5
+                        ? '#A9A9A9'
+                        : '#333333 ',
+                  },
+                ]}
+              />
+              <Text numberOfLines={1} style={styles.txtTitleNote}>
+                {item.name}
+              </Text>
+              <TouchableOpacity></TouchableOpacity>
+            </View>
+          </TouchableOpacity>
+        </Animated.View>
       </PanGestureHandler>
     </Animated.View>
   );

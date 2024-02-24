@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import {useSelector} from 'react-redux';
 import notifee from '@notifee/react-native';
-// import {Settings} from 'react-native-fbsdk-next';
+import {Settings} from 'react-native-fbsdk-next';
 // import RNBootSplash from 'react-native-bootsplash';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
@@ -15,6 +15,7 @@ import {
 import {navigationRef} from '@navigation/RootNavigation';
 
 import NoFooter from '@navigation/NoFooter';
+import ModalSlide from '@navigation/ModalSlide';
 import BottomTabs from '@navigation/BottomTabs';
 import LoginScreen from '@screens/Authentication/LoginScreen';
 import SpanishScreen from '@screens/Authentication/SpanishScreen';
@@ -29,8 +30,9 @@ function ApplicationStack() {
     <Stack.Navigator
       initialRouteName="BottomTabs"
       screenOptions={{headerShown: false}}>
-      <Stack.Screen name="BottomTabs" component={BottomTabs} />
       <Stack.Screen name="NoFooter" component={NoFooter} />
+      <Stack.Screen name="ModalSlide" component={ModalSlide} />
+      <Stack.Screen name="BottomTabs" component={BottomTabs} />
     </Stack.Navigator>
   );
 }
@@ -43,7 +45,7 @@ export const AppNavigation = () => {
     notificationListener();
     getFcmToken();
     notifee.setBadgeCount(0);
-    // Settings.setAdvertiserTrackingEnabled(true);
+    Settings.setAdvertiserTrackingEnabled(true);
   }, []);
 
   return (

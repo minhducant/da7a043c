@@ -72,7 +72,9 @@ export default function HomeScreen() {
         }
         showsVerticalScrollIndicator={false}
         keyExtractor={(_, index) => `${index}`}
-        renderItem={({index, item}) => <WalletCard {...{index, item}} />}
+        renderItem={({index, item}) => (
+          <WalletCard {...{index, item, scrollRef}} />
+        )}
         {...{onScroll}}
       />
     </SafeAreaView>
