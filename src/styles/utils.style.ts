@@ -3,6 +3,7 @@ import {Platform, Dimensions} from 'react-native';
 
 import color from './color';
 import themeStyle from './theme.style';
+import {hasHomeButton} from '@utils/DeviceInfo';
 
 const {width, height} = Dimensions.get('window');
 
@@ -17,7 +18,8 @@ export const utilitiesStyle: any = {
     borderRadius: normalize(15),
     backgroundColor: '#EB5758',
     marginHorizontal: normalize(16),
-    marginBottom: Platform.OS === 'android' ? normalize(15) : 0,
+    marginBottom:
+      Platform.OS === 'android' || hasHomeButton() ? normalize(15) : 0,
     marginTop: normalize(16),
     height: normalize(45),
   },
@@ -53,6 +55,7 @@ export const utilitiesStyle: any = {
     marginTop: normalize(5),
     fontFamily: 'Menlo',
   },
+  //Coin
   coin: {
     width: normalize(150),
     height: normalize(150),
@@ -75,11 +78,12 @@ export const utilitiesStyle: any = {
     justifyContent: 'center',
     width: normalize(135),
     height: normalize(135),
-    borderWidth: Platform.OS === 'android' ? normalize(3.8) : normalize(2),
+    borderWidth: Platform.OS === 'android' ? normalize(3) : normalize(2),
     borderRadius: normalize(75),
     borderColor: 'white',
     borderStyle: 'dashed',
   },
+  //Dice
   dice: {
     width: normalize(150),
     height: normalize(150),
@@ -130,6 +134,7 @@ export const utilitiesStyle: any = {
     bottom: normalize(15),
     right: normalize(15),
   },
+  //TicTacToe
   rowTicTacToe: {
     flexDirection: 'row',
   },
@@ -198,5 +203,74 @@ export const utilitiesStyle: any = {
   modalTicTacToeIcon: {
     alignItems: 'center',
     flexDirection: 'row',
+  },
+  //Calculator
+  btnBlueCalculator: {
+    width: normalize(70),
+    height: normalize(70),
+    borderRadius: 24,
+    backgroundColor: '#4B5EFC',
+    justifyContent: 'center',
+    alignItems: 'center',
+    margin: 8,
+  },
+  btnDarkCalculator: {
+    width: normalize(70),
+    height: normalize(70),
+    borderRadius: 24,
+    backgroundColor: '#2E2F38',
+    justifyContent: 'center',
+    alignItems: 'center',
+    margin: 8,
+  },
+  btnLightCalculator: {
+    width: normalize(70),
+    height: normalize(70),
+    borderRadius: 24,
+    backgroundColor: '#EDEFEF',
+    justifyContent: 'center',
+    alignItems: 'center',
+    margin: 8,
+  },
+  btnGrayCalculator: {
+    width: normalize(70),
+    height: normalize(70),
+    borderRadius: 24,
+    backgroundColor: '#4E505F',
+    justifyContent: 'center',
+    alignItems: 'center',
+    margin: 8,
+  },
+  smallTextLightCalculator: {
+    fontSize: 32,
+    color: '#FFFFFF',
+  },
+  smallTextDarkCalculator: {
+    fontSize: 32,
+    color: '#000000',
+  },
+  // Keyboard Calculator
+  rowCalculator: {
+    width: '100%',
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+  },
+  viewBottomCalculator: {
+    position: 'absolute',
+    bottom: 30,
+  },
+  screenFirstNumberCalculator: {
+    fontSize: Platform.OS === 'android' ? 72 : 90,
+    color: '#747477',
+    fontWeight: '200',
+    alignSelf: 'flex-end',
+    fontFamily: themeStyle.FONT_BOLD,
+  },
+  screenSecondNumberCalculator: {
+    fontSize: 40,
+    color: '#747477',
+    fontWeight: '200',
+    alignSelf: 'flex-end',
+    fontFamily: themeStyle.FONT_BOLD,
   },
 };

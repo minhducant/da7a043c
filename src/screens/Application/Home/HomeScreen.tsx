@@ -1,30 +1,18 @@
-import React, {useRef} from 'react';
-import {
-  View,
-  FlatList,
-  Animated,
-  SafeAreaView,
-  RefreshControl,
-} from 'react-native';
+import React, {useRef, useEffect} from 'react';
+import {FlatList} from 'react-native-gesture-handler';
+import {View, SafeAreaView, RefreshControl} from 'react-native';
 
 import {useGetNotes} from '@hooks/useGetNotes';
 import HeaderHome from '@components/Home/HeaderHome';
+import SearchInput from '@components/Home/SearchInput';
 import {WalletCard} from '@components/Home/RenderItem';
 import {homeStyle as styles} from '@styles/home.style';
-import SearchInput from '@components/Home/SearchInput';
-
-const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
 
 export default function HomeScreen() {
   const scrollRef = useRef<any>(null);
   const searchRef = useRef<any>(null);
   const refreshControl = useRef(false);
   const loadMore = useRef<boolean>(false);
-  const y = new Animated.Value(0);
-
-  const onScroll = Animated.event([{nativeEvent: {contentOffset: {y}}}], {
-    useNativeDriver: true,
-  });
 
   const {data, updateParamsRef, onRefresh: refreshData} = useGetNotes();
 
@@ -49,6 +37,8 @@ export default function HomeScreen() {
     );
   };
 
+  const resetTranslateX = (cardIndex: number) => {};
+
   return (
     <SafeAreaView style={styles.container}>
       <HeaderHome />
@@ -57,7 +47,7 @@ export default function HomeScreen() {
         onRefresh={onRefresh}
         onSubmitEditing={(e: any) => onSearch({title: e})}
       />
-      <AnimatedFlatList
+      <FlatList
         data={data}
         ref={scrollRef}
         scrollEnabled={true}
@@ -73,9 +63,8 @@ export default function HomeScreen() {
         showsVerticalScrollIndicator={false}
         keyExtractor={(_, index) => `${index}`}
         renderItem={({index, item}) => (
-          <WalletCard {...{index, item, scrollRef}} />
+          <WalletCard {...{index, item, scrollRef, resetTranslateX}} />
         )}
-        {...{onScroll}}
       />
     </SafeAreaView>
   );

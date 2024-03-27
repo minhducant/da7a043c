@@ -1,5 +1,4 @@
 package com.da7a043c
-
 // import com.microsoft.codepush.react.CodePush;
 import android.app.Application
 import com.facebook.react.PackageList
@@ -11,6 +10,8 @@ import com.facebook.react.defaults.DefaultReactHost.getDefaultReactHost
 import com.facebook.react.defaults.DefaultReactNativeHost
 import com.facebook.react.flipper.ReactNativeFlipper
 import com.facebook.soloader.SoLoader
+import cl.json.RNSharePackage
+import cl.json.ShareApplication
 
 class MainApplication : Application(), ReactApplication {
 

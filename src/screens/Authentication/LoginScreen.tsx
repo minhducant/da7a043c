@@ -96,7 +96,7 @@ const LoginScreen = () => {
   return (
     <TemplateLogin>
       <SafeAreaView style={styles.container}>
-        <StatusBar barStyle="light-content" />
+        <StatusBar />
         <Text style={styles.txtAppName}>SpendSync</Text>
         <Text style={styles.txtSlogan}>
           Don't Let Money Mix-ups Cost You Friendships, Choose SpendSync.

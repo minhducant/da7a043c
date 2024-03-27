@@ -11,15 +11,13 @@ import {
   Text,
   FlatList,
   Dimensions,
-  PanResponder,
+  ScrollView,
   TouchableOpacity,
 } from 'react-native';
 import {
   PanGestureHandler,
-  PanGestureHandlerProps,
   PanGestureHandlerGestureEvent,
 } from 'react-native-gesture-handler';
-import Swipeable from 'react-native-gesture-handler/Swipeable';
 import Animated, {
   runOnJS,
   withTiming,
@@ -28,6 +26,14 @@ import Animated, {
   useAnimatedGestureHandler,
 } from 'react-native-reanimated';
 
+import {
+  EmptyCart,
+  IconMore,
+  IconSplit,
+  IconMember,
+  IconPresentation,
+} from '@assets/icons/index';
+import {HomeApi} from '@api/HomeApi';
 import {IconClose} from '@assets/icons';
 import {IconLibrary} from '@components/Base';
 import {currencies, colors} from '@configs/AppData';
@@ -35,17 +41,15 @@ import {navigate} from '@navigation/RootNavigation';
 import {homeStyle as styles} from '@styles/home.style';
 import SearchMember from '@components/Home/SearchMember';
 
-const LIST_ITEM_HEIGHT = normalize(180);
 const {width: SCREEN_WIDTH} = Dimensions.get('window');
-const TRANSLATE_X_THRESHOLD = -SCREEN_WIDTH * 0.3;
+const STOPPED_TRANSLATE_X = -SCREEN_WIDTH * 0.25;
+const TRANSLATE_X_THRESHOLD = -SCREEN_WIDTH * 0.1;
 
-const WalletCard = ({item, index, scrollRef}: any) => {
+const WalletCard = ({item, index, scrollRef, resetTranslateX}: any) => {
   const {t} = useTranslation();
 
   const opacity = useSharedValue(1);
   const translateX = useSharedValue(0);
-  const marginVertical = useSharedValue(10);
-  const itemHeight = useSharedValue(LIST_ITEM_HEIGHT);
 
   const panGesture = useAnimatedGestureHandler<PanGestureHandlerGestureEvent>({
     onActive: event => {
@@ -53,12 +57,10 @@ const WalletCard = ({item, index, scrollRef}: any) => {
     },
     onEnd: event => {
       if (event.translationX < TRANSLATE_X_THRESHOLD) {
-        opacity.value = withTiming(0);
-        marginVertical.value = withTiming(0);
-        itemHeight.value = withTiming(0);
-        // runOnJS(onSwipeEnd)();
+        translateX.value = withTiming(STOPPED_TRANSLATE_X);
+        opacity.value = withTiming(0, {duration: 500});
       } else {
-        translateX.value = withTiming(0);
+        translateX.value = withTiming(0, {duration: 500});
       }
     },
   });
@@ -74,26 +76,32 @@ const WalletCard = ({item, index, scrollRef}: any) => {
   const rIconContainerStyle = useAnimatedStyle(() => {
     const opacity = withTiming(
       translateX.value < TRANSLATE_X_THRESHOLD ? 1 : 0,
+      {duration: 500},
     );
-    return {opacity};
-  });
-
-  const rTaskContainerStyle = useAnimatedStyle(() => {
+    const translateXIcon = withTiming(
+      translateX.value < TRANSLATE_X_THRESHOLD ? 0 : -50,
+      {duration: 500},
+    );
     return {
-      opacity: opacity.value,
-      height: itemHeight.value,
-      marginVertical: marginVertical.value,
+      opacity,
+      transform: [{translateX: translateXIcon}],
     };
   });
 
-  const onPress = (note: any) => {};
+  const onPress = (note: any) => {
+    navigate('DetailNoteScreen', 'NoFooter', note);
+  };
 
   return (
-    <Animated.View style={[styles.note, rTaskContainerStyle]}>
+    <View style={[styles.note]}>
       <Animated.View style={[styles.iconContainer, rIconContainerStyle]}>
-        <Text>Đức</Text>
+        <TouchableOpacity>
+          <Text>Đức</Text>
+        </TouchableOpacity>
       </Animated.View>
       <PanGestureHandler
+        failOffsetY={[-5, 5]}
+        activeOffsetX={[-5, 5]}
         onGestureEvent={panGesture}
         simultaneousHandlers={scrollRef}>
         <Animated.View style={[styles.task, rStyle]}>
@@ -103,36 +111,15 @@ const WalletCard = ({item, index, scrollRef}: any) => {
             onPress={() => onPress(item)}
             style={[styles.itemNote, {backgroundColor: item.color}]}>
             <View style={styles.headerItemNote}>
-              <View
-                style={[
-                  styles.statusDot,
-                  {
-                    backgroundColor:
-                      item.status === 0
-                        ? '#999999'
-                        : item.status === 1
-                        ? '#FF0000'
-                        : item.status === 2
-                        ? '#008000'
-                        : item.status === 3
-                        ? '#0000FF'
-                        : item.status === 4
-                        ? '#FFA500'
-                        : item.status === 5
-                        ? '#A9A9A9'
-                        : '#333333 ',
-                  },
-                ]}
-              />
               <Text numberOfLines={1} style={styles.txtTitleNote}>
-                {item.name}
+                {item.title}
               </Text>
               <TouchableOpacity></TouchableOpacity>
             </View>
           </TouchableOpacity>
         </Animated.View>
       </PanGestureHandler>
-    </Animated.View>
+    </View>
   );
 };
 
@@ -156,18 +143,20 @@ function RenderCurrency(
   return (
     <View>
       <Text style={styles.txtTitleSheet}>{t('currency')}</Text>
-      {currencies.map((item: any, index: number) => (
-        <TouchableOpacity
-          key={index}
-          style={[styles.itemCurrency]}
-          onPress={() => onPress(item)}>
-          <CountryFlag isoCode={item.country} size={20} style={styles.flag} />
-          <View style={styles.flex1}>
-            <Text style={styles.txtCurrency}>{item.name}</Text>
-          </View>
-          <Text style={styles.txtSymbol}>{item.symbol}</Text>
-        </TouchableOpacity>
-      ))}
+      <ScrollView showsVerticalScrollIndicator={false}>
+        {currencies.map((item: any, index: number) => (
+          <TouchableOpacity
+            key={index}
+            style={[styles.itemCurrency]}
+            onPress={() => onPress(item)}>
+            <CountryFlag isoCode={item.country} size={20} style={styles.flag} />
+            <View style={styles.flex1}>
+              <Text style={styles.txtCurrency}>{item.name}</Text>
+            </View>
+            <Text style={styles.txtSymbol}>{item.symbol}</Text>
+          </TouchableOpacity>
+        ))}
+      </ScrollView>
     </View>
   );
 }
@@ -226,6 +215,7 @@ function RenderMember(
   const {t} = useTranslation();
   const searchRef = useRef<any>(null);
   const [selected, setSelected] = useState<any>([]);
+  const [searchResults, setSearchResults] = useState<any[]>([]);
   const friends = useSelector((state: any) => state.Config.friends);
 
   const onDone = useCallback((selected: any) => {
@@ -261,6 +251,7 @@ function RenderMember(
           name: value,
           image_url: '',
           user_id: '',
+          permission: 0,
         },
       ]);
     }
@@ -274,8 +265,14 @@ function RenderMember(
     });
   };
 
-  const onSearch = async (e: any) => {
-    console.log(selected);
+  const onSearch = async (value: string) => {
+    if (value && value.length > 7) {
+      const res: any = await HomeApi.getUsers({user_id: value});
+      if (res.code === 200) {
+        setSearchResults(res?.data);
+      } else {
+      }
+    }
   };
 
   const renderMembers = ({item, index}: any) => {
@@ -319,8 +316,8 @@ function RenderMember(
       <SearchMember
         ref={searchRef}
         onAddNew={onAddNew}
+        onChange={onSearch}
         onRefresh={onRefresh}
-        onSubmitEditing={(e: any) => onSearch({title: e})}
       />
       <View>
         {selected.length > 0 && (
@@ -341,16 +338,70 @@ function RenderMember(
           </View>
         )}
         <FlatList
-          data={[]}
           renderItem={renderUsers}
           stickyHeaderIndices={[0]}
           showsHorizontalScrollIndicator={false}
           keyExtractor={(_, index) => `${index}`}
           contentContainerStyle={styles.contentContainer}
+          data={searchResults.length === 0 ? friends : searchResults}
         />
       </View>
     </View>
   );
 }
 
-export {WalletCard, RenderCurrency, RenderColor, RenderMember};
+const NoteAction = ({title, action = () => {}}: any) => {
+  const {t} = useTranslation();
+
+  return (
+    <TouchableOpacity
+      onPress={action}
+      activeOpacity={0.5}
+      style={styles.noteAction}>
+      <View
+        style={[
+          styles.iconNoteAction,
+          {
+            backgroundColor:
+              title === 'split_bill'
+                ? '#E8F7FF'
+                : title === 'member'
+                ? '#EFF9F4'
+                : title === 'statistics'
+                ? '#F8EDF9'
+                : '#FEF6EB',
+          },
+        ]}>
+        {title === 'split_bill' && <IconSplit fill="#2566ED" />}
+        {title === 'member' && <IconMember fill="#379C39" />}
+        {title === 'statistics' && <IconPresentation fill="#B445C5" />}
+        {title === 'more' && <IconMore fill="#F58706" />}
+      </View>
+      <View style={styles.viewTitleAction}>
+        <Text style={styles.txtNoteAction}>{t(title)}</Text>
+      </View>
+    </TouchableOpacity>
+  );
+};
+
+const EmptyData = () => {
+  const {t} = useTranslation();
+
+  return (
+    <View style={styles.viewEmpty}>
+      <EmptyCart />
+      <Text style={styles.txtEmptyTransactions}>
+        {t('no_transactions_yet')}
+      </Text>
+    </View>
+  );
+};
+
+export {
+  EmptyData,
+  WalletCard,
+  RenderColor,
+  NoteAction,
+  RenderMember,
+  RenderCurrency,
+};

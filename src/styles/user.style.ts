@@ -3,11 +3,16 @@ import normalize from 'react-native-normalize';
 
 import color from '@styles/color';
 import themeStyle from '@styles/theme.style';
+import {hasHomeButton} from '@utils/DeviceInfo';
 
 export const userScreenStyle: any = {
   container: {
     flex: 1,
     backgroundColor: color.WHITE,
+  },
+  containerUser: {
+    flex: 1,
+    backgroundColor: '#F6F9FF',
   },
   signOut: {
     // paddingVertical: normalize(10),
@@ -16,7 +21,8 @@ export const userScreenStyle: any = {
     borderRadius: normalize(15),
     backgroundColor: '#EB5758',
     marginHorizontal: normalize(16),
-    marginBottom: Platform.OS === 'android' ? normalize(15) : 0,
+    marginBottom:
+      Platform.OS === 'android' || hasHomeButton() ? normalize(15) : 0,
     marginTop: normalize(16),
     height: normalize(45),
   },
@@ -30,14 +36,15 @@ export const userScreenStyle: any = {
     flexDirection: 'row',
     alignItems: 'center',
     marginBottom: normalize(16),
-    marginHorizontal: normalize(16),
+    marginHorizontal: normalize(32),
     backgroundColor: 'white',
-    padding: normalize(16),
-    borderRadius: normalize(12),
-    shadowColor: '#777777',
-    shadowOffset: {width: 0, height: 0.5},
-    shadowOpacity: 0.18,
-    shadowRadius: 1.0,
+    padding: normalize(8),
+  },
+  viewProfileName: {
+    flex: 1,
+    borderBottomWidth: 0.5,
+    justifyContent: 'center',
+    borderColor: color.DUSTY_GRAY,
   },
   txtProfileItem: {
     flex: 1,
@@ -58,6 +65,7 @@ export const userScreenStyle: any = {
     alignSelf: 'center',
     fontSize: 16,
     color: 'gray',
+    marginTop: normalize(5),
     fontFamily: themeStyle.FONT_FAMILY,
   },
   txtSettingItem: {
@@ -113,8 +121,8 @@ export const userScreenStyle: any = {
     height: normalize(45),
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius:  normalize(5),
-    borderWidth: 1
+    borderRadius: normalize(5),
+    borderWidth: 1,
   },
   utility: {
     width: '25%',
@@ -127,5 +135,9 @@ export const userScreenStyle: any = {
     textAlign: 'center',
     marginTop: normalize(10),
     fontFamily: themeStyle.FONT_FAMILY,
+  },
+  viewPremium: {
+    alignSelf: 'center',
+    marginVertical: normalize(5),
   },
 };

@@ -40,7 +40,6 @@ export const getFcmToken = async () => {
   try {
     const fcmToken = await messaging().getToken();
     if (fcmToken) {
-      // console.log(fcmToken);
       await setStorage('FCMToken', fcmToken);
     }
     return null;

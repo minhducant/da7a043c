@@ -8,7 +8,7 @@ export const authenticationStyle: any = {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#1B0040',
+    backgroundColor: 'white',
   },
   txtLogin: {
     fontSize: 16,
@@ -23,6 +23,7 @@ export const authenticationStyle: any = {
     backgroundColor: '#FFFFFF',
     marginBottom: normalize(16),
     flexDirection: 'row',
+    borderWidth: 1,
     justifyContent: 'center',
   },
   viewBtn: {
@@ -32,13 +33,13 @@ export const authenticationStyle: any = {
   },
   txtAppName: {
     fontSize: 30,
-    color: color.WHITE,
+    // color: color.WHITE,
     fontFamily: themeStyle.FONT_SEMIBOLD,
   },
   txtSlogan: {
     fontSize: 18,
     textAlign: 'center',
-    color: color.WHITE,
+    // color: color.WHITE,
     marginHorizontal: normalize(10),
     marginVertical: normalize(20),
     fontFamily: themeStyle.FONT_FAMILY,

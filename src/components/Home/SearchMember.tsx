@@ -19,6 +19,7 @@ interface InputProps {
   onRefresh?: () => void;
   onFocus?: () => void;
   onPressIn?: () => void;
+  onChange?: any;
   onSubmitEditing?: any;
   ref: Ref<any>;
   onAddNew?: any;
@@ -31,6 +32,7 @@ const SearchMember: React.FC<InputProps> = React.forwardRef(
       onPressIn = () => {},
       onRefresh = () => {},
       onAddNew = () => {},
+      onChange = () => {},
       onSubmitEditing,
     },
     ref,
@@ -64,6 +66,11 @@ const SearchMember: React.FC<InputProps> = React.forwardRef(
       typeof onSubmitEditing === 'function' && onSubmitEditing(value);
     };
 
+    const onChangeText = (text: React.SetStateAction<string>) => {
+      setValue(text);
+      typeof onChange === 'function' && onChange(text);
+    };
+
     return (
       <View style={style.search}>
         <View style={[style.inputContainer]}>
@@ -80,7 +87,7 @@ const SearchMember: React.FC<InputProps> = React.forwardRef(
             ref={textInputRef}
             value={value}
             autoCorrect={false}
-            onChangeText={setValue}
+            onChangeText={onChangeText}
             onPressIn={() => onPressIn()}
             onFocus={() => {
               onFocus();

@@ -55,4 +55,8 @@ export const client = {
     app.post<any, responseType>(url, ...rest),
   get: (url: string, ...rest: any) => app.get<any, responseType>(url, ...rest),
   put: (url: string, ...rest: any) => app.put<any, responseType>(url, ...rest),
+  patch: (url: string, ...rest: any) =>
+    app.patch<any, responseType>(url, ...rest),
+  delete: (url: string, ...rest: any) =>
+    app.delete<any, responseType>(url, ...rest),
 };

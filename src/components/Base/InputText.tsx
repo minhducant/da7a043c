@@ -54,7 +54,7 @@ export const InputText = forwardRef<InputRef, InputProps>(
 
     return (
       <View>
-        <Text style={styles.title}>
+        <Text style={[styles.title, style]}>
           {props.title}
           {props.required && <Text style={{color: 'red'}}>{' *'}</Text>} :
         </Text>
@@ -67,12 +67,12 @@ export const InputText = forwardRef<InputRef, InputProps>(
             keyboardType={props.keyboardType || 'default'}
             textAlignVertical="top"
             onChangeText={setValue}
+            enterKeyHint="done"
             placeholder={props.placeholder}
             style={[
               styles.input,
-              style,
               {
-                minHeight: props.multiline ? normalize(130) : normalize(40),
+                minHeight: props.multiline ? normalize(130) : normalize(30),
               },
             ]}
             {...props}
@@ -91,7 +91,7 @@ const styles: any = StyleSheet.create({
     fontFamily: themeStyle.FONT_FAMILY,
   },
   inputButton: {
-    minHeight: normalize(50),
+    minHeight: normalize(40),
     borderRadius: normalize(15),
     overflow: 'hidden',
     paddingHorizontal: normalize(10),
@@ -102,10 +102,8 @@ const styles: any = StyleSheet.create({
   title: {
     fontSize: 18,
     marginLeft: normalize(30),
+    marginBottom: normalize(8),
     marginVertical: normalize(16),
     fontFamily: themeStyle.FONT_FAMILY,
-  },
-  titleContainer: {
-    paddingVertical: normalize(10),
   },
 });

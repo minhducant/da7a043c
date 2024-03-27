@@ -7,8 +7,8 @@ import {
   SafeAreaView,
   TouchableOpacity,
 } from 'react-native';
-import {useTranslation} from 'react-i18next';
 
+import {t} from '@i18n/index';
 import {IconCaro, IconX, IconO} from '@assets/icons';
 import {utilitiesStyle as styles} from '@styles/utils.style';
 import HeaderWithTitle from '@components/Header/HeaderWithTitle';
@@ -16,10 +16,9 @@ import HeaderWithTitle from '@components/Header/HeaderWithTitle';
 const BOARD_SIZE = 3;
 
 export default function TicTacToeScreen() {
-  const {t} = useTranslation();
   const [player, setPlayer] = useState('X');
   const [winner, setWinner] = useState(null);
-  const [showModal, setsSowModal] = useState(false);
+  const [showModal, setShowModal] = useState(false);
   const [board, setBoard] = useState(
     Array.from(Array(BOARD_SIZE), () => new Array(BOARD_SIZE).fill('')),
   );
@@ -53,7 +52,7 @@ export default function TicTacToeScreen() {
       const winner = checkWinner(newBoard);
       if (winner) {
         setWinner(winner);
-        setsSowModal(true);
+        setShowModal(true);
       } else {
         setPlayer('X');
       }
@@ -108,7 +107,7 @@ export default function TicTacToeScreen() {
       const winner = checkWinner(newBoard);
       if (winner) {
         setWinner(winner);
-        setsSowModal(true);
+        setShowModal(true);
       } else {
         setPlayer(player === 'X' ? 'O' : 'X');
       }
@@ -154,7 +153,7 @@ export default function TicTacToeScreen() {
   };
 
   const onReload = () => {
-    setsSowModal(false);
+    setShowModal(false);
     setBoard(
       Array.from(Array(BOARD_SIZE), () => new Array(BOARD_SIZE).fill('')),
     );
@@ -255,7 +254,7 @@ export default function TicTacToeScreen() {
                   {backgroundColor: '#E45651'},
                 ]}
                 onPress={() => {
-                  setsSowModal(false);
+                  setShowModal(false);
                 }}>
                 <Text style={styles.txtGenerate}>{t('close')}</Text>
               </TouchableOpacity>

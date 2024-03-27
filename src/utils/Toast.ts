@@ -30,4 +30,6 @@ const showMessage = {
   },
 };
 
-export {showMessage};
+const showToast = ({preset = 'none', title = '', message = ''}: any) => {};
+
+export {showMessage, showToast};

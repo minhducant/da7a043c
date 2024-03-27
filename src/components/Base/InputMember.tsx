@@ -28,22 +28,23 @@ export interface InputProps {
 
 export const InputMember = forwardRef<InputRef, InputProps>(
   ({...props}, ref) => {
-    const [data, setData] = useState<any>(props.data || []);
+    const [members, setMembers] = useState<any>(props.data || []);
 
     useImperativeHandle(ref, () => ({
-      data,
+      members,
+      getValue: () => members,
       setData: (member: any) => {
-        setData(member);
+        setMembers(member);
       },
     }));
 
-    const onShowColorSheet = useCallback(() => {
+    const onShowMemberSheet = useCallback(() => {
       const isActive = props?.memberSheetRef?.current?.isActive();
       if (isActive) {
         props?.memberSheetRef?.current?.scrollTo(0);
       } else {
         props?.memberSheetRef?.current?.scrollTo(
-          Platform.OS === 'android' ? -600 : -740,
+          -(themeStyle.height * 80) / 100,
         );
       }
       // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -51,7 +52,7 @@ export const InputMember = forwardRef<InputRef, InputProps>(
 
     const addButton = () => {
       return (
-        <TouchableOpacity onPress={onShowColorSheet}>
+        <TouchableOpacity onPress={onShowMemberSheet}>
           <View style={styles.addButton}>
             <IconLibrary
               size={20}
@@ -89,7 +90,7 @@ export const InputMember = forwardRef<InputRef, InputProps>(
         <Text style={styles.title}>{props.title} :</Text>
         <FlatList
           horizontal
-          data={data}
+          data={members}
           stickyHeaderIndices={[0]}
           renderItem={renderMembers}
           ListHeaderComponent={addButton}
@@ -122,7 +123,7 @@ const styles: any = StyleSheet.create({
     borderColor: '#6763FD',
     borderCurve: 'continuous',
     borderStyle: 'dashed',
-    marginRight: normalize(10),
+    // marginRight: normalize(10),
     marginBottom: normalize(10),
   },
   txtAdd: {

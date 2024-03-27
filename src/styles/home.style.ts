@@ -3,8 +3,9 @@ import {StatusBar, Platform, Dimensions} from 'react-native';
 
 import color from '@styles/color';
 import themeStyle from '@styles/theme.style';
+import {hasHomeButton} from '@utils/DeviceInfo';
 
-const {width} = Dimensions.get('screen');
+export const {width, height} = Dimensions.get('screen');
 const statusBarHeight = StatusBar.currentHeight;
 
 export const homeStyle: any = {
@@ -83,7 +84,8 @@ export const homeStyle: any = {
     borderRadius: normalize(15),
     backgroundColor: '#EB5758',
     marginHorizontal: normalize(16),
-    marginBottom: Platform.OS === 'android' ? normalize(15) : 0,
+    marginBottom:
+      Platform.OS === 'android' || hasHomeButton() ? normalize(15) : 0,
     marginTop: normalize(16),
     height: normalize(45),
   },
@@ -177,11 +179,136 @@ export const homeStyle: any = {
   },
   iconContainer: {
     height: normalize(180),
-    width: normalize(100),
+    width: normalize(80),
     position: 'absolute',
     right: normalize(16),
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'red',
+  },
+  viewTotalContainer: {
+    width: width - 32,
+    height: normalize(180),
+    // borderRadius: normalize(16),
+    // borderWidth: 1,
+    alignSelf: 'center',
+    marginVertical: normalize(16),
+  },
+  viewTitleDetail: {
+    marginHorizontal: normalize(16),
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: normalize(8),
+  },
+  txtTransaction: {
+    fontSize: 18,
+    fontFamily: themeStyle.FONT_BOLD,
+  },
+  txtViewAll: {
+    fontSize: 16,
+    color: color.DUSTY_GRAY,
+    fontFamily: themeStyle.FONT_FAMILY,
+  },
+  viewAction: {
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    alignItems: 'center',
+    marginBottom: normalize(16),
+  },
+  noteAction: {
+    alignItems: 'center',
+  },
+  txtNoteAction: {
+    fontSize: 16,
+    textAlign: 'center',
+    alignSelf: 'center',
+    fontFamily: themeStyle.FONT_FAMILY,
+  },
+  iconNoteAction: {
+    height: normalize(45),
+    width: normalize(45),
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 16,
+    backgroundColor: 'blue',
+    marginBottom: normalize(8),
+  },
+  viewId: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginVertical: normalize(5),
+  },
+  txtId: {
+    fontFamily: themeStyle.FONT_FAMILY,
+    color: color.WHITE,
+    fontSize: 15,
+    marginRight: normalize(5),
+  },
+  viewInfoNote: {
+    position: 'absolute',
+    zIndex: 99999999999999,
+    alignSelf: 'center',
+    justifyContent: 'space-between',
+    flex: 1,
+    // backgroundColor:'blue',
+    height: normalize(140),
+    top: 20,
+  },
+  viewEmpty: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginVertical: normalize(16),
+  },
+  txtEmptyTransactions: {
+    fontFamily: themeStyle.FONT_FAMILY,
+    fontSize: 15,
+    marginTop: normalize(8),
+  },
+  txtTotalSpending: {
+    fontFamily: themeStyle.FONT_FAMILY,
+    fontSize: 20,
+    color: 'white',
+    alignSelf: 'center',
+  },
+  txtTotalMoney: {
+    fontFamily: themeStyle.FONT_BOLD,
+    fontSize: 30,
+    color: 'white',
+    marginRight: normalize(8),
+  },
+  viewTotalMoney: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'row',
+    marginVertical: normalize(16),
+  },
+  dashLine: {
+    width: 250,
+    hight: normalize(1),
+    borderWidth: 0.5,
+    alignSelf: 'center',
+    borderColor: 'white',
+  },
+  txtAddExpense: {
+    fontFamily: themeStyle.FONT_BOLD,
+    fontSize: 18,
+    marginTop: normalize(8),
+    marginLeft: normalize(16),
+  },
+  imageOptions: {
+    flex: 1,
+    backgroundColor: 'white',
+  },
+  itemImageOptions: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: normalize(40),
+    marginTop: normalize(15),
+  },
+  txtImageOptions: {
+    fontFamily: themeStyle.FONT_FAMILY,
+    fontSize: 16,
+    marginLeft: normalize(15),
   },
 };

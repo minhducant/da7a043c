@@ -10,11 +10,11 @@ import {
 } from 'react-native';
 import {useTranslation} from 'react-i18next';
 
+import {t} from '@i18n/index';
 import {utilitiesStyle as styles} from '@styles/utils.style';
 import HeaderWithTitle from '@components/Header/HeaderWithTitle';
 
 export default function CoinFlipScreen() {
-  const {t} = useTranslation();
   const [coinSide, setCoinSide] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const rotateYAnim = useRef(new Animated.Value(0)).current;

@@ -14,6 +14,7 @@ import {useNavigation} from '@react-navigation/native';
 import Colors from '@styles/color';
 import theme from '@styles/theme.style';
 import {IconHome} from '@assets/icons/index';
+import {hasHomeButton} from '@utils/DeviceInfo';
 import {IconLibrary} from '@components/Base/IconLibrary';
 
 interface HeaderProps {
@@ -60,7 +61,7 @@ export default function HeaderWithTitle({
       </SafeAreaView>
       <SafeAreaView style={styles.header}>
         <View style={styles.upperHeader}>
-          <View style={styles.viewBack}>
+          <View style={styles.viewIcon}>
             {hasLeft && (
               <TouchableOpacity onPress={() => _onGoBack()}>
                 <IconLibrary
@@ -75,7 +76,7 @@ export default function HeaderWithTitle({
           <Text style={styles.title} numberOfLines={1}>
             {title}
           </Text>
-          <View style={styles.viewBack}>
+          <View style={styles.viewIcon}>
             {hasRight && (
               <TouchableOpacity onPress={onGoHome} activeOpacity={0.7}>
                 <IconHome
@@ -115,10 +116,11 @@ const styles = StyleSheet.create({
     paddingTop: UPPER_HEADER_PADDING_TOP,
     borderColor: Colors.DUSTY_GRAY,
   },
-  viewBack: {
+  viewIcon: {
     width: normalize(28, 'height'),
     height: normalize(28, 'height'),
-    marginBottom: Platform.OS === 'android' ? 0 : normalize(12),
+    marginBottom:
+      Platform.OS === 'android' || hasHomeButton() ? 0 : normalize(12),
     justifyContent: 'center',
     alignItems: 'center',
     // borderWidth: Platform.OS === 'android' ? 0 : normalize(2),

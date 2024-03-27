@@ -30,6 +30,13 @@ import IconMiner from './SvgIconMiner';
 import IconX from './SvgIconX';
 import IconO from './SvgIconO';
 import IconCrown from './SvgIconCrown';
+import IconSplit from './SvgIconSplit';
+import IconPresentation from './SvgIconPresentation';
+import IconMember from './SvgIconMember';
+import IconMore from './SvgIconMore';
+import Card1 from './SvgCard1';
+import EmptyCart from './SvgEmptyCart';
+import IconPingPong from './SvgIconPingPong';
 
 export {
   IconClose,
@@ -64,4 +71,11 @@ export {
   IconX,
   IconO,
   IconCrown,
+  IconSplit,
+  IconPresentation,
+  IconMember,
+  IconMore,
+  Card1,
+  EmptyCart,
+  IconPingPong,
 };

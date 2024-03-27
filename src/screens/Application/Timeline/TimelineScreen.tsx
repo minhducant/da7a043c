@@ -9,7 +9,7 @@ export default function TimelineScreen() {
   const {t} = useTranslation();
   return (
     <View style={styles.container}>
-      <HeaderWithTitle hasLeft={false} hasRight={false} title={t('')} />
+      <HeaderWithTitle hasLeft={false} hasRight={false} title={t('activity')} />
     </View>
   );
 }

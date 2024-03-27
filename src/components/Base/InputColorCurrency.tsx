@@ -11,6 +11,7 @@ import {t} from '@i18n/index';
 import color from '@styles/color';
 import themeStyle from '@styles/theme.style';
 import {currencies} from '@configs/AppData';
+import {IconLibrary} from '@components/Base/IconLibrary';
 
 interface InputRef {
   getValue: () => any;
@@ -46,9 +47,7 @@ const InputColorCurrency = forwardRef<InputRef, InputProps>(
       if (isActive) {
         colorSheetRef?.current?.scrollTo(0);
       } else {
-        colorSheetRef?.current?.scrollTo(
-          Platform.OS === 'android' ? -350 : -400,
-        );
+        colorSheetRef?.current?.scrollTo(-(themeStyle.height * 45) / 100);
       }
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
@@ -58,9 +57,7 @@ const InputColorCurrency = forwardRef<InputRef, InputProps>(
       if (isActive) {
         currencySheetRef?.current?.scrollTo(0);
       } else {
-        currencySheetRef?.current?.scrollTo(
-          Platform.OS === 'android' ? -300 : -340,
-        );
+        currencySheetRef?.current?.scrollTo(-(themeStyle.height * 40) / 100);
       }
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
@@ -70,13 +67,17 @@ const InputColorCurrency = forwardRef<InputRef, InputProps>(
         <View style={styles.containerInput}>
           <Text style={styles.title}>{t('color')}:</Text>
           <TouchableOpacity
-            style={styles.input}
+            style={[
+              styles.input,
+              {
+                backgroundColor: colors,
+                justifyContent: 'center',
+                borderWidth: 0,
+              },
+            ]}
             activeOpacity={0.5}
             onPress={onShowColorSheet}>
-            {/* <Text style={styles.txtInput}>
-              {t('color')}:{'  '}
-            </Text> */}
-            <View style={[styles.colorView, {backgroundColor: colors}]} />
+            <IconLibrary size={30} name="color-wand" color="white" />
           </TouchableOpacity>
         </View>
         <View style={styles.containerInput}>
@@ -88,7 +89,6 @@ const InputColorCurrency = forwardRef<InputRef, InputProps>(
             activeOpacity={0.5}
             onPress={onShowCurrencySheet}>
             <Text style={styles.txtInput}>
-              {/* {t('currency')}:{'  '} */}
               <Text style={styles.txtCurrency}>
                 {findCurrencyNameById(currencies, currency)}
               </Text>
@@ -104,7 +104,7 @@ export default InputColorCurrency;
 
 const findCurrencyNameById = (item: any[], id: number | null) => {
   const currency = item.find((it: {id: any}) => it.id === id);
-  return currency ? `${currency.code}` : '';
+  return currency ? `${currency.currency} (${currency.symbol})` : '';
 };
 
 const styles: any = StyleSheet.create({
@@ -117,7 +117,7 @@ const styles: any = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     borderColor: '#9398AA',
-    // marginTop: normalize(16),
+    justifyContent: 'center',
     minHeight: normalize(50),
     borderRadius: normalize(15),
     padding: normalize(10),
@@ -143,6 +143,7 @@ const styles: any = StyleSheet.create({
     fontSize: 18,
     marginLeft: normalize(16),
     marginVertical: normalize(16),
+    // marginBottom: normalize(10),
     fontFamily: themeStyle.FONT_FAMILY,
   },
   containerInput: {

@@ -1,10 +1,14 @@
 import React from 'react';
+import {Platform} from 'react-native';
 import {TransitionPresets} from '@react-navigation/stack';
-import {createStackNavigator} from '@react-navigation/stack';
+import {
+  createStackNavigator,
+  CardStyleInterpolators,
+} from '@react-navigation/stack';
 
 //Home
-import NoteScreen from '@screens/Application/Home/NoteScreen';
 import QrCodeScreen from '@screens/Application/Home/QrCodeScreen';
+import CreateNoteScreen from '@screens/Application/Home/CreateNoteScreen';
 import DetailNoteScreen from '@screens/Application/Home/DetailNoteScreen';
 
 //User
@@ -15,6 +19,8 @@ import UtilitiesScreen from '@screens/Application/User/UtilitiesScreen';
 import ChangeLanguageScreen from '@screens/Application/User/ChangeLanguageScreen';
 
 //Utilities
+import SnakeScreen from '@screens/Application/Utilities/SnakeScreen';
+import PingPongScreen from '@screens/Application/Utilities/PingPongScreen';
 import RollDiceScreen from '@screens/Application/Utilities/RollDiceScreen';
 import CoinFlipScreen from '@screens/Application/Utilities/CoinFlipScreen';
 import TicTacToeScreen from '@screens/Application/Utilities/TicTacToeScreen';
@@ -27,15 +33,16 @@ const Stack = createStackNavigator<any>();
 
 const screenOptions = {
   headerShown: false,
-  ...TransitionPresets.SlideFromRightIOS,
-  // ...TransitionPresets.FadeFromBottomAndroid,
+  ...(Platform.OS === 'ios'
+    ? TransitionPresets.SlideFromRightIOS
+    : TransitionPresets.FadeFromBottomAndroid),
 };
 
 function NoFooter() {
   const screens = [
     //Home
-    NoteScreen,
     QrCodeScreen,
+    CreateNoteScreen,
     DetailNoteScreen,
     //User
     SettingScreen,
@@ -44,6 +51,8 @@ function NoFooter() {
     UtilitiesScreen,
     ChangeLanguageScreen,
     //Utilities
+    SnakeScreen,
+    PingPongScreen,
     RollDiceScreen,
     CoinFlipScreen,
     TicTacToeScreen,

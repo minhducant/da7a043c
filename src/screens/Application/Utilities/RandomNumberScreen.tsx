@@ -10,15 +10,14 @@ import {
   ActivityIndicator,
   KeyboardAvoidingView,
 } from 'react-native';
-import {useTranslation} from 'react-i18next';
 
+import {t} from '@i18n/index';
 import {InputText} from '@components/Base/index';
 import IconRandom from '@assets/icons/SvgIconReload';
 import {utilitiesStyle as styles} from '@styles/utils.style';
 import HeaderWithTitle from '@components/Header/HeaderWithTitle';
 
 const RandomNumberScreen = () => {
-  const {t} = useTranslation();
   const [result, setResult] = useState<any>();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const randomLabel = {
@@ -79,7 +78,7 @@ const RandomNumberScreen = () => {
       setTimeout(() => {
         setIsLoading(false);
         setResult(getRandomNumberInRange(resultFrom, resultTo));
-      }, 700);
+      }, Math.round(Math.random() * (700 - 400) + 400));
     } catch (error) {
       setIsLoading(false);
     }

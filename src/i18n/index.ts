@@ -8,6 +8,11 @@ import {USER_LANG, getDeviceLang} from '@utils/DeviceLang';
 import en from './en.json';
 import vi from './vi.json';
 import jp from './jp.json';
+import ko from './ko.json';
+import th from './th.json';
+import id from './id.json';
+import hi from './hi.json';
+import ar from './ar.json';
 
 const languageDetector: any = {
   init: Function.prototype,
@@ -29,6 +34,11 @@ const resources = {
   en: {translation: en},
   vi: {translation: vi},
   jp: {translation: jp},
+  ko: {translation: ko},
+  th: {translation: th},
+  id: {translation: id},
+  hi: {translation: hi},
+  ar: {translation: ar},
 };
 
 const fallbackLanguage = {languageTag: 'vi'};

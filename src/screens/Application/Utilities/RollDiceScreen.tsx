@@ -9,13 +9,12 @@ import {
   TouchableOpacity,
   ActivityIndicator,
 } from 'react-native';
-import {useTranslation} from 'react-i18next';
 
+import {t} from '@i18n/index';
 import {utilitiesStyle as styles} from '@styles/utils.style';
 import HeaderWithTitle from '@components/Header/HeaderWithTitle';
 
 export default function RollDiceScreen() {
-  const {t} = useTranslation();
   const [diceValue, setDiceValue] = useState<number>(
     Math.floor(Math.random() * 6) + 1,
   );

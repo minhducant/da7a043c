@@ -40,4 +40,5 @@ export default {
   BLUE: '#1403DC',
   YELLOW: '#FCB226',
   GRAY: '#959DA5',
+  MAIN: '#ED2127',
 };

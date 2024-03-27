@@ -5,10 +5,10 @@ import {AppApiTypeRequest} from '@api/TypeRequest';
 
 export class AuthApi {
   static async getUserInfo(params: any) {
-    const response = await client.get(
+    const response: any = await client.get(
       ApiUrl.Auth.get_user_info + extraParams(params),
     );
-    return response.data;
+    return response?.code === 200 ? response.data : {};
   }
   static async LoginFacebook(params: AppApiTypeRequest.LoginFacebook) {
     const response = await client.post(ApiUrl.Auth.login_facebook, params);

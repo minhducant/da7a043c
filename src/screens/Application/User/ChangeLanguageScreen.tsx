@@ -17,6 +17,7 @@ import color from '@styles/color';
 import {showMessage} from '@utils/Toast';
 import {USER_LANG} from '@utils/DeviceLang';
 import themeStyle from '@styles/theme.style';
+import {IconLibrary} from '@components/Base';
 import {DataLanguage} from '@configs/DataLanguage';
 import HeaderWithTitle from '@components/Header/HeaderWithTitle';
 
@@ -24,9 +25,9 @@ const ChangeLanguageScreen = ({navigation}: any) => {
   const {t} = useTranslation();
   const currentLanguage = i18n.language;
 
-  const onChangeLanguage = async (item: any) => {
-    await i18n.changeLanguage(item);
-    await AsyncStorage.setItem(USER_LANG, item);
+  const onChangeLanguage = (item: any) => {
+    i18n.changeLanguage(item);
+    AsyncStorage.setItem(USER_LANG, item);
     showMessage.success(t('language_change_success'));
     navigation.goBack();
   };
@@ -54,6 +55,16 @@ const ChangeLanguageScreen = ({navigation}: any) => {
                   isoCode={lang.country}
                 />
                 <Text style={styles.title}>{lang.label}</Text>
+                {lang.value === currentLanguage && (
+                  <View style={styles.check}>
+                    <IconLibrary
+                      size={25}
+                      color="#ED2127"
+                      name={'check'}
+                      library="Feather"
+                    />
+                  </View>
+                )}
               </TouchableOpacity>
             );
           })}
@@ -77,6 +88,7 @@ const styles = StyleSheet.create({
     color: color.BLACK,
     fontSize: 18,
     marginLeft: normalize(16),
+    flex: 1,
   },
   itemLang: {
     borderWidth: 1,
@@ -89,6 +101,9 @@ const styles = StyleSheet.create({
   },
   flag: {
     borderRadius: normalize(3),
+  },
+  check: {
+    alignSelf: 'flex-end',
   },
 });
 

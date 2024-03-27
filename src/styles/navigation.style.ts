@@ -3,6 +3,7 @@ import {Platform, Dimensions} from 'react-native';
 
 import color from './color';
 import themeStyle from './theme.style';
+import {hasHomeButton} from '@utils/DeviceInfo';
 
 const width = Dimensions.get('screen').width;
 const TAB_BAR_WIDTH = width / 5;
@@ -16,10 +17,15 @@ export const navigationStyle: any = {
     display: 'flex',
     alignSelf: 'center',
     width: width,
-    height: Platform.OS === 'android' ? normalize(55) : normalize(80),
+    height:
+      Platform.OS === 'android' || hasHomeButton()
+        ? normalize(60)
+        : normalize(80),
     justifyContent: 'center',
     borderBottomLeftRadius: 0,
     borderBottomRightRadius: 0,
+    // borderTopWidth: 1,
+    // borderColor: 'gray',
     paddingVertical: normalize(10),
     paddingHorizontal: normalize(20),
   },
@@ -76,11 +82,12 @@ export const navigationStyle: any = {
   },
   dot: {
     position: 'absolute',
-    width: normalize(5, 'width'),
-    height: normalize(5, 'width'),
-    borderRadius: normalize(6, 'width'),
-    top: normalize(5, 'width'),
-    backgroundColor: 'black',
+    width: Platform.OS === 'android' ? normalize(8) : normalize(5, 'width'),
+    height: Platform.OS === 'android' ? normalize(8) : normalize(5, 'width'),
+    borderRadius: normalize(9999999, 'width'),
+    top:
+      Platform.OS === 'android' ? normalize(0, 'width') : normalize(3, 'width'),
+    backgroundColor: '#EB5758',
     justifyContent: 'center',
     alignItems: 'center',
   },

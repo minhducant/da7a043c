@@ -12,6 +12,7 @@ import {
 } from 'react-native';
 
 import {t} from '@i18n/index';
+import {showMessage} from '@utils/index';
 import {listGame, listTool} from '@configs/AppData';
 import ButtonTabs from '@components/User/ButtonTabs';
 import {userScreenStyle as styles} from '@styles/user.style';
@@ -44,7 +45,11 @@ export default function UtilitiesScreen({navigation}: any) {
       <TouchableOpacity
         key={index}
         style={styles.utility}
-        onPress={() => (item.screen ? navigation.navigate(item.screen) : {})}>
+        onPress={() =>
+          item.screen
+            ? navigation.navigate(item.screen)
+            : showMessage.help(t('function_under_development'))
+        }>
         <View style={styles.itemUtilities}>
           <Icon />
         </View>
