@@ -107,5 +107,6 @@
   "enter_amount": "يرجى إدخال المبلغ",
   "game_over": "نهاية اللعبة",
   "your_score": "نقاطك",
-  "ping_pong": "بينغ بونغ"
+  "ping_pong": "بينغ بونغ",
+  "no_notifications": "لا يوجد إشعارات بعد"
 }

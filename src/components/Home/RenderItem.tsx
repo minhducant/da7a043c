@@ -1,7 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, {useCallback, useRef, useState} from 'react';
-import {useSelector} from 'react-redux';
+import moment from 'moment';
 import {useTranslation} from 'react-i18next';
 import normalize from 'react-native-normalize';
 import FastImage from 'react-native-fast-image';
@@ -13,13 +13,15 @@ import {
   Dimensions,
   ScrollView,
   TouchableOpacity,
+  ActivityIndicator,
 } from 'react-native';
 import {
   PanGestureHandler,
   PanGestureHandlerGestureEvent,
 } from 'react-native-gesture-handler';
 import Animated, {
-  runOnJS,
+  withDecay,
+  withSpring,
   withTiming,
   useSharedValue,
   useAnimatedStyle,
@@ -28,6 +30,7 @@ import Animated, {
 
 import {
   EmptyCart,
+  EmptyNotify,
   IconMore,
   IconSplit,
   IconMember,
@@ -35,6 +38,7 @@ import {
 } from '@assets/icons/index';
 import {HomeApi} from '@api/HomeApi';
 import {IconClose} from '@assets/icons';
+import {formatMoney} from '@utils/index';
 import {IconLibrary} from '@components/Base';
 import {currencies, colors} from '@configs/AppData';
 import {navigate} from '@navigation/RootNavigation';
@@ -47,20 +51,29 @@ const TRANSLATE_X_THRESHOLD = -SCREEN_WIDTH * 0.1;
 
 const WalletCard = ({item, index, scrollRef, resetTranslateX}: any) => {
   const {t} = useTranslation();
-
   const opacity = useSharedValue(1);
   const translateX = useSharedValue(0);
+  const slidingOut = useSharedValue(false);
 
   const panGesture = useAnimatedGestureHandler<PanGestureHandlerGestureEvent>({
     onActive: event => {
-      translateX.value = event.translationX;
+      translateX.value = Math.max(0, event.translationX);
+      const adjustedVelocity = event.velocityX / 2;
+      if (Math.abs(adjustedVelocity) > 100) {
+        translateX.value = withDecay({
+          velocity: adjustedVelocity,
+          clamp: [0, STOPPED_TRANSLATE_X],
+        });
+      }
     },
     onEnd: event => {
       if (event.translationX < TRANSLATE_X_THRESHOLD) {
-        translateX.value = withTiming(STOPPED_TRANSLATE_X);
+        slidingOut.value = true;
+        translateX.value = withTiming(STOPPED_TRANSLATE_X, {duration: 300});
         opacity.value = withTiming(0, {duration: 500});
       } else {
-        translateX.value = withTiming(0, {duration: 500});
+        slidingOut.value = false;
+        translateX.value = withSpring(0, {damping: 10, stiffness: 100});
       }
     },
   });
@@ -74,30 +87,34 @@ const WalletCard = ({item, index, scrollRef, resetTranslateX}: any) => {
   }));
 
   const rIconContainerStyle = useAnimatedStyle(() => {
-    const opacity = withTiming(
-      translateX.value < TRANSLATE_X_THRESHOLD ? 1 : 0,
-      {duration: 500},
-    );
-    const translateXIcon = withTiming(
-      translateX.value < TRANSLATE_X_THRESHOLD ? 0 : -50,
-      {duration: 500},
-    );
+    const opacityValue = translateX.value < TRANSLATE_X_THRESHOLD ? 1 : 0;
+    const translateXValue = translateX.value < TRANSLATE_X_THRESHOLD ? 0 : -50;
     return {
-      opacity,
-      transform: [{translateX: translateXIcon}],
+      opacity: withSpring(opacityValue, {damping: 10, stiffness: 100}),
+      transform: [
+        {
+          translateX: withSpring(translateXValue, {
+            damping: 10,
+            stiffness: 100,
+          }),
+        },
+      ],
     };
   });
 
   const onPress = (note: any) => {
-    navigate('DetailNoteScreen', 'NoFooter', note);
+    if (slidingOut.value) {
+      slidingOut.value = false;
+      translateX.value = withSpring(0, {damping: 10, stiffness: 100});
+    } else {
+      navigate('DetailNoteScreen', 'NoFooter', note);
+    }
   };
 
   return (
     <View style={[styles.note]}>
       <Animated.View style={[styles.iconContainer, rIconContainerStyle]}>
-        <TouchableOpacity>
-          <Text>Đức</Text>
-        </TouchableOpacity>
+        <TouchableOpacity>{/* <Text>Đức</Text> */}</TouchableOpacity>
       </Animated.View>
       <PanGestureHandler
         failOffsetY={[-5, 5]}
@@ -109,12 +126,28 @@ const WalletCard = ({item, index, scrollRef, resetTranslateX}: any) => {
             key={index}
             activeOpacity={0.5}
             onPress={() => onPress(item)}
-            style={[styles.itemNote, {backgroundColor: item.color}]}>
+            style={[styles.itemNote, {backgroundColor: 'white'}]}>
             <View style={styles.headerItemNote}>
+              <View style={{flex: 7}}>
+                <Text numberOfLines={1} style={styles.txtTitleNote}>
+                  {item.title}
+                </Text>
+                <Text numberOfLines={1} style={styles.txtTime}>
+                  {moment(item.createdAt).format('DD/MM/YYYY    HH:mm')}
+                </Text>
+              </View>
+              <View style={{flex: 3, right: 10, flexDirection: 'row-reverse'}}>
+                {/* {RenderNumberMember(item?.members)} */}
+              </View>
+            </View>
+            <View style={styles.dashLineNote} />
+            <View style={styles.footerItemNote}>
               <Text numberOfLines={1} style={styles.txtTitleNote}>
-                {item.title}
+                {formatMoney(item.total_money, item?.currency)}
               </Text>
-              <TouchableOpacity></TouchableOpacity>
+              <TouchableOpacity>
+                <IconMore />
+              </TouchableOpacity>
             </View>
           </TouchableOpacity>
         </Animated.View>
@@ -122,6 +155,73 @@ const WalletCard = ({item, index, scrollRef, resetTranslateX}: any) => {
     </View>
   );
 };
+
+function RenderNumberMember(members: any[]) {
+  const renderMemberItem = (member: any, index: number) => {
+    return (
+      <View
+        key={index}
+        style={{
+          zIndex: members.length - index,
+        }}>
+        {member.image_url !== '' ? (
+          <FastImage
+            source={{
+              uri: member.image_url,
+              priority: FastImage.priority.normal,
+            }}
+            style={{width: 30, height: 30, borderRadius: 25}}
+          />
+        ) : (
+          <View style={styles.viewTextName}>
+            <Text style={styles.textName}>{member.name.charAt(0)}</Text>
+          </View>
+        )}
+      </View>
+    );
+  };
+
+  if (members.length === 0) {
+    return <></>;
+  } else if (members.length === 1) {
+    return renderMemberItem(members[0], 0);
+  } else if (members.length === 2) {
+    return (
+      <View style={{flexDirection: 'row'}}>
+        <View style={{}}>{renderMemberItem(members[0], 0)}</View>
+        <View style={{}}> {renderMemberItem(members[1], 1)}</View>
+      </View>
+    );
+  } else if (members.length === 3) {
+    return (
+      <View style={{position: 'absolute'}}>
+        <View style={{left: 10}}>{renderMemberItem(members[0], 0)}</View>
+        <View style={{bottom: 30, right: 10}}>
+          {renderMemberItem(members[1], 1)}
+        </View>
+        <View style={{bottom: 45}}>{renderMemberItem(members[2], 2)}</View>
+      </View>
+    );
+  } else {
+    return (
+      <View style={{position: 'absolute'}}>
+        <View style={{left: 10}}>{renderMemberItem(members[0], 0)}</View>
+        <View style={{bottom: 30, right: 10}}>
+          {renderMemberItem(members[1], 1)}
+        </View>
+        {members.length > 3 && (
+          <View style={{bottom: 45}}>
+            <View style={styles.viewTextName}>
+              <Text style={styles.textName}>+{members.length - 2}</Text>
+            </View>
+          </View>
+        )}
+      </View>
+    );
+  }
+}
+
+export default RenderNumberMember;
 
 function RenderCurrency(
   currencySheetRef: React.MutableRefObject<any>,
@@ -210,16 +310,29 @@ function RenderColor(
 
 function RenderMember(
   memberSheetRef: React.MutableRefObject<any>,
-  onSelectMember: any,
+  userInfo: any,
+  friends: any,
+  formRef: any,
 ) {
   const {t} = useTranslation();
   const searchRef = useRef<any>(null);
-  const [selected, setSelected] = useState<any>([]);
-  const [searchResults, setSearchResults] = useState<any[]>([]);
-  const friends = useSelector((state: any) => state.Config.friends);
+  const [selected, setSelected] = useState<any>(
+    Object.keys(userInfo).length !== 0
+      ? [
+          {
+            _id: userInfo._id,
+            name: userInfo.name,
+            image_url: userInfo?.image_url,
+            user_id: userInfo.user_id,
+            permission: 0,
+          },
+        ]
+      : [],
+  );
+  const [searchResults, setSearchResults] = useState<any>([]);
 
   const onDone = useCallback((selected: any) => {
-    onSelectMember(selected);
+    formRef.current.members.setData(selected);
     const isActive = memberSheetRef?.current?.isActive();
     if (isActive) {
       memberSheetRef?.current?.scrollTo(0);
@@ -230,7 +343,9 @@ function RenderMember(
   }, []);
 
   const onClose = useCallback(() => {
-    onSelectMember([]);
+    const members = formRef.current.members.members;
+    setSelected(members);
+    formRef.current.members.setData(members);
     const isActive = memberSheetRef?.current?.isActive();
     if (isActive) {
       memberSheetRef?.current?.scrollTo(0);
@@ -266,10 +381,11 @@ function RenderMember(
   };
 
   const onSearch = async (value: string) => {
-    if (value && value.length > 7) {
+    if (value && value.length >= 6) {
       const res: any = await HomeApi.getUsers({user_id: value});
       if (res.code === 200) {
-        setSearchResults(res?.data);
+        console.log(res?.data?.result);
+        setSearchResults(res?.data?.result);
       } else {
       }
     }
@@ -284,12 +400,14 @@ function RenderMember(
         <Text style={styles.txtNameMember} numberOfLines={2}>
           {item.name}
         </Text>
-        <TouchableOpacity
-          activeOpacity={0.6}
-          onPress={() => removeItemByIndex(index)}
-          style={styles.deleteMember}>
-          <IconLibrary size={12} library="AntDesign" name="close" />
-        </TouchableOpacity>
+        {userInfo._id !== item._id && (
+          <TouchableOpacity
+            activeOpacity={0.6}
+            onPress={() => removeItemByIndex(index)}
+            style={styles.deleteMember}>
+            <IconLibrary size={12} library="AntDesign" name="close" />
+          </TouchableOpacity>
+        )}
       </View>
     );
   };
@@ -297,7 +415,7 @@ function RenderMember(
   const renderUsers = ({item, index}: any) => {
     return (
       <View key={index} style={{}}>
-        <Text>{item}</Text>
+        <Text>{item.name}</Text>
       </View>
     );
   };
@@ -308,7 +426,7 @@ function RenderMember(
         <TouchableOpacity onPress={onClose}>
           <IconClose fill="#000000" />
         </TouchableOpacity>
-        <Text style={styles.txtTitleSheet}>{t('members')}</Text>
+        <Text style={styles.txtTitleSheet}>{t('who_sharing_the_bill')}</Text>
         <TouchableOpacity onPress={() => onDone(selected)}>
           <Text style={styles.txtDone}>{t('done')}</Text>
         </TouchableOpacity>
@@ -397,11 +515,61 @@ const EmptyData = () => {
   );
 };
 
+const EmptyNotification = () => {
+  const {t} = useTranslation();
+
+  return (
+    <View style={styles.viewEmpty}>
+      <EmptyNotify />
+      <Text style={styles.txtEmptyTransactions}>{t('no_notifications')}</Text>
+    </View>
+  );
+};
+
+const renderFooter = (loadingMore: any) => {
+  return (
+    (loadingMore.current && (
+      <View style={styles.loading}>
+        <ActivityIndicator size="small" color="red" />
+      </View>
+    )) || <View />
+  );
+};
+
+const renderNotification = ({item, index}: any) => {
+  const onPressItem = async (item: any) => {};
+  return (
+    <TouchableOpacity
+      key={index}
+      onPress={onPressItem}
+      style={[
+        styles.notificationItemContainer,
+        {backgroundColor: item.is_read ? 'white' : '#e6e6e6'},
+      ]}>
+      <View style={styles.notificationIcon}>
+        <IconLibrary name="notifications" color="white" size={30} />
+      </View>
+      <View style={styles.notificationTextContainer}>
+        <Text style={styles.notificationTitle}>{item.title}</Text>
+        <Text style={styles.notificationMessage} numberOfLines={2}>
+          {item.body}
+        </Text>
+        <Text style={styles.notificationTime}>
+          {moment(item.updatedAt).format('DD/MM/YYYY HH:MM')}
+        </Text>
+      </View>
+    </TouchableOpacity>
+  );
+};
+
 export {
+  renderFooter,
   EmptyData,
   WalletCard,
   RenderColor,
   NoteAction,
   RenderMember,
   RenderCurrency,
+  EmptyNotification,
+  renderNotification,
 };

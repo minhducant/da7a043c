@@ -6,7 +6,7 @@ react {}
 
 def enableProguardInReleaseBuilds = false
 
-// apply from: "../../node_modules/react-native-code-push/android/codepush.gradle"
+apply from: "../../node_modules/react-native-code-push/android/codepush.gradle"
 
 project.ext.vectoricons = [
     iconFontNames: [
@@ -70,6 +70,10 @@ dependencies {
     implementation 'com.google.android.gms:play-services-auth:20.7.0'
     implementation 'com.facebook.android:facebook-android-sdk:latest.release'
     implementation project(':react-native-share')
+    implementation 'com.google.mlkit:barcode-scanning:17.2.0'
+    implementation 'com.google.android.gms:play-services-mlkit-barcode-scanning:18.3.0'
+    implementation "androidx.core:core-splashscreen:1.0.0-beta01"
+    implementation("com.google.android.gms:play-services-ads:23.0.0")
 
     if (hermesEnabled.toBoolean()) {
         implementation("com.facebook.react:hermes-android")

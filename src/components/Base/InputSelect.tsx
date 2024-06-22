@@ -100,7 +100,7 @@ const styles = StyleSheet.create({
     fontFamily: themeStyle.FONT_FAMILY,
   },
   dropdown: {
-    minHeight: normalize(43),
+    height: Platform.OS === 'ios' ? normalize(43) : normalize(53),
     borderRadius: normalize(15),
     overflow: 'hidden',
     paddingHorizontal: normalize(10),

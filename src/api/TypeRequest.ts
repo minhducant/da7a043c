@@ -19,4 +19,8 @@ export namespace AppApiTypeRequest {
     title: string;
     desc: string;
   }
+
+  export interface addFirebaseTokenPush {
+    notification_token: string;
+  }
 }

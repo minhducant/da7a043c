@@ -5,7 +5,7 @@ import {ScrollView, Text, TouchableOpacity, View} from 'react-native';
 import UserInfo from '@components/Home/UserInfo';
 import {navigate} from '@navigation/RootNavigation';
 import {userScreenStyle as styles} from '@styles/user.style';
-import UpgradePremium from '@assets/icons/SvgUpgradePremium';
+// import UpgradePremium from '@assets/icons/SvgUpgradePremium';
 
 const ProfileItem = ({title, navigation}: any) => {
   const {t} = useTranslation();
@@ -32,7 +32,7 @@ export default function UserScreen() {
     <View style={styles.container}>
       <UserInfo />
       <TouchableOpacity style={styles.viewPremium}>
-        <UpgradePremium />
+        {/* <UpgradePremium /> */}
       </TouchableOpacity>
       <ScrollView showsVerticalScrollIndicator={false} style={styles.container}>
         <View>

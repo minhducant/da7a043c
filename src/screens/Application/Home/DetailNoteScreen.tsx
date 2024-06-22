@@ -5,20 +5,28 @@ import {
   Animated,
   FlatList,
   ScrollView,
+  ToastAndroid,
+  NativeModules,
   RefreshControl,
   TouchableOpacity,
 } from 'react-native';
 import Share from 'react-native-share';
 import ActionSheet from '@alessiocancian/react-native-actionsheet';
+import SharedGroupPreferences from 'react-native-shared-group-preferences';
 
 import {t} from '@i18n/index';
 import {Card1} from '@assets/icons';
 import {HomeApi} from '@api/HomeApi';
+import {changeStatus} from '@utils/Note';
 import {homeStyle as styles} from '@styles/home.style';
 import {NoteAction, EmptyData, EyeIcon} from '@components/Home';
 import HeaderWithTitle from '@components/Header/HeaderWithTitle';
 import {Accordion, IconLibrary, AnimationFAB} from '@components/Base';
 import {formatMoney, showMessage, copyToClipboard} from '@utils/index';
+
+const group = 'group.streak';
+
+const SharedStorage = NativeModules.SharedStorage;
 
 export default function DetailNoteScreen({navigation, route}: any) {
   const actionSheetRef = useRef<any>();
@@ -26,6 +34,10 @@ export default function DetailNoteScreen({navigation, route}: any) {
   const scrollY = useRef(new Animated.Value(0)).current;
   const [showMoney, setShowMoney] = useState(true);
   const [data, setData] = useState<any>(route?.params);
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   const fetchData = useCallback(async () => {
     const res: any = await HomeApi.getDetailNote(data._id);
@@ -50,7 +62,28 @@ export default function DetailNoteScreen({navigation, route}: any) {
           err && console.log(err);
         });
     }
+    if (index === 3 || index === 4) {
+      changeStatus(data._id, index);
+    }
+    if (index === 6) {
+      handleSubmit();
+    }
   }, []);
+
+  const handleSubmit = async () => {
+    const widgetData = {
+      text: data.title,
+    };
+    try {
+      // iOS
+      await SharedGroupPreferences.setItem('widgetKey', widgetData, group);
+    } catch (error) {
+      console.log({error});
+    }
+    // Android
+    SharedStorage.set(JSON.stringify(widgetData));
+    ToastAndroid.show('Change value successfully!', ToastAndroid.SHORT);
+  };
 
   return (
     <View style={styles.containerNote}>
@@ -137,6 +170,7 @@ export default function DetailNoteScreen({navigation, route}: any) {
           t('archive_group'),
           t('delete_group'),
           t('cancel'),
+          t('add_to_wallpaper'),
         ]}
         onPress={handlePress}
         cancelButtonIndex={5}

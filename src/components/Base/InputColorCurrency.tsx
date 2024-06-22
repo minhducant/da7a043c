@@ -25,7 +25,7 @@ export interface InputProps {
 const InputColorCurrency = forwardRef<InputRef, InputProps>(
   ({colorSheetRef, currencySheetRef}, ref) => {
     const [colors, setColors] = useState('#2E84FC');
-    const [currency, setCurrency] = useState<number | null>(null);
+    const [currency, setCurrency] = useState<number | null>(1);
 
     useImperativeHandle(ref, () => ({
       getValue: () => ({

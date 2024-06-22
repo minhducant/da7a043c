@@ -2,6 +2,7 @@
 import React, {useState, useRef, forwardRef, useImperativeHandle} from 'react';
 import {
   View,
+  Platform,
   TextStyle,
   TextInput,
   StyleSheet,

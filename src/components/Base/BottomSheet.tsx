@@ -27,7 +27,7 @@ export type BottomSheetRefProps = {
 
 const BottomSheet = React.forwardRef<BottomSheetRefProps, BottomSheetProps>(
   ({children}, ref) => {
-    const translateY = useSharedValue(0);
+    const translateY = useSharedValue(200);
     const active = useSharedValue(false);
     const context = useSharedValue({y: 0});
 

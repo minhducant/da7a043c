@@ -12,6 +12,7 @@ import {
 } from 'react-native';
 
 import {t} from '@i18n/index';
+import {copyToClipboard} from '@utils/index';
 import {InputText} from '@components/Base/index';
 import IconRandom from '@assets/icons/SvgIconReload';
 import {utilitiesStyle as styles} from '@styles/utils.style';
@@ -113,7 +114,11 @@ const RandomNumberScreen = () => {
             style={styles.activityIndicator}
           />
         ) : result ? (
-          <Text style={styles.txtResultNumber}>{result}</Text>
+          <TouchableOpacity
+            activeOpacity={0.5}
+            onPress={() => copyToClipboard(result)}>
+            <Text style={styles.txtResultNumber}>{result}</Text>
+          </TouchableOpacity>
         ) : (
           <></>
         )}

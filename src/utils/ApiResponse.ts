@@ -28,21 +28,29 @@ export const extraBodyMedia = (media = {}) => {
     const form = new FormData();
     if (isObject(media)) {
       Object.keys(media).forEach(field => {
-        let data = media[field];
+        let data: any = media[field];
         if (isArray(data)) {
-          data.forEach(file => {
-            const dataString = JSON.stringify({
-              name: file?.name ?? file?.fileName ?? 'noname',
-              type: file?.type ?? 'image/jpg',
-              size: file?.fileSize,
-              uri:
-                Platform.OS === 'ios'
-                  ? file?.uri.replace('file://', '')
-                  : file?.uri,
-            });
+          data.forEach(
+            (file: {
+              name: any;
+              fileName: any;
+              type: any;
+              fileSize: any;
+              uri: string;
+            }) => {
+              const dataString = JSON.stringify({
+                name: file?.name ?? file?.fileName ?? 'noname',
+                type: file?.type ?? 'image/jpg',
+                size: file?.fileSize,
+                uri:
+                  Platform.OS === 'ios'
+                    ? file?.uri.replace('file://', '')
+                    : file?.uri,
+              });
 
-            form.append(field, dataString);
-          });
+              form.append(field, dataString);
+            },
+          );
         } else if (isObject(data)) {
           const dataString = JSON.stringify({
             name: data?.name ?? data?.fileName ?? 'noname',

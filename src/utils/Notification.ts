@@ -2,7 +2,8 @@ import {Linking} from 'react-native';
 import notifee from '@notifee/react-native';
 import messaging from '@react-native-firebase/messaging';
 
-import {setStorage} from '@utils/Storage';
+// import {AuthApi} from '@api/AuthApi';
+import {setStorage, showMessage} from '@utils/index';
 
 export const notificationListener = async () => {
   await messaging().registerDeviceForRemoteMessages();
@@ -11,8 +12,7 @@ export const notificationListener = async () => {
     notifee.incrementBadgeCount();
   });
   messaging().onMessage(async (message: any) => {
-    console.log('NotificationListener', message?.data);
-    console.log('NotificationListener', message?.data?.id_sender);
+    console.log('NotificationListener', message);
     notifee.incrementBadgeCount();
   });
   messaging().setBackgroundMessageHandler(async remoteMessage => {
@@ -40,7 +40,10 @@ export const getFcmToken = async () => {
   try {
     const fcmToken = await messaging().getToken();
     if (fcmToken) {
+      // console.log(fcmToken)
       await setStorage('FCMToken', fcmToken);
+      // await AuthApi.registerNotification({notification_token: fcmToken});
+      return fcmToken;
     }
     return null;
   } catch (error) {

@@ -5,6 +5,7 @@ import normalize from 'react-native-normalize';
 import {
   View,
   Text,
+  Platform,
   Keyboard,
   TextInput,
   StyleSheet,
@@ -93,7 +94,7 @@ const SearchMember: React.FC<InputProps> = React.forwardRef(
               onFocus();
             }}
             onSubmitEditing={handleTextSubmit}
-            placeholder={`${t('who_sharing_the_bill')}...`}
+            placeholder={`${t('enter_user_id_or_username')}...`}
             returnKeyLabel="search"
             autoCapitalize="none"
             style={{
@@ -133,7 +134,7 @@ const style = StyleSheet.create({
     fontFamily: theme.FONT_FAMILY,
   },
   inputContainer: {
-    height: normalize(40),
+    height: Platform.OS ? normalize(45) : normalize(40),
     flexDirection: 'row',
     paddingHorizontal: 15,
     borderWidth: 0.5,

@@ -107,5 +107,6 @@
   "enter_amount": "Masukkan Jumlah",
   "game_over": "Permainan Berakhir",
   "your_score": "Skor Anda",
-  "ping_pong": "Ping-Pong"
+  "ping_pong": "Ping-Pong",
+  "no_notifications": "Belum ada pemberitahuan"
 }

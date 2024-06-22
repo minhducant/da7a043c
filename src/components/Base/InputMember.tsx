@@ -12,6 +12,7 @@ import {
   StyleSheet,
   TouchableOpacity,
 } from 'react-native';
+import {useSelector} from 'react-redux';
 import normalize from 'react-native-normalize';
 
 import {t} from '@i18n/index';
@@ -28,7 +29,22 @@ export interface InputProps {
 
 export const InputMember = forwardRef<InputRef, InputProps>(
   ({...props}, ref) => {
-    const [members, setMembers] = useState<any>(props.data || []);
+    const userInfo = useSelector((state: any) => state.Config.userInfo);
+    const [members, setMembers] = useState<any>(
+      props?.data.length > 0
+        ? props?.data
+        : Object.keys(userInfo).length !== 0
+        ? [
+            {
+              _id: userInfo._id,
+              name: userInfo.name,
+              image_url: userInfo?.image_url,
+              user_id: userInfo.user_id,
+              permission: 0,
+            },
+          ]
+        : [],
+    );
 
     useImperativeHandle(ref, () => ({
       members,
@@ -75,12 +91,14 @@ export const InputMember = forwardRef<InputRef, InputProps>(
           <Text style={styles.txtNameMember} numberOfLines={2}>
             {item.name}
           </Text>
-          <TouchableOpacity
-            activeOpacity={0.6}
-            // onPress={() => removeItemByIndex(index)}
-            style={styles.deleteMember}>
-            <IconLibrary size={12} library="AntDesign" name="close" />
-          </TouchableOpacity>
+          {userInfo._id !== item._id && (
+            <TouchableOpacity
+              activeOpacity={0.6}
+              // onPress={() => removeItemByIndex(index)}
+              style={styles.deleteMember}>
+              <IconLibrary size={12} library="AntDesign" name="close" />
+            </TouchableOpacity>
+          )}
         </View>
       );
     };

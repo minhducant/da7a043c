@@ -1,5 +1,4 @@
 package com.da7a043c
-// import com.microsoft.codepush.react.CodePush;
 import android.app.Application
 import com.facebook.react.PackageList
 import com.facebook.react.ReactApplication
@@ -12,6 +11,8 @@ import com.facebook.react.flipper.ReactNativeFlipper
 import com.facebook.soloader.SoLoader
 import cl.json.RNSharePackage
 import cl.json.ShareApplication
+import com.microsoft.codepush.react.CodePush
+import com.google.android.gms.ads.MobileAds
 
 class MainApplication : Application(), ReactApplication {
 
@@ -29,9 +30,9 @@ class MainApplication : Application(), ReactApplication {
 
         override val isNewArchEnabled: Boolean = BuildConfig.IS_NEW_ARCHITECTURE_ENABLED
         override val isHermesEnabled: Boolean = BuildConfig.IS_HERMES_ENABLED
-        // override fun getJSBundleFile(): String {
-        //   return CodePush.getJSBundleFile()
-        // }
+        override fun getJSBundleFile(): String {
+          return CodePush.getJSBundleFile()
+        }
       }
 
   override val reactHost: ReactHost
@@ -45,5 +46,6 @@ class MainApplication : Application(), ReactApplication {
         // load()
       }
       ReactNativeFlipper.initializeFlipper(this, reactNativeHost.reactInstanceManager)
+      MobileAds.initialize(this) {}
     }
 }

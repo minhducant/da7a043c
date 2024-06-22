@@ -21,6 +21,8 @@ interface HeaderProps {
   title?: string;
   hasLeft?: boolean;
   hasRight?: boolean;
+  renderRight?: any;
+  actionRight?: () => void;
 }
 
 interface NavigationProps {
@@ -42,6 +44,8 @@ export default function HeaderWithTitle({
   title = '',
   hasLeft = true,
   hasRight = true,
+  actionRight,
+  renderRight,
 }: HeaderProps) {
   const navigation: NavigationProps = useNavigation();
 
@@ -78,12 +82,20 @@ export default function HeaderWithTitle({
           </Text>
           <View style={styles.viewIcon}>
             {hasRight && (
-              <TouchableOpacity onPress={onGoHome} activeOpacity={0.7}>
-                <IconHome
-                  fill="#757575"
-                  width={normalize(21)}
-                  height={normalize(21)}
-                />
+              <TouchableOpacity
+                onPress={
+                  typeof actionRight === 'function' ? actionRight : onGoHome
+                }
+                activeOpacity={0.3}>
+                {typeof renderRight === 'function' ? (
+                  renderRight()
+                ) : (
+                  <IconHome
+                    fill="#757575"
+                    width={normalize(21)}
+                    height={normalize(21)}
+                  />
+                )}
               </TouchableOpacity>
             )}
           </View>
@@ -120,7 +132,7 @@ const styles = StyleSheet.create({
     width: normalize(28, 'height'),
     height: normalize(28, 'height'),
     marginBottom:
-      Platform.OS === 'android' || hasHomeButton() ? 0 : normalize(12),
+      Platform.OS === 'android' || hasHomeButton() ? -2 : normalize(12),
     justifyContent: 'center',
     alignItems: 'center',
     // borderWidth: Platform.OS === 'android' ? 0 : normalize(2),
@@ -141,7 +153,7 @@ const styles = StyleSheet.create({
     flex: 1,
     fontSize: 20,
     fontFamily: theme.FONT_BOLD,
-    height: normalize(25, 'height'),
+    height: normalize(Platform.OS === 'android' ? 40 : 25, 'height'),
     textAlignVertical: 'center',
     textAlign: 'center',
     color: Colors.BLACK,

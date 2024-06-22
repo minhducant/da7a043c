@@ -11,9 +11,12 @@ import {useDispatch} from 'react-redux';
 import ActionSheet from '@alessiocancian/react-native-actionsheet';
 
 import {t} from '@i18n/index';
+import {HomeApi} from '@api/HomeApi';
 import {Base} from '@components/Base';
-import {onAddExpense} from '@utils/index';
+import {showMessage} from '@utils/index';
+import {setIsLoading} from '@stores/action';
 import {getExpenseLabel} from '@configs/AppData';
+import {goBack} from '@navigation/RootNavigation';
 import {homeStyle as styles} from '@styles/home.style';
 import HeaderWithTitle from '@components/Header/HeaderWithTitle';
 
@@ -39,6 +42,45 @@ export default function AddExpenseScreen({route}: any) {
 
   const handleSplitEvenlyChange = (value: boolean) => {
     setSplitEvenly(value);
+  };
+
+  const onAddExpense = async () => {
+    const params = {
+      _id: initData._id,
+      expense: {
+        expense: formRef.current.expense.value || '',
+        buyer: formRef.current.paid_by.value || {},
+        payment_date: formRef.current.time.value,
+        image_bill: formRef.current.image.value || '',
+        split_evenly: formRef.current.split_evenly.value || true,
+        cost:
+          parseFloat(
+            formRef.current.cost.value.replace(/\./g, '').replace(',', '.'),
+          ) || 0,
+        shares: initData.members.map((member: any) => ({
+          ...member,
+          money: 0,
+        })),
+      },
+    };
+    if (
+      !params.expense.expense ||
+      !params.expense.cost ||
+      Object.keys(params.expense.buyer).length === 0
+    ) {
+      showMessage.warning(t('fill_in_information'));
+      return;
+    }
+
+    dispatch(setIsLoading(true));
+    const res: any = await HomeApi.addExpense(params);
+    if (res.code === 200) {
+      dispatch(setIsLoading(false));
+      goBack();
+    } else {
+      dispatch(setIsLoading(false));
+      showMessage.fail(t('error_occurred_try_again'));
+    }
   };
 
   return (
@@ -89,11 +131,7 @@ export default function AddExpenseScreen({route}: any) {
         />
       </ScrollView>
       <SafeAreaView>
-        <TouchableOpacity
-          style={styles.addNew}
-          onPress={async () => {
-            await onAddExpense({initData, formRef, dispatch});
-          }}>
+        <TouchableOpacity style={styles.addNew} onPress={onAddExpense}>
           <Text style={styles.txtAdd}>{t('add')}</Text>
         </TouchableOpacity>
       </SafeAreaView>

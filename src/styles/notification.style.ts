@@ -9,4 +9,7 @@ export const notificationStyle: any = {
     flex: 1,
     backgroundColor: 'white',
   },
+  list: {
+    marginTop: normalize(10),
+  },
 };

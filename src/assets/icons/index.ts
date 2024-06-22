@@ -37,6 +37,8 @@ import IconMore from './SvgIconMore';
 import Card1 from './SvgCard1';
 import EmptyCart from './SvgEmptyCart';
 import IconPingPong from './SvgIconPingPong';
+import IconRead from './SvgIconRead';
+import EmptyNotify from './SvgEmptyNotification';
 
 export {
   IconClose,
@@ -78,4 +80,6 @@ export {
   Card1,
   EmptyCart,
   IconPingPong,
+  IconRead,
+  EmptyNotify,
 };

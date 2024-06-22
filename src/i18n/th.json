@@ -107,5 +107,6 @@
   "enter_amount": "กรุณาใส่จำนวนเงิน",
   "game_over": "จบเกม",
   "your_score": "คะแนนของคุณ",
-  "ping_pong": "ปิงปอง"
+  "ping_pong": "ปิงปอง",
+  "no_notifications": "ยังไม่มีการแจ้งเตือน"
 }

@@ -107,5 +107,11 @@
   "enter_amount": "Vui lòng nhập số tiền",
   "game_over": "Kết thúc trò chơi",
   "your_score": "Điểm của bạn",
-  "ping_pong": "Ping-Pong"
+  "ping_pong": "Ping-Pong",
+  "no_notifications": "Chưa có thông báo nào",
+  "enter_user_id_or_username": "Nhập ID hoặc tên người dùng",
+  "move_to_trash": "Chuyển vào thùng rác?",
+  "items_in_trash_deleted_after_30_days": "Các mục trong thùng rác sẽ tự động bị xoá sau 30 ngày. Bạn có thể xoá các mục này khỏi thùng rác sớm hơn bằng cách đi đến nhật ký hoạt động trong phần cài đặt.",
+  "move": "Chuyển",
+  "add_to_wallpaper": "Thêm vào màn hình nền"
 }

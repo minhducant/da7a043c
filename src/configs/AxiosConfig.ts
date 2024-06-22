@@ -1,4 +1,5 @@
 import axios from 'axios';
+import {Platform} from 'react-native';
 
 import {onLogout} from '@utils/Logout';
 import {getStorage} from '@utils/index';
@@ -9,6 +10,9 @@ type responseType = {mess: string; status: boolean; data: any};
 export const app = axios.create({
   baseURL: MAIN_DOMAIN,
   timeout: 3000000,
+  headers: {
+    'x-device-type': Platform.OS,
+  },
 });
 
 app.interceptors.request.use(

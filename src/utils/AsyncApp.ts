@@ -1,17 +1,25 @@
 import {useEffect} from 'react';
-import {useDispatch} from 'react-redux';
 
+// import {AuthApi} from '@api/AuthApi';
+// import {getFcmToken} from '@utils/Notification';
+import store from '@stores/index';
 import {getUserInfo, setIsLoading, getFriends} from '@stores/Config/store';
 
+// export const registerNotification = async () => {
+//   let notification_token = await getFcmToken();
+//   if (notification_token) {
+//     await AuthApi.registerNotification({notification_token});
+//   }
+// };
+
 export const AsyncApp = () => {
-  const dispatch = useDispatch();
   useEffect(() => {
     const fetchData = async () => {
       try {
-        dispatch(setIsLoading(true));
-        await dispatch(getUserInfo());
-        await dispatch(getFriends());
-        dispatch(setIsLoading(false));
+        store.dispatch(setIsLoading(true));
+        await store.dispatch(getUserInfo());
+        await store.dispatch(getFriends());
+        store.dispatch(setIsLoading(false));
       } catch (error) {
         if (__DEV__) {
           console.log(error);
@@ -19,6 +27,6 @@ export const AsyncApp = () => {
       }
     };
     fetchData();
-  }, [dispatch]);
+  }, []);
   return null;
 };

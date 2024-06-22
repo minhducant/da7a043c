@@ -17,8 +17,11 @@ import {
   RenderMember,
   RenderCurrency,
 } from '@components/Home/RenderItem';
-import {onAddNote} from '@utils/index';
+import {HomeApi} from '@api/HomeApi';
+import {showMessage} from '@utils/index';
+import {setIsLoading} from '@stores/action';
 import {getNoteLabel} from '@configs/AppData';
+import {goBack} from '@navigation/RootNavigation';
 import {homeStyle as styles} from '@styles/home.style';
 import HeaderWithTitle from '@components/Header/HeaderWithTitle';
 
@@ -33,11 +36,7 @@ export default function CreateNoteScreen({}: any) {
     currencySheetRef,
   );
   const formRef = useRef<any>({...noteLabel});
-  const userInfo = useSelector((state: any) => state.Config.userInfo);
-
-  const onSelectMember = async (members: any) => {
-    await formRef.current.members.setData(members);
-  };
+  const {userInfo, friends} = useSelector((state: any) => state.Config);
 
   const onSelectColor = async (selectedColor: string) => {
     await formRef.current.color_currency.setColors(selectedColor);
@@ -45,6 +44,38 @@ export default function CreateNoteScreen({}: any) {
 
   const onSelectCurrency = async (selectedCurrency: number) => {
     await formRef.current.color_currency.setCurrency(selectedCurrency);
+  };
+
+  const onAddNote = async () => {
+    const params = {
+      status: 0,
+      user_id: userInfo._id,
+      title: formRef.current.title.getValue() || '',
+      members: formRef.current.members.getValue() || [],
+      desc: formRef.current.description.getValue() || '',
+      color: formRef.current.color_currency.colors || '',
+      currency: formRef.current.color_currency.currency || 0,
+    };
+    if (!params.title) {
+      showMessage.warning(t('please_enter_title'));
+      return;
+    }
+    await HomeApi.createNote(params)
+      .then((res: any) => {
+        console.log(res);
+        if (res.code === 200) {
+          dispatch(setIsLoading(false));
+          goBack();
+        } else {
+          dispatch(setIsLoading(false));
+          showMessage.fail(t('error_occurred_try_again'));
+        }
+      })
+      .catch((error: any) => {
+        console.log(error);
+        dispatch(setIsLoading(false));
+        showMessage.fail(t('error_occurred_try_again'));
+      });
   };
 
   return (
@@ -75,20 +106,18 @@ export default function CreateNoteScreen({}: any) {
         />
       </ScrollView>
       <SafeAreaView>
-        <TouchableOpacity
-          style={styles.addNew}
-          onPress={() => onAddNote({userInfo, formRef, dispatch})}>
+        <TouchableOpacity style={styles.addNew} onPress={onAddNote}>
           <Text style={styles.txtAdd}>{t('add')}</Text>
         </TouchableOpacity>
       </SafeAreaView>
       <Base.BottomSheet ref={colorSheetRef}>
         {RenderColor(colorSheetRef, onSelectColor)}
       </Base.BottomSheet>
-      <Base.BottomSheet ref={memberSheetRef}>
-        {RenderMember(memberSheetRef, onSelectMember)}
-      </Base.BottomSheet>
       <Base.BottomSheet ref={currencySheetRef}>
         {RenderCurrency(currencySheetRef, onSelectCurrency)}
+      </Base.BottomSheet>
+      <Base.BottomSheet ref={memberSheetRef}>
+        {RenderMember(memberSheetRef, userInfo, friends, formRef)}
       </Base.BottomSheet>
     </KeyboardAvoidingView>
   );

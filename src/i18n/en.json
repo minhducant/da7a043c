@@ -107,6 +107,11 @@
   "enter_amount": "Please enter the amount",
   "game_over": "Game Over",
   "your_score": "Your Score",
-  "ping_pong": "Ping-Pong"
-
+  "ping_pong": "Ping-Pong",
+  "no_notifications": "No notifications yet",
+  "enter_user_id_or_username": "Enter user ID or username",
+  "move_to_trash": "Move to trash?",
+  "items_in_trash_deleted_after_30_days": "Items in the trash will be automatically deleted after 30 days. You can delete these items from the trash earlier by going to the activity log in the settings section.",
+  "move": "Move",
+  "add_to_wallpaper": "Add to Wallpaper"
 }

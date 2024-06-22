@@ -30,7 +30,33 @@ export class HomeApi {
     return response;
   }
   static async addExpense(params: any) {
-    const response = await client.put(ApiUrl.Note.add_expense, params);
+    const response = await client.patch(ApiUrl.Note.add_expense, params);
+    return response;
+  }
+  static async getNotifications(props: any) {
+    const response = await client.get(
+      ApiUrl.Notification.get_notification + extraParams(props),
+    );
+    return response;
+  }
+  static async registerNotification(params: any) {
+    return await client.post(ApiUrl.Notification.register_notification, params);
+  }
+  static async readAllNotification() {
+    const response = await client.post(
+      ApiUrl.Notification.read_all_notification,
+    );
+    return response;
+  }
+  static async readNotification(params: any) {
+    const response = await client.post(
+      ApiUrl.Notification.read_notification,
+      params,
+    );
+    return response;
+  }
+  static async changeStatus(params: any) {
+    const response = await client.patch(ApiUrl.Note.change_status, params);
     return response;
   }
 }

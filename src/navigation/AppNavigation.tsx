@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import {useSelector} from 'react-redux';
 import notifee from '@notifee/react-native';
 import {Settings} from 'react-native-fbsdk-next';
-// import RNBootSplash from 'react-native-bootsplash';
+import RNBootSplash from 'react-native-bootsplash';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 
@@ -53,7 +53,7 @@ export const AppNavigation = () => {
       independent={true}
       ref={navigationRef}
       linking={linkingNotification}
-      // onReady={() => RNBootSplash.hide()}
+      onReady={() => RNBootSplash.hide()}
     >
       <Stack.Navigator
         initialRouteName="SpanishScreen"

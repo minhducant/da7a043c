@@ -1,10 +1,13 @@
+import {Alert} from 'react-native';
 import Clipboard from '@react-native-clipboard/clipboard';
 
 import {t} from '@i18n/index';
+import store from '@stores/index';
 import {HomeApi} from '@api/HomeApi';
 import {setIsLoading} from '@stores/action';
 import {goBack} from '@navigation/RootNavigation';
 import {showMessage, hasInternetConnection} from '@utils/index';
+import {MutableRefObject} from 'react';
 
 const copyToClipboard = async (id: any) => {
   if (id) {
@@ -13,8 +16,10 @@ const copyToClipboard = async (id: any) => {
   }
 };
 
-const onAddExpense = async ({initData, formRef, dispatch}: any) => {
-  const isConnected = await hasInternetConnection();
+const onAddExpense = async (
+  initData: {_id: any; members: any[]},
+  formRef: MutableRefObject<any>,
+) => {
   const params = {
     _id: initData._id,
     expense: {
@@ -41,21 +46,14 @@ const onAddExpense = async ({initData, formRef, dispatch}: any) => {
     showMessage.warning(t('fill_in_information'));
     return;
   }
-  if (!isConnected) {
+  // store.dispatch(setIsLoading(true));
+  const res: any = await HomeApi.addExpense(params);
+  if (res.code === 200) {
+    // store.dispatch(setIsLoading(false));
     goBack();
-    return;
-  }
-  if (isConnected) {
-    dispatch(setIsLoading(true));
-    const res: any = await HomeApi.addExpense(params);
-    if (res.code === 200) {
-      dispatch(setIsLoading(false));
-      goBack();
-    } else {
-      dispatch(setIsLoading(false));
-      showMessage.fail(t('error_occurred_try_again'));
-    }
   } else {
+    // store.dispatch(setIsLoading(false));
+    showMessage.fail(t('error_occurred_try_again'));
   }
 };
 
@@ -68,7 +66,7 @@ const onAddNote = async ({userInfo, formRef, dispatch}: any) => {
     members: formRef.current.members.getValue() || [],
     desc: formRef.current.description.getValue() || '',
     color: formRef.current.color_currency.colors || '',
-    currency: formRef.current.color_currency.currency || '',
+    currency: formRef.current.color_currency.currency || 1,
   };
   if (!params.title) {
     showMessage.warning(t('please_enter_title'));
@@ -79,16 +77,64 @@ const onAddNote = async ({userInfo, formRef, dispatch}: any) => {
     return;
   }
   if (isConnected) {
-    const res: any = HomeApi.createNote(params);
-    if (res.code === 200) {
-      dispatch(setIsLoading(false));
-      goBack();
-    } else {
-      dispatch(setIsLoading(false));
-      showMessage.fail(t('error_occurred_try_again'));
-    }
+    HomeApi.createNote(params)
+      .then((res: any) => {
+        if (res.code === 200) {
+          dispatch(setIsLoading(false));
+          goBack();
+        } else {
+          dispatch(setIsLoading(false));
+          showMessage.fail(t('error_occurred_try_again'));
+        }
+      })
+      .catch((error: any) => {
+        dispatch(setIsLoading(false));
+        showMessage.fail(t('error_occurred_try_again'));
+      });
   } else {
   }
 };
 
-export {copyToClipboard, onAddExpense, onAddNote};
+const apiChangeStatus = (_id: string, status: Number) => {
+  store.dispatch(setIsLoading(true));
+  HomeApi.changeStatus({_id, status: status === 3 ? 6 : 7})
+    .then((res: any) => {
+      if (res.code === 200) {
+        goBack();
+        store.dispatch(setIsLoading(false));
+      } else {
+        store.dispatch(setIsLoading(false));
+        showMessage.fail(t('error_occurred_try_again'));
+      }
+    })
+    .catch((error: any) => {
+      showMessage.fail(t('error_occurred_try_again'));
+      store.dispatch(setIsLoading(false));
+    });
+};
+
+const changeStatus = (_id: string, status: Number) => {
+  if (status === 3) {
+    apiChangeStatus(_id, status);
+  } else {
+    Alert.alert(
+      t('move_to_trash'),
+      t('items_in_trash_deleted_after_30_days'),
+      [
+        {
+          text: t('move'),
+          onPress: () => apiChangeStatus(_id, status),
+          style: 'destructive',
+        },
+        {
+          text: t('cancel'),
+          onPress: () => {},
+          style: 'cancel',
+        },
+      ],
+      {cancelable: false},
+    );
+  }
+};
+
+export {copyToClipboard, onAddExpense, onAddNote, changeStatus};

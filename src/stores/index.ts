@@ -25,6 +25,10 @@ const persistor = persistStore(store);
 
 export {store, persistor};
 
+export default store;
+
 export type StoreType = ReturnType<typeof store.getState>;
+
+export type AppDispatch = typeof store.dispatch;
 
 export const useStoreApp = (st: (state: StoreType) => any) => useSelector(st);

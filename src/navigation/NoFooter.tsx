@@ -65,7 +65,8 @@ function NoFooter() {
     <Stack.Navigator screenOptions={screenOptions}>
       {screens.map((ScreenComponent, index) => (
         <Stack.Screen
-          key={index}
+          options={{gestureEnabled: true}}
+          key={ScreenComponent.name}
           name={ScreenComponent.name}
           component={ScreenComponent}
         />

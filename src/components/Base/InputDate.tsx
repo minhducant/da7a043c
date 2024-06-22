@@ -115,7 +115,7 @@ const styles: any = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    minHeight: normalize(40),
+    height: Platform.OS === 'ios' ? normalize(40) : normalize(50),
     borderRadius: normalize(15),
     overflow: 'hidden',
     paddingHorizontal: normalize(16),

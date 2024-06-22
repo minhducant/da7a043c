@@ -107,5 +107,11 @@
   "enter_amount": "金額を入力してください",
   "game_over": "ゲームオーバー",
   "your_score": "あなたのスコア",
-  "ping_pong": "ピンポン"
+  "ping_pong": "ピンポン",
+  "no_notifications": "お知らせはありません",
+  "enter_user_id_or_username": "ユーザーIDまたはユーザー名を入力してください",
+  "move_to_trash": "ゴミ箱に移動しますか？",
+  "items_in_trash_deleted_after_30_days": "ゴミ箱のアイテムは30日後に自動的に削除されます。 設定セクションのアクティビティログに移動して、これらのアイテムをゴミ箱から早めに削除できます。",
+  "move": "移動",
+  "add_to_wallpaper": "壁紙に追加"
 }

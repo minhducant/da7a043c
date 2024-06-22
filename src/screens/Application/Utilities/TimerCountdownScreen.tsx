@@ -266,8 +266,8 @@ const styles = StyleSheet.create({
     fontWeight: '900',
   },
   viewBack: {
-    width: normalize(28, 'height'),
-    height: normalize(28, 'height'),
+    width: normalize(Platform.OS === 'ios' ? 30 : 35, 'height'),
+    height: normalize(Platform.OS === 'ios' ? 30 : 35, 'height'),
     justifyContent: 'center',
     alignItems: 'center',
     borderWidth: Platform.Version === 'ios' ? 0.5 : 1.5,
