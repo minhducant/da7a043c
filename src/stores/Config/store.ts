@@ -11,6 +11,7 @@ const initialState = {
   firebaseToken: '',
   isFirstUse: true,
   friends: [],
+  darkMode: false,
 };
 
 const store = createSlice({
@@ -43,6 +44,10 @@ const store = createSlice({
     },
     setFriends(state, action) {
       state.friends = action.payload;
+      return state;
+    },
+    setDarkModes(state, action) {
+      state.darkMode = action.payload;
       return state;
     },
   },

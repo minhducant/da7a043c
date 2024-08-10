@@ -5,14 +5,16 @@ import color from '@styles/color';
 import themeStyle from '@styles/theme.style';
 import {hasHomeButton} from '@utils/DeviceInfo';
 
+let backgroundUserColor = '#FFF5F5';
+
 export const userScreenStyle: any = {
   container: {
     flex: 1,
     backgroundColor: color.WHITE,
   },
   containerUser: {
-    flex: 1,
-    backgroundColor: '#F6F9FF',
+    // flex: 1,
+    backgroundColor: backgroundUserColor,
   },
   signOut: {
     // paddingVertical: normalize(10),
@@ -35,16 +37,18 @@ export const userScreenStyle: any = {
   profileItem: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: normalize(16),
-    marginHorizontal: normalize(32),
+    marginBottom: normalize(8),
+    // marginHorizontal: normalize(32),
     backgroundColor: 'white',
     padding: normalize(8),
   },
   viewProfileName: {
     flex: 1,
     borderBottomWidth: 0.5,
-    justifyContent: 'center',
+    // justifyContent: 'center',
     borderColor: color.DUSTY_GRAY,
+    // backgroundColor: 'red',
+    // flexDirection: 'row',
   },
   txtProfileItem: {
     flex: 1,
@@ -55,9 +59,9 @@ export const userScreenStyle: any = {
   iconProfileItem: {
     alignItems: 'center',
     justifyContent: 'center',
-    height: normalize(45),
-    width: normalize(45),
-    backgroundColor: '#FFEFEF',
+    height: normalize(30),
+    width: normalize(30),
+    // backgroundColor: '#FFEFEF',
     marginRight: normalize(16),
     borderRadius: normalize(8),
   },
@@ -79,6 +83,7 @@ export const userScreenStyle: any = {
     alignItems: 'center',
     padding: normalize(16),
     backgroundColor: '#FBFBFC',
+    // backgroundColor: backgroundUserColor,
     margin: normalize(16),
     borderRadius: normalize(16),
     marginTop: normalize(10),
@@ -139,5 +144,73 @@ export const userScreenStyle: any = {
   viewPremium: {
     alignSelf: 'center',
     marginVertical: normalize(5),
+  },
+  viewTool: {
+    padding: normalize(8),
+    marginHorizontal: normalize(16),
+    borderRadius: normalize(8),
+    marginBottom: normalize(6),
+    backgroundColor: 'white',
+  },
+  txtToolTitle: {
+    fontSize: 18,
+    fontFamily: themeStyle.FONT_BOLD,
+    padding: normalize(8),
+    marginLeft: normalize(16),
+  },
+  viewRating: {
+    // width: '100%',
+    height: normalize(150),
+    backgroundColor: color.WHITE,
+    borderRadius: normalize(8),
+    margin: normalize(16),
+  },
+  itemWallet: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: normalize(8),
+    borderColor: '#D1D5DB',
+    borderWidth: 1,
+    paddingLeft: normalize(16),
+    borderRadius: normalize(10),
+  },
+  imageResultUser: {
+    height: normalize(40),
+    width: normalize(40),
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 999999999,
+  },
+  listWallet: {
+    padding: normalize(16),
+    borderColor: '#D1D5DB',
+  },
+  txtWallet: {
+    fontSize: 16,
+    fontFamily: themeStyle.FONT_FAMILY,
+    marginLeft: normalize(16),
+  },
+  headerText: {
+    fontSize: 16,
+    fontFamily: themeStyle.FONT_BOLD,
+    margin: normalize(8),
+    marginTop: 0,
+  },
+  addWallet: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: normalize(8),
+    borderColor: '#EB5758',
+    borderWidth: 1,
+    borderRadius: normalize(10),
+    paddingVertical: normalize(8),
+    paddingHorizontal: normalize(24),
+    marginBottom: normalize(10),
+  },
+  txtAddWallet: {
+    fontSize: 16,
+    color: '#EB5758',
+    fontFamily: themeStyle.FONT_FAMILY,
+    marginLeft: normalize(24),
   },
 };

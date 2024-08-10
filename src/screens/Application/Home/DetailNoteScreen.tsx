@@ -104,7 +104,7 @@ export default function DetailNoteScreen({navigation, route}: any) {
         keyboardDismissMode="on-drag"
         showsVerticalScrollIndicator={false}>
         <Animated.View style={styles.viewTotalContainer}>
-          <Card1 />
+          {/* <Card1 /> */}
           <View style={styles.viewInfoNote}>
             <Text style={styles.txtTotalSpending}>
               {t('total_group_spending')}
@@ -125,7 +125,7 @@ export default function DetailNoteScreen({navigation, route}: any) {
               <Text style={styles.txtId} numberOfLines={1}>
                 {data._id || 'XXXXXXXXXXXXXXX'}
               </Text>
-              <IconLibrary size={18} name="copy" color={'white'} />
+              <IconLibrary size={18} name="copy" color={'black'} />
             </TouchableOpacity>
           </View>
         </Animated.View>
@@ -135,23 +135,30 @@ export default function DetailNoteScreen({navigation, route}: any) {
           <NoteAction title="statistics" />
           <NoteAction title="more" action={showActionSheet} />
         </View>
-        <View style={styles.viewTitleDetail}>
-          <Text style={styles.txtTransaction}>{t('transaction')}</Text>
-          <TouchableOpacity>
-            <Text style={styles.txtViewAll}>{t('view_all')}</Text>
-          </TouchableOpacity>
+        <View style={styles.viewHistory}>
+          <View style={styles.viewTitleDetail}>
+            <Text style={styles.txtTransaction}>{t('transaction')}</Text>
+            <TouchableOpacity>
+              <Text style={styles.txtViewAll}>{t('view_all')}</Text>
+            </TouchableOpacity>
+          </View>
+          <FlatList
+            data={data?.note_line}
+            scrollEnabled={false}
+            scrollEventThrottle={16}
+            ListEmptyComponent={EmptyData}
+            showsVerticalScrollIndicator={false}
+            keyExtractor={(_, index) => `${index}`}
+            renderItem={({index, item}) => (
+              <Accordion
+                value={item}
+                index={index}
+                type={data?.currency}
+                length={data?.note_line?.length || 0}
+              />
+            )}
+          />
         </View>
-        <FlatList
-          data={data?.note_line}
-          scrollEnabled={false}
-          scrollEventThrottle={16}
-          ListEmptyComponent={EmptyData}
-          showsVerticalScrollIndicator={false}
-          keyExtractor={(_, index) => `${index}`}
-          renderItem={({index, item}) => (
-            <Accordion value={item} index={index} type={data?.currency} />
-          )}
-        />
       </ScrollView>
       <AnimationFAB
         onAddExpense={() => {

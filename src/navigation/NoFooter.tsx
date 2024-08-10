@@ -1,10 +1,6 @@
 import React from 'react';
 import {Platform} from 'react-native';
-import {TransitionPresets} from '@react-navigation/stack';
-import {
-  createStackNavigator,
-  CardStyleInterpolators,
-} from '@react-navigation/stack';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
 //Home
 import QrCodeScreen from '@screens/Application/Home/QrCodeScreen';
@@ -12,6 +8,7 @@ import CreateNoteScreen from '@screens/Application/Home/CreateNoteScreen';
 import DetailNoteScreen from '@screens/Application/Home/DetailNoteScreen';
 
 //User
+import WalletScreen from '@screens/Application/User/WalletScreen';
 import SettingScreen from '@screens/Application/User/SettingScreen';
 import ChatGPTScreen from '@screens/Application/User/ChatGPTScreen';
 import FeedbackScreen from '@screens/Application/User/FeedbackScreen';
@@ -29,13 +26,10 @@ import MinesweeperScreen from '@screens/Application/Utilities/MinesweeperScreen'
 import RandomNumberScreen from '@screens/Application/Utilities/RandomNumberScreen';
 import TimerCountdownScreen from '@screens/Application/Utilities/TimerCountdownScreen';
 
-const Stack = createStackNavigator<any>();
+const StackNavigator = createNativeStackNavigator();
 
 const screenOptions = {
   headerShown: false,
-  ...(Platform.OS === 'ios'
-    ? TransitionPresets.SlideFromRightIOS
-    : TransitionPresets.FadeFromBottomAndroid),
 };
 
 function NoFooter() {
@@ -45,6 +39,7 @@ function NoFooter() {
     CreateNoteScreen,
     DetailNoteScreen,
     //User
+    WalletScreen,
     SettingScreen,
     ChatGPTScreen,
     FeedbackScreen,
@@ -62,16 +57,16 @@ function NoFooter() {
     TimerCountdownScreen,
   ];
   return (
-    <Stack.Navigator screenOptions={screenOptions}>
+    <StackNavigator.Navigator screenOptions={screenOptions}>
       {screens.map((ScreenComponent, index) => (
-        <Stack.Screen
+        <StackNavigator.Screen
           options={{gestureEnabled: true}}
           key={ScreenComponent.name}
           name={ScreenComponent.name}
           component={ScreenComponent}
         />
       ))}
-    </Stack.Navigator>
+    </StackNavigator.Navigator>
   );
 }
 

@@ -1,7 +1,8 @@
-import React, {useRef, useEffect} from 'react';
+import React, {useRef} from 'react';
 import {FlatList} from 'react-native-gesture-handler';
-import {View, SafeAreaView, RefreshControl} from 'react-native';
+import {View, SafeAreaView, RefreshControl, Keyboard} from 'react-native';
 
+import Banner from '@components/Admob/Banner';
 import {useGetNotes} from '@hooks/useGetNotes';
 import HeaderHome from '@components/Home/HeaderHome';
 import SearchInput from '@components/Home/SearchInput';
@@ -17,6 +18,8 @@ export default function HomeScreen() {
   const {data, updateParamsRef, onRefresh: refreshData} = useGetNotes();
 
   const onRefresh = async () => {
+    Keyboard.dismiss();
+    searchRef.current.clearValue();
     await refreshData();
   };
 
@@ -66,6 +69,7 @@ export default function HomeScreen() {
           <WalletCard {...{index, item, scrollRef, resetTranslateX}} />
         )}
       />
+      <Banner />
     </SafeAreaView>
   );
 }

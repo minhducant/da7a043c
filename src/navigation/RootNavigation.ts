@@ -1,28 +1,79 @@
 import * as React from 'react';
-import {StackActions} from '@react-navigation/native';
+import {
+  PartialState,
+  StackActions,
+  NavigationState,
+  createNavigationContainerRef,
+} from '@react-navigation/native';
 
 import DrawerRef from '@components/Base/DrawerLib';
 
+export let TIMESTAMP_LAST_SCREEN_OPENING = 0;
+
 export const isReadyRef = React.createRef();
 
-export const navigationRef = React.createRef<any>();
+export const navigationRef = createNavigationContainerRef();
 
-export function goBack() {
-  navigationRef.current.goBack();
-}
+export const goBack = () => {
+  if (navigationRef.isReady()) {
+    try {
+      navigationRef.goBack();
+    } catch (error) {}
+  }
+};
 
-export function replace(name: any, params = {}) {
-  navigationRef.current.dispatch(StackActions.replace(name, params));
-}
-export function popToTop() {
-  navigationRef.current.dispatch(StackActions.popToTop());
+export const canGoBack = () => {
+  return navigationRef.canGoBack();
+};
+
+export const reset = (
+  params: PartialState<NavigationState> | NavigationState,
+) => {
+  if (navigationRef.isReady()) {
+    navigationRef.reset(params);
+  }
+};
+
+export const push = (screenName: string, params?: object) => {
+  if (navigationRef.isReady()) {
+    navigationRef.dispatch(StackActions.push(screenName, params));
+  }
+};
+
+export const pop = (numOfStack: number = 1) => {
+  if (navigationRef.isReady()) {
+    navigationRef.dispatch(StackActions.pop(numOfStack));
+  }
+};
+
+export const getActiveRouteName = (state: any): any => {
+  const route = state?.routes?.[state.index];
+  if (route?.state) {
+    return getActiveRouteName(route.state);
+  }
+  return route?.name;
+};
+
+export const replace = (screenName: string, params?: object) => {
+  if (navigationRef.isReady() && getRouteName() !== screenName) {
+    navigationRef.dispatch(StackActions.replace(screenName, params));
+  }
+};
+
+export const getRouteName = () => {
+  if (navigationRef.isReady()) {
+    return navigationRef.getCurrentRoute()?.name;
+  }
+  return '';
+};
+
+export function updateTimestampLastScreenOpening() {
+  TIMESTAMP_LAST_SCREEN_OPENING = new Date().getTime();
 }
 
 export function getCurrentRoute() {
   return navigationRef.current?.getCurrentRoute();
 }
-
-export const navigation = navigationRef.current;
 
 export const drawerRef = React.createRef<DrawerRef>();
 
@@ -34,8 +85,10 @@ export function closeDrawer() {
 }
 
 export function navigate(name: string, router = 'NoFooter', params?: any) {
-  navigationRef.current.navigate(router, {
-    screen: name,
-    params: params,
-  });
+  // @ts-ignore
+  navigationRef.navigate(name)
+  // navigationRef.navigate(router, {
+  //   screen: name,
+  //   params: params,
+  // });
 }

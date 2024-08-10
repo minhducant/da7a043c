@@ -132,7 +132,7 @@ const styles: any = StyleSheet.create({
   },
   timeValue: {
     fontSize: 18,
-    marginVertical: normalize(10),
+    // marginVertical: normalize(10),
     fontFamily: themeStyle.FONT_FAMILY,
   },
   placeholder: {

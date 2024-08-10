@@ -61,7 +61,7 @@ function BottomTabs() {
     <Tab.Navigator
       tabBar={renderTab}
       backBehavior="none"
-      initialRouteName="HomeScreen"
+      initialRouteName={HomeScreen.name}
       screenOptions={{
         headerShown: false,
         tabBarShowLabel: false,

@@ -10,6 +10,6 @@ export const notificationStyle: any = {
     backgroundColor: 'white',
   },
   list: {
-    marginTop: normalize(10),
+    // marginTop: normalize(10),
   },
 };

@@ -20,6 +20,7 @@ interface InputProps {
   onRefresh?: () => void;
   onFocus?: () => void;
   onPressIn?: () => void;
+  onCancel?: () => void;
   onChange?: any;
   onSubmitEditing?: any;
   ref: Ref<any>;
@@ -34,6 +35,7 @@ const SearchMember: React.FC<InputProps> = React.forwardRef(
       onRefresh = () => {},
       onAddNew = () => {},
       onChange = () => {},
+      onCancel = () => {},
       onSubmitEditing,
     },
     ref,
@@ -60,6 +62,7 @@ const SearchMember: React.FC<InputProps> = React.forwardRef(
     const onDelete = () => {
       setValue('');
       onRefresh();
+      onCancel();
       Keyboard.dismiss();
     };
 

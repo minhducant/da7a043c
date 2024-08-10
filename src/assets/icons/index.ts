@@ -39,6 +39,15 @@ import EmptyCart from './SvgEmptyCart';
 import IconPingPong from './SvgIconPingPong';
 import IconRead from './SvgIconRead';
 import EmptyNotify from './SvgEmptyNotification';
+import IconSettings from './SvgIconSettings';
+import IconSupport from './SvgIconSupport';
+import IconAI from './SvgIconAI';
+import IconFriend from './SvgIconFriend';
+import IconWallet from './SvgIconWallet';
+import IconCongcu from './SvgIconCongcu';
+import IconDebt from './SvgIconDebt';
+import IconPayPal from './SvgIconPaypal';
+import IconAddWallet from './SvgIconAddWallet';
 
 export {
   IconClose,
@@ -82,4 +91,13 @@ export {
   IconPingPong,
   IconRead,
   EmptyNotify,
+  IconSettings,
+  IconSupport,
+  IconAI,
+  IconCongcu,
+  IconFriend,
+  IconWallet,
+  IconDebt,
+  IconPayPal,
+  IconAddWallet,
 };

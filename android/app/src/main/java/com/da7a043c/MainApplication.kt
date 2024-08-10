@@ -13,6 +13,7 @@ import cl.json.RNSharePackage
 import cl.json.ShareApplication
 import com.microsoft.codepush.react.CodePush
 import com.google.android.gms.ads.MobileAds
+import com.zing.zalo.zalosdk.oauth.ZaloSDKApplication;
 
 class MainApplication : Application(), ReactApplication {
 
@@ -40,6 +41,7 @@ class MainApplication : Application(), ReactApplication {
 
     override fun onCreate() {
       super.onCreate()
+      ZaloSDKApplication.wrap(this);
       SoLoader.init(this, false)
       if (BuildConfig.IS_NEW_ARCHITECTURE_ENABLED) {
         // If you opted-in for the New Architecture, we load the native entry point for this app.

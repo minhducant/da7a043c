@@ -11,6 +11,8 @@ export const app = axios.create({
   baseURL: MAIN_DOMAIN,
   timeout: 3000000,
   headers: {
+    'Content-Type': 'application/json',
+    Accept: 'application/json',
     'x-device-type': Platform.OS,
   },
 });

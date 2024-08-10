@@ -18,4 +18,8 @@ export class AuthApi {
     const response = await client.post(ApiUrl.Auth.login_google, params);
     return response;
   }
+  static async LoginZalo(params: AppApiTypeRequest.LoginZalo) {
+    const response = await client.post(ApiUrl.Auth.login_zalo, params);
+    return response;
+  }
 }

@@ -6,7 +6,7 @@ import messaging from '@react-native-firebase/messaging';
 import {setStorage, showMessage} from '@utils/index';
 
 export const notificationListener = async () => {
-  await messaging().registerDeviceForRemoteMessages();
+  // await messaging().registerDeviceForRemoteMessages();
   messaging().onNotificationOpenedApp(remoteMessage => {
     console.log('Notification background', remoteMessage.notification);
     notifee.incrementBadgeCount();

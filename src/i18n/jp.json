@@ -113,5 +113,16 @@
   "move_to_trash": "ゴミ箱に移動しますか？",
   "items_in_trash_deleted_after_30_days": "ゴミ箱のアイテムは30日後に自動的に削除されます。 設定セクションのアクティビティログに移動して、これらのアイテムをゴミ箱から早めに削除できます。",
   "move": "移動",
-  "add_to_wallpaper": "壁紙に追加"
+  "add_to_wallpaper": "壁紙に追加",
+  "support_and_settings": "サポートと設定",
+  "support_center": "サポートセンター",
+  "manage_wallet": "ウォレットの管理",
+  "friends_list": "友達リスト",
+  "your_rating": "あなたの評価",
+  "how_was_your_experience_with_spendsync": "SpendSyncの体験はいかがでしたか？",
+  "debt_book": "借金帳",
+  "ai_chat": "AI チャット",
+  "add_wallet": "ウォレットを追加",
+  "PAYPAL": "PayPal",
+  "BANK_CARD": "銀行口座"
 }

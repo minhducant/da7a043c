@@ -14,6 +14,7 @@ import {
 } from 'react-native';
 import {useSelector} from 'react-redux';
 import normalize from 'react-native-normalize';
+import FastImage from 'react-native-fast-image';
 
 import {t} from '@i18n/index';
 import themeStyle from '@styles/theme.style';
@@ -82,23 +83,43 @@ export const InputMember = forwardRef<InputRef, InputProps>(
       );
     };
 
+    const removeItemByIndex = useCallback((index: number) => {
+      setMembers((prevMembers: any) => {
+        const updatedMembers = [...prevMembers];
+        updatedMembers.splice(index, 1);
+        return updatedMembers;
+      });
+    }, []);
+
     const renderMembers = ({item, index}: any) => {
       return (
         <View key={index} style={styles.viewMembers}>
-          <View style={styles.avatarFrame}>
-            <Text style={styles.txtAvatar}>{item.name.charAt(0)}</Text>
-          </View>
+          {item.image_url ? (
+            <FastImage
+              style={styles.avatarFrame}
+              source={{
+                uri: item.image_url,
+                headers: {Authorization: 'someAuthToken'},
+                priority: FastImage.priority.normal,
+              }}
+              resizeMode={FastImage.resizeMode.contain}
+            />
+          ) : (
+            <View style={styles.avatarFrame}>
+              <Text style={styles.txtAvatar}>{item.name.charAt(0)}</Text>
+            </View>
+          )}
           <Text style={styles.txtNameMember} numberOfLines={2}>
             {item.name}
           </Text>
-          {userInfo._id !== item._id && (
+          {/* {userInfo._id !== item._id && (
             <TouchableOpacity
               activeOpacity={0.6}
-              // onPress={() => removeItemByIndex(index)}
+              onPress={() => removeItemByIndex(index)}
               style={styles.deleteMember}>
               <IconLibrary size={12} library="AntDesign" name="close" />
             </TouchableOpacity>
-          )}
+          )} */}
         </View>
       );
     };

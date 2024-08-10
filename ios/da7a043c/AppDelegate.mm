@@ -16,14 +16,17 @@
 
 // #import "RNBootSplash.h"
 
+#import <ZaloSDK/ZaloSDK.h>
+
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
   self.moduleName = @"da7a043c";
-  [FIRApp configure];
-  [[GADMobileAds sharedInstance] startWithCompletionHandler:nil];
-  [[FBSDKApplicationDelegate sharedInstance] application:application
+  [FIRApp configure]; //Firebase
+  [[ZaloSDK sharedInstance] initializeWithAppId:@"2196458335831676602"]; // Zalo
+  [[GADMobileAds sharedInstance] startWithCompletionHandler:nil]; // Admob
+  [[FBSDKApplicationDelegate sharedInstance] application:application //FBSDKApplication
                       didFinishLaunchingWithOptions:launchOptions];
 
   // rootViewController.view = rootView;
@@ -52,6 +55,10 @@
 - (BOOL)bridgelessEnabled
 {
     return YES;
+}
+
+- (BOOL)application:(UIApplication *)application openURL:(nonnull NSURL *)url options:(nonnull NSDictionary<NSString *,id> *)options {
+  return [[ZDKApplicationDelegate sharedInstance] application:application openURL:url options:options];
 }
 
 - (NSURL *)getBundleURL

@@ -5,8 +5,8 @@ import normalize from 'react-native-normalize';
 function SvgComponent({fill}: any) {
   return (
     <Svg
-      width={normalize(28)}
-      height={normalize(28)}
+      width={normalize(27)}
+      height={normalize(27)}
       fill="none"
       viewBox="0 0 24 24">
       <G fill={fill} fillRule="evenodd" clipRule="evenodd">

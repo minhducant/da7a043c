@@ -5,10 +5,11 @@ import Svg, {Path, Circle} from 'react-native-svg';
 function SvgComponent({fill}: any) {
   return (
     <Svg
-      width={normalize(27)}
-      height={normalize(27)}
+      width={normalize(25)}
+      height={normalize(25)}
       viewBox="0 0 24 24"
-      style={{marginTop: normalize(0)}}>
+      // style={{marginTop: normalize(0)}}
+      >
       <Circle
         cx={12}
         cy={6}

@@ -113,5 +113,16 @@
   "move_to_trash": "Chuyển vào thùng rác?",
   "items_in_trash_deleted_after_30_days": "Các mục trong thùng rác sẽ tự động bị xoá sau 30 ngày. Bạn có thể xoá các mục này khỏi thùng rác sớm hơn bằng cách đi đến nhật ký hoạt động trong phần cài đặt.",
   "move": "Chuyển",
-  "add_to_wallpaper": "Thêm vào màn hình nền"
+  "add_to_wallpaper": "Thêm vào màn hình nền",
+  "support_and_settings": "Hỗ trợ và Cài đặt",
+  "support_center": "Trung tâm hỗ trợ",
+  "manage_wallet": "Quản lý ví",
+  "friends_list": "Danh sách bạn bè",
+  "your_rating": "Đánh giá của bạn",
+  "how_was_your_experience_with_spendsync": "Trải nghiệm của bạn với SpendSync như thế nào?",
+  "debt_book": "Sổ nợ",
+  "ai_chat": "Trò chuyện AI",
+  "add_wallet": "Thêm ví",
+  "PAYPAL": "PayPal",
+  "BANK_CARD": "Tài khoản ngân hàng"
 }

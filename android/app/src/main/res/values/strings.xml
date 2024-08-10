@@ -1,11 +1,12 @@
 <resources>
     <string name="app_name">SpendSync</string>
     <string name="CodePushDeploymentKey" moduleConfig="true" translatable="false">
-        HGpXrI_RWTVLP8Up8-F0IMDzB2qRadaEL6AtC</string>
+        E-CDSd2BY3PkSYMDAzGLtCH74cWAQgMGLOtaA</string>
     <string name="appCenterCrashes_whenToSendCrashes" moduleConfig="true" translatable="false">
         DO_NOT_ASK_JAVASCRIPT</string>
     <string name="appCenterAnalytics_whenToEnableAnalytics" moduleConfig="true" translatable="false">
         ALWAYS_SEND</string>
     <string name="facebook_app_id">2351164085084414</string>
     <string name="facebook_client_token">472c66508e3d92a83262b460a98955fa</string>
+    <string name="appID">2196458335831676602</string>
 </resources>

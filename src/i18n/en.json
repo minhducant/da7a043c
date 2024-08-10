@@ -113,5 +113,16 @@
   "move_to_trash": "Move to trash?",
   "items_in_trash_deleted_after_30_days": "Items in the trash will be automatically deleted after 30 days. You can delete these items from the trash earlier by going to the activity log in the settings section.",
   "move": "Move",
-  "add_to_wallpaper": "Add to Wallpaper"
+  "add_to_wallpaper": "Add to Wallpaper",
+  "support_and_settings": "Support and Settings",
+  "support_center": "Support Center",
+  "manage_wallet": "Manage Wallet",
+  "friends_list": "Friends List",
+  "your_rating": "Your Rating",
+  "how_was_your_experience_with_spendsync": "How was your experience with SpendSync?",
+  "debt_book": "Debt Book",
+  "ai_chat": "AI Chat",
+  "add_wallet": "Add Wallet",
+  "PAYPAL": "PayPal",
+  "BANK_CARD": "Bank Account"
 }

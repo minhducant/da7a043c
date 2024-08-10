@@ -42,7 +42,7 @@ const EyeIcon = ({ showMoney, setShowMoney, size = 28 }: any) => {
       <Animated.View style={{ transform: [{ rotate: rotateInterpolation }, { scale: scaleValue }] }}>
         <IconLibrary
           size={size}
-          color="white"
+          color="black"
           name={showMoney ? 'eye-off-outline' : 'eye-outline'}
         />
       </Animated.View>

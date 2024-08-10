@@ -54,12 +54,14 @@ end
 target 'da7a043c' do
   config = use_native_modules!
 
+  pod 'ZaloSDK', :modular_headers => true
   pod 'Firebase', :modular_headers => true
   pod 'FirebaseCore', :modular_headers => true
   pod 'GoogleUtilities', :modular_headers => true
   pod 'Google-Mobile-Ads-SDK', :modular_headers => true
   $FirebaseSDKVersion = '10.12.0'
   # $RNFirebaseAsStaticFramework = true
+  $RNGoogleMobileAdsAsStaticFramework = true
 
   use_react_native!(
     :path => config[:reactNativePath],

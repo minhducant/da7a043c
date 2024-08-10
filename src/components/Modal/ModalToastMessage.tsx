@@ -9,6 +9,7 @@ import {
   InteractionManager,
 } from 'react-native';
 import Animated, {
+  runOnJS,
   withDelay,
   withTiming,
   withSequence,

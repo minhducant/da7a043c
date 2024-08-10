@@ -12,18 +12,15 @@ import {useSelector, useDispatch} from 'react-redux';
 
 import {t} from '@i18n/index';
 import {Base} from '@components/Base';
-import {
-  RenderColor,
-  RenderMember,
-  RenderCurrency,
-} from '@components/Home/RenderItem';
 import {HomeApi} from '@api/HomeApi';
 import {showMessage} from '@utils/index';
 import {setIsLoading} from '@stores/action';
 import {getNoteLabel} from '@configs/AppData';
 import {goBack} from '@navigation/RootNavigation';
 import {homeStyle as styles} from '@styles/home.style';
+import {RenderMember} from '@components/Home/RenderMember';
 import HeaderWithTitle from '@components/Header/HeaderWithTitle';
+import {RenderColor, RenderCurrency} from '@components/Home/RenderItem';
 
 export default function CreateNoteScreen({}: any) {
   const dispatch = useDispatch();
@@ -36,7 +33,7 @@ export default function CreateNoteScreen({}: any) {
     currencySheetRef,
   );
   const formRef = useRef<any>({...noteLabel});
-  const {userInfo, friends} = useSelector((state: any) => state.Config);
+  const {userInfo} = useSelector((state: any) => state.Config);
 
   const onSelectColor = async (selectedColor: string) => {
     await formRef.current.color_currency.setColors(selectedColor);
@@ -45,6 +42,8 @@ export default function CreateNoteScreen({}: any) {
   const onSelectCurrency = async (selectedCurrency: number) => {
     await formRef.current.color_currency.setCurrency(selectedCurrency);
   };
+
+  const onDeleTeMember = async () => {};
 
   const onAddNote = async () => {
     const params = {
@@ -55,6 +54,7 @@ export default function CreateNoteScreen({}: any) {
       desc: formRef.current.description.getValue() || '',
       color: formRef.current.color_currency.colors || '',
       currency: formRef.current.color_currency.currency || 0,
+      note_line: [],
     };
     if (!params.title) {
       showMessage.warning(t('please_enter_title'));
@@ -62,7 +62,6 @@ export default function CreateNoteScreen({}: any) {
     }
     await HomeApi.createNote(params)
       .then((res: any) => {
-        console.log(res);
         if (res.code === 200) {
           dispatch(setIsLoading(false));
           goBack();
@@ -117,7 +116,7 @@ export default function CreateNoteScreen({}: any) {
         {RenderCurrency(currencySheetRef, onSelectCurrency)}
       </Base.BottomSheet>
       <Base.BottomSheet ref={memberSheetRef}>
-        {RenderMember(memberSheetRef, userInfo, friends, formRef)}
+        {RenderMember(memberSheetRef, userInfo, formRef)}
       </Base.BottomSheet>
     </KeyboardAvoidingView>
   );

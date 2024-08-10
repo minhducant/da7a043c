@@ -1,4 +1,3 @@
-import {Pressable, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import moment from 'moment';
 import Animated, {
@@ -11,7 +10,7 @@ import Animated, {
   useDerivedValue,
 } from 'react-native-reanimated';
 import normalize from 'react-native-normalize';
-import FastImage from 'react-native-fast-image';
+import {Pressable, StyleSheet, Text, View} from 'react-native';
 
 import color from '@styles/color';
 import {formatMoney} from '@utils/index';
@@ -22,6 +21,7 @@ type Props = {
   value: any;
   index: number;
   type: number;
+  length?: number;
 };
 
 export type NestedItem = {
@@ -35,12 +35,12 @@ const Chevron = ({progress}: any) => {
   }));
   return (
     <Animated.View style={iconStyle}>
-      <IconLibrary size={30} color="blue" name={'caret-down-circle'} />
+      <IconLibrary size={30} color="#edb9be" name={'caret-down-circle'} />
     </Animated.View>
   );
 };
 
-const Accordion = ({value, index, type}: Props) => {
+const Accordion = ({value, index, type, length}: Props) => {
   const listRef = useAnimatedRef();
   const heightValue = useSharedValue(0);
   const open = useSharedValue(false);
@@ -53,7 +53,12 @@ const Accordion = ({value, index, type}: Props) => {
   }));
 
   return (
-    <View style={styles.container} key={index}>
+    <View
+      style={[
+        styles.container,
+        {borderBottomWidth: index + 1 === length ? 0 : 1},
+      ]}
+      key={index}>
       <Pressable
         onPress={() => {
           if (heightValue.value === 0) {
@@ -91,12 +96,9 @@ export default Accordion;
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#E3EDFB',
     marginHorizontal: normalize(16),
-    marginVertical: normalize(8),
-    borderRadius: 14,
-    borderWidth: 1,
-    borderColor: '#0F56B3',
+    // marginTop: normalize(8),
+    borderColor: color.SILVER,
     overflow: 'hidden',
   },
   textTitle: {
@@ -117,7 +119,7 @@ const styles = StyleSheet.create({
   },
   content: {
     padding: 20,
-    backgroundColor: '#D6E1F0',
+    // backgroundColor: '#D6E1F0',
   },
   textTime: {
     fontSize: 14,

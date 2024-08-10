@@ -71,16 +71,16 @@ export default function AddExpenseScreen({route}: any) {
       showMessage.warning(t('fill_in_information'));
       return;
     }
-
-    dispatch(setIsLoading(true));
-    const res: any = await HomeApi.addExpense(params);
-    if (res.code === 200) {
-      dispatch(setIsLoading(false));
-      goBack();
-    } else {
-      dispatch(setIsLoading(false));
-      showMessage.fail(t('error_occurred_try_again'));
-    }
+    console.log(JSON.stringify(formRef.current.split_evenly.value, null, 2));
+    // dispatch(setIsLoading(true));
+    // const res: any = await HomeApi.addExpense(params);
+    // if (res.code === 200) {
+    //   dispatch(setIsLoading(false));
+    //   goBack();
+    // } else {
+    //   dispatch(setIsLoading(false));
+    //   showMessage.fail(t('error_occurred_try_again'));
+    // }
   };
 
   return (
