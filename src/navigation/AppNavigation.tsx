@@ -19,8 +19,6 @@ import {
   updateTimestampLastScreenOpening,
 } from '@navigation/RootNavigation';
 
-import NoFooter from '@navigation/NoFooter';
-import ModalSlide from '@navigation/ModalSlide';
 import BottomTabs from '@navigation/BottomTabs';
 import LoginScreen from '@screens/Authentication/LoginScreen';
 import SpanishScreen from '@screens/Authentication/SpanishScreen';
@@ -28,6 +26,8 @@ import OnboardingScreen from '@screens/Authentication/OnboardingScreen';
 
 //Home
 import QrCodeScreen from '@screens/Application/Home/QrCodeScreen';
+import PolicyScreen from '@screens/Application//User/PolicyScreen';
+import AddExpenseScreen from '@screens/Application/Home/AddExpenseScreen';
 import CreateNoteScreen from '@screens/Application/Home/CreateNoteScreen';
 import DetailNoteScreen from '@screens/Application/Home/DetailNoteScreen';
 
@@ -60,6 +60,7 @@ const screens = [
   QrCodeScreen,
   CreateNoteScreen,
   DetailNoteScreen,
+  AddExpenseScreen,
   //User
   WalletScreen,
   SettingScreen,
@@ -69,6 +70,7 @@ const screens = [
   ChangeLanguageScreen,
   //Utilities
   SnakeScreen,
+  PolicyScreen,
   PingPongScreen,
   RollDiceScreen,
   CoinFlipScreen,
@@ -84,8 +86,6 @@ function ApplicationStack() {
     <Stack.Navigator
       initialRouteName="BottomTabs"
       screenOptions={{headerShown: false}}>
-      {/* <Stack.Screen name="NoFooter" component={NoFooter} /> */}
-      {/* <Stack.Screen name="ModalSlide" component={ModalSlide} /> */}
       <Stack.Screen name="BottomTabs" component={BottomTabs} />
       {screens.map((ScreenComponent, index) => (
         <Stack.Screen

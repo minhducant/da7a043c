@@ -15,9 +15,9 @@ import ActionSheet from '@alessiocancian/react-native-actionsheet';
 import SharedGroupPreferences from 'react-native-shared-group-preferences';
 
 import {t} from '@i18n/index';
-import {Card1} from '@assets/icons';
 import {HomeApi} from '@api/HomeApi';
 import {changeStatus} from '@utils/Note';
+import {navigate} from '@navigation/RootNavigation';
 import {homeStyle as styles} from '@styles/home.style';
 import {NoteAction, EmptyData, EyeIcon} from '@components/Home';
 import HeaderWithTitle from '@components/Header/HeaderWithTitle';
@@ -28,7 +28,7 @@ const group = 'group.streak';
 
 const SharedStorage = NativeModules.SharedStorage;
 
-export default function DetailNoteScreen({navigation, route}: any) {
+export default function DetailNoteScreen({route}: any) {
   const actionSheetRef = useRef<any>();
   const refreshControl = useRef<boolean>(false);
   const scrollY = useRef(new Animated.Value(0)).current;
@@ -87,7 +87,7 @@ export default function DetailNoteScreen({navigation, route}: any) {
 
   return (
     <View style={styles.containerNote}>
-      <HeaderWithTitle title={data.title} />
+      <HeaderWithTitle title={data?.title} />
       <ScrollView
         onScroll={Animated.event(
           [{nativeEvent: {contentOffset: {y: scrollY}}}],
@@ -112,7 +112,7 @@ export default function DetailNoteScreen({navigation, route}: any) {
             <View style={styles.viewTotalMoney}>
               <Text numberOfLines={1} style={styles.txtTotalMoney}>
                 {showMoney
-                  ? formatMoney(data.total_money, data?.currency)
+                  ? formatMoney(data?.total_money, data?.currency)
                   : '**********'}
               </Text>
               <EyeIcon showMoney={showMoney} setShowMoney={setShowMoney} />
@@ -121,9 +121,9 @@ export default function DetailNoteScreen({navigation, route}: any) {
             <TouchableOpacity
               style={styles.viewId}
               activeOpacity={0.5}
-              onPress={() => copyToClipboard(data._id)}>
+              onPress={() => copyToClipboard(data?._id)}>
               <Text style={styles.txtId} numberOfLines={1}>
-                {data._id || 'XXXXXXXXXXXXXXX'}
+                {data?._id || 'XXXXXXXXXXXXXXX'}
               </Text>
               <IconLibrary size={18} name="copy" color={'black'} />
             </TouchableOpacity>
@@ -162,10 +162,7 @@ export default function DetailNoteScreen({navigation, route}: any) {
       </ScrollView>
       <AnimationFAB
         onAddExpense={() => {
-          navigation.navigate('ModalSlide', {
-            screen: 'AddExpenseScreen',
-            params: data,
-          });
+          navigate('AddExpenseScreen', data);
         }}
       />
       <ActionSheet

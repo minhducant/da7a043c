@@ -2,7 +2,7 @@
 import React, {useState, useRef, forwardRef, useImperativeHandle} from 'react';
 import {
   View,
-  Platform,
+  Text,
   TextStyle,
   TextInput,
   StyleSheet,
@@ -12,6 +12,7 @@ import {
 import normalize from 'react-native-normalize';
 
 import color from '@styles/color';
+import {Currency} from '@configs/AppUnum';
 import themeStyle from '@styles/theme.style';
 
 export interface InputRef {
@@ -97,6 +98,7 @@ export const InputMoney = forwardRef<InputRef, InputProps>(
           ]}
           {...props}
         />
+        {/* <Text style={styles.currency}>VNĐ</Text> */}
       </View>
     );
   },
@@ -107,6 +109,7 @@ const styles: any = StyleSheet.create({
     color: color.BLACK,
     fontSize: 34,
     margin: normalize(5),
+    flex: 1,
     fontFamily: themeStyle.FONT_FAMILY,
   },
   inputButton: {
@@ -116,11 +119,17 @@ const styles: any = StyleSheet.create({
     marginHorizontal: normalize(16),
     justifyContent: 'center',
     marginTop: normalize(16),
+    flexDirection: 'row',
   },
   title: {
     fontSize: 18,
     marginLeft: normalize(30),
     marginVertical: normalize(16),
+    fontFamily: themeStyle.FONT_FAMILY,
+  },
+  currency: {
+    fontSize: 14,
+    // marginLeft: normalize(16),
     fontFamily: themeStyle.FONT_FAMILY,
   },
 });

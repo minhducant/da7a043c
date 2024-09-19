@@ -343,7 +343,7 @@ export const listTool: any = [
   },
 ];
 
-export const getExpenseLabel: any = (initData: any) => {
+export const getExpenseLabel: any = (initData: any, userInfo: any) => {
   return {
     expense: {
       title: t('expense'),
@@ -371,7 +371,9 @@ export const getExpenseLabel: any = (initData: any) => {
     },
     paid_by: {
       title: t('paid_by'),
-      valueInit: '',
+      valueInit: userInfo?._id && {
+        ...userInfo,
+      },
       placeholder: `${t('who_paid')}`,
       required: true,
       data: initData?.members,

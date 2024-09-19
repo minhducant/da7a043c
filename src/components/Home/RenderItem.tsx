@@ -1,6 +1,4 @@
-/* eslint-disable react-native/no-inline-styles */
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import React, {useCallback, useRef, useState} from 'react';
+import React, {useCallback, useRef} from 'react';
 import moment from 'moment';
 import {useTranslation} from 'react-i18next';
 import normalize from 'react-native-normalize';
@@ -10,23 +8,16 @@ import {
   View,
   Text,
   FlatList,
-  Dimensions,
   ScrollView,
   TouchableOpacity,
   ActivityIndicator,
 } from 'react-native';
-import {
-  PanGestureHandler,
-  PanGestureHandlerGestureEvent,
-} from 'react-native-gesture-handler';
 import Animated, {
-  withDecay,
-  withSpring,
   withTiming,
   useSharedValue,
   useAnimatedStyle,
-  useAnimatedGestureHandler,
 } from 'react-native-reanimated';
+import {Swipeable} from 'react-native-gesture-handler';
 
 import {
   EmptyCart,
@@ -36,190 +27,149 @@ import {
   IconMember,
   IconPresentation,
 } from '@assets/icons/index';
-import {HomeApi} from '@api/HomeApi';
-import {IconClose} from '@assets/icons';
 import {formatMoney} from '@utils/index';
-import {IconLibrary} from '@components/Base';
 import {currencies, colors} from '@configs/AppData';
 import {navigate} from '@navigation/RootNavigation';
 import {homeStyle as styles} from '@styles/home.style';
-import SearchMember from '@components/Home/SearchMember';
 
-const {width: SCREEN_WIDTH} = Dimensions.get('window');
-const STOPPED_TRANSLATE_X = -SCREEN_WIDTH * 0.25;
-const TRANSLATE_X_THRESHOLD = -SCREEN_WIDTH * 0.1;
+const WalletCard = ({item, index, scrollRef, swipeableRef}: any) => {
+  let swipeableItemRef: Swipeable | null;
 
-const WalletCard = ({item, index, scrollRef, resetTranslateX}: any) => {
-  const {t} = useTranslation();
-  const opacity = useSharedValue(1);
-  const translateX = useSharedValue(0);
-  const slidingOut = useSharedValue(false);
+  const onPress = async (note: any) => {
+    navigate('DetailNoteScreen', note);
+    closePreviousSwipeable();
+  };
 
-  const panGesture = useAnimatedGestureHandler<PanGestureHandlerGestureEvent>({
-    onActive: event => {
-      translateX.value = Math.max(0, event.translationX);
-      const adjustedVelocity = event.velocityX / 2;
-      if (Math.abs(adjustedVelocity) > 100) {
-        translateX.value = withDecay({
-          velocity: adjustedVelocity,
-          clamp: [0, STOPPED_TRANSLATE_X],
-        });
-      }
-    },
-    onEnd: event => {
-      if (event.translationX < TRANSLATE_X_THRESHOLD) {
-        slidingOut.value = true;
-        translateX.value = withTiming(STOPPED_TRANSLATE_X, {duration: 300});
-        opacity.value = withTiming(0, {duration: 500});
-      } else {
-        slidingOut.value = false;
-        translateX.value = withSpring(0, {damping: 10, stiffness: 100});
-      }
-    },
-  });
-
-  const rStyle = useAnimatedStyle(() => ({
-    transform: [
-      {
-        translateX: translateX.value,
-      },
-    ],
-  }));
-
-  const rIconContainerStyle = useAnimatedStyle(() => {
-    const opacityValue = translateX.value < TRANSLATE_X_THRESHOLD ? 1 : 0;
-    const translateXValue = translateX.value < TRANSLATE_X_THRESHOLD ? 0 : -50;
-    return {
-      opacity: withSpring(opacityValue, {damping: 10, stiffness: 100}),
-      transform: [
-        {
-          translateX: withSpring(translateXValue, {
-            damping: 10,
-            stiffness: 100,
-          }),
-        },
-      ],
-    };
-  });
-
-  const onPress = (note: any) => {
-    if (slidingOut.value) {
-      slidingOut.value = false;
-      translateX.value = withSpring(0, {damping: 10, stiffness: 100});
-    } else {
-      navigate('DetailNoteScreen', 'NoFooter', note);
+  const closePreviousSwipeable = () => {
+    if (swipeableRef.current && swipeableRef.current !== swipeableItemRef) {
+      swipeableRef.current.close();
     }
+    swipeableRef.current = swipeableItemRef;
+  };
+  const renderRightActions = () => {
+    return (
+      <Animated.View style={[styles.iconContainer]}>
+        <TouchableOpacity>{/* <Text>Đức</Text> */}</TouchableOpacity>
+      </Animated.View>
+    );
   };
 
   return (
-    <View style={[styles.note]}>
-      <Animated.View style={[styles.iconContainer, rIconContainerStyle]}>
-        <TouchableOpacity>{/* <Text>Đức</Text> */}</TouchableOpacity>
-      </Animated.View>
-      <PanGestureHandler
-        failOffsetY={[-5, 5]}
-        activeOffsetX={[-5, 5]}
-        onGestureEvent={panGesture}
-        simultaneousHandlers={scrollRef}>
-        <Animated.View style={[styles.task, rStyle]}>
-          <TouchableOpacity
-            key={index}
-            activeOpacity={0.5}
-            onPress={() => onPress(item)}
-            style={[styles.itemNote, {backgroundColor: 'white'}]}>
-            <View style={styles.headerItemNote}>
-              <View style={{flex: 7}}>
-                <Text numberOfLines={1} style={styles.txtTitleNote}>
-                  {item.title}
-                </Text>
-                <Text numberOfLines={1} style={styles.txtTime}>
-                  {moment(item.createdAt).format('DD/MM/YYYY    HH:mm')}
-                </Text>
-              </View>
-              <View style={{flex: 3, right: 10, flexDirection: 'row-reverse'}}>
-                {/* {RenderNumberMember(item?.members)} */}
-              </View>
-            </View>
-            <View style={styles.dashLineNote} />
-            <View style={styles.footerItemNote}>
-              <Text numberOfLines={1} style={styles.txtTitleNote}>
-                {formatMoney(item.total_money, item?.currency)}
-              </Text>
-              <TouchableOpacity>
-                <IconMore />
-              </TouchableOpacity>
-            </View>
+    <Swipeable
+      onSwipeableWillOpen={() => {
+        closePreviousSwipeable();
+      }}
+      onSwipeableClose={() => {
+        if (swipeableRef.current === swipeableItemRef) {
+          swipeableRef.current = null;
+        }
+      }}
+      renderRightActions={renderRightActions}
+      ref={ref => (swipeableItemRef = ref)}>
+      <TouchableOpacity
+        key={index}
+        activeOpacity={0.8}
+        onPress={() => onPress(item)}
+        style={[styles.itemNote, {backgroundColor: 'white'}]}>
+        <View style={styles.headerItemNote}>
+          <View style={{flex: 8, paddingRight: normalize(16)}}>
+            <Text numberOfLines={1} style={styles.txtTitleNote}>
+              {item.title}
+            </Text>
+            <Text numberOfLines={1} style={styles.txtTime}>
+              {moment(item.createdAt).format('DD/MM/YYYY    HH:mm')}
+            </Text>
+          </View>
+          <View
+            style={{
+              flex: 2,
+              flexDirection: 'row',
+              justifyContent: 'flex-end',
+            }}>
+            {RenderNumberMember(item?.members)}
+          </View>
+        </View>
+        <View style={styles.dashLineNote} />
+        <View style={styles.footerItemNote}>
+          <Text numberOfLines={1} style={styles.txtTitleNote}>
+            {formatMoney(item.total_money, item?.currency)}
+          </Text>
+          <TouchableOpacity>
+            {/* <IconMore /> */}
           </TouchableOpacity>
-        </Animated.View>
-      </PanGestureHandler>
-    </View>
+        </View>
+      </TouchableOpacity>
+    </Swipeable>
   );
 };
 
-function RenderNumberMember(members: any[]) {
-  const renderMemberItem = (member: any, index: number) => {
-    return (
-      <View
-        key={index}
-        style={{
-          zIndex: members.length - index,
-        }}>
-        {member.image_url !== '' ? (
-          <FastImage
-            source={{
-              uri: member.image_url,
-              priority: FastImage.priority.normal,
-            }}
-            style={{width: 30, height: 30, borderRadius: 25}}
-          />
-        ) : (
-          <View style={styles.viewTextName}>
-            <Text style={styles.textName}>{member.name.charAt(0)}</Text>
-          </View>
-        )}
-      </View>
-    );
-  };
+const RenderNumberMember = (members: any[]) => {
+  const renderMemberItem = (
+    member: any,
+    index: number,
+    zIndex: number,
+    right: number = 0,
+  ) => (
+    <View
+      key={index}
+      style={{position: right ? 'absolute' : 'relative', zIndex, right}}>
+      {member.image_url ? (
+        <FastImage
+          source={{
+            uri: member.image_url,
+            priority: FastImage.priority.normal,
+          }}
+          style={{width: 30, height: 30, borderRadius: 25}}
+        />
+      ) : (
+        <View style={styles.viewTextName}>
+          <Text style={styles.textName}>{member.name.charAt(0)}</Text>
+        </View>
+      )}
+    </View>
+  );
 
   if (members.length === 0) {
-    return <></>;
-  } else if (members.length === 1) {
-    return renderMemberItem(members[0], 0);
-  } else if (members.length === 2) {
-    return (
-      <View style={{flexDirection: 'row'}}>
-        <View style={{}}>{renderMemberItem(members[0], 0)}</View>
-        <View style={{}}> {renderMemberItem(members[1], 1)}</View>
-      </View>
-    );
-  } else if (members.length === 3) {
-    return (
-      <View style={{position: 'absolute'}}>
-        <View style={{left: 10}}>{renderMemberItem(members[0], 0)}</View>
-        <View style={{bottom: 30, right: 10}}>
-          {renderMemberItem(members[1], 1)}
-        </View>
-        <View style={{bottom: 45}}>{renderMemberItem(members[2], 2)}</View>
-      </View>
-    );
-  } else {
-    return (
-      <View style={{position: 'absolute'}}>
-        <View style={{left: 10}}>{renderMemberItem(members[0], 0)}</View>
-        <View style={{bottom: 30, right: 10}}>
-          {renderMemberItem(members[1], 1)}
-        </View>
-        {members.length > 3 && (
-          <View style={{bottom: 45}}>
-            <View style={styles.viewTextName}>
-              <Text style={styles.textName}>+{members.length - 2}</Text>
-            </View>
-          </View>
-        )}
-      </View>
-    );
+    return null;
   }
-}
+
+  const renderMultipleMembers = () => {
+    const items = [
+      renderMemberItem(
+        members[0],
+        0,
+        members.length >= 3 ? 3 : 2,
+        members.length >= 3 ? 44 : 22,
+      ),
+    ];
+
+    if (members.length === 2) {
+      items.push(renderMemberItem(members[1], 1, 1, 0));
+    } else if (members.length === 3) {
+      items.push(renderMemberItem(members[1], 1, 2, 22));
+      items.push(renderMemberItem(members[2], 2, 1, 0));
+    } else if (members.length > 3) {
+      items.push(renderMemberItem(members[1], 1, 2, 22));
+      items.push(
+        <View key="more" style={{zIndex: 1}}>
+          <View style={styles.viewTextName}>
+            <Text style={styles.textName}>+{members.length - 2}</Text>
+          </View>
+        </View>,
+      );
+    }
+
+    return items;
+  };
+
+  return (
+    <View>
+      {members.length === 1
+        ? renderMemberItem(members[0], 0, 1)
+        : renderMultipleMembers()}
+    </View>
+  );
+};
 
 export default RenderNumberMember;
 
@@ -278,10 +228,7 @@ function RenderColor(
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const renderColor: React.FC<{item: string; index: number}> = ({
-    item,
-    index,
-  }) => {
+  const renderColor = ({item, index}: any) => {
     return (
       <TouchableOpacity
         key={index}

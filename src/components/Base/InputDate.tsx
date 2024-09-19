@@ -47,6 +47,7 @@ export const InputDate = forwardRef<InputRef, InputProps>(({...props}, ref) => {
         {props.required && <Text style={{color: 'red'}}>{' *'}</Text>} :
       </Text>
       <TouchableOpacity
+        activeOpacity={0.7}
         style={styles.inputButton}
         onPress={() => setShowDatePicker(true)}>
         {value ? (

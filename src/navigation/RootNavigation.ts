@@ -84,11 +84,8 @@ export function closeDrawer() {
   drawerRef.current?.closeDrawer();
 }
 
-export function navigate(name: string, router = 'NoFooter', params?: any) {
+export function navigate(name: string, params?: any) {
   // @ts-ignore
-  navigationRef.navigate(name)
-  // navigationRef.navigate(router, {
-  //   screen: name,
-  //   params: params,
-  // });
+  navigationRef.navigate(name, params); 
+;
 }

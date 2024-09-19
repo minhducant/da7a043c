@@ -2,7 +2,7 @@ import React, {useEffect, useRef} from 'react';
 import {useSelector} from 'react-redux';
 import {StyleSheet} from 'react-native';
 import {Modal} from 'react-native-paper';
-import LottieView from 'lottie-react-native';
+// import LottieView from 'lottie-react-native';
 
 const ModalLoadingLottie = () => {
   const lottieRef = useRef<any>(null);
@@ -17,12 +17,12 @@ const ModalLoadingLottie = () => {
   }, [isLoading]);
 
   return (
-    <Modal contentContainerStyle={stylesLoading.modal} visible={isLoading}>
-      <LottieView
+    <Modal contentContainerStyle={stylesLoading.modal} visible={isLoading}><></>
+      {/* <LottieView
         ref={lottieRef}
         source={require('@assets/lotties/AnimationLottie.json')}
         style={stylesLoading.lottieView}
-      />
+      /> */}
     </Modal>
   );
 };

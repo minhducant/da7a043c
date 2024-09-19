@@ -10,6 +10,7 @@ import {WalletCard} from '@components/Home/RenderItem';
 import {homeStyle as styles} from '@styles/home.style';
 
 export default function HomeScreen() {
+  const swipeableRef = useRef(null);
   const scrollRef = useRef<any>(null);
   const searchRef = useRef<any>(null);
   const refreshControl = useRef(false);
@@ -40,7 +41,6 @@ export default function HomeScreen() {
     );
   };
 
-  const resetTranslateX = (cardIndex: number) => {};
 
   return (
     <SafeAreaView style={styles.container}>
@@ -66,7 +66,7 @@ export default function HomeScreen() {
         showsVerticalScrollIndicator={false}
         keyExtractor={(_, index) => `${index}`}
         renderItem={({index, item}) => (
-          <WalletCard {...{index, item, scrollRef, resetTranslateX}} />
+          <WalletCard {...{index, item, scrollRef, swipeableRef}} />
         )}
       />
       <Banner />

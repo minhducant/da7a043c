@@ -1,6 +1,6 @@
 // export const MAIN_DOMAIN = 'http://chiti.love';
 // export const MAIN_DOMAIN = 'http://103.20.96.99:80';
-export const MAIN_DOMAIN = 'http://192.168.1.13:3343';
+export const MAIN_DOMAIN = 'http://192.168.1.6:3343';
 
 export const ApiUrl = {
   Auth: {

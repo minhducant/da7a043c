@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   KeyboardAvoidingView,
 } from 'react-native';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import ActionSheet from '@alessiocancian/react-native-actionsheet';
 
 import {t} from '@i18n/index';
@@ -23,8 +23,9 @@ import HeaderWithTitle from '@components/Header/HeaderWithTitle';
 export default function AddExpenseScreen({route}: any) {
   const initData = route?.params;
   const dispatch = useDispatch();
+  const userInfo = useSelector((state: any) => state.Config.userInfo);
   const inputMediaOptionRef = useRef<any>(null);
-  const addExpenseLabel = getExpenseLabel(initData);
+  const addExpenseLabel = getExpenseLabel(initData, userInfo);
   const formRef = useRef<any>({...addExpenseLabel});
   const [splitEvenly, setSplitEvenly] = React.useState(true);
 
@@ -71,7 +72,7 @@ export default function AddExpenseScreen({route}: any) {
       showMessage.warning(t('fill_in_information'));
       return;
     }
-    console.log(JSON.stringify(formRef.current.split_evenly.value, null, 2));
+    console.log(JSON.stringify(formRef.current.paid_by.value, null, 2));
     // dispatch(setIsLoading(true));
     // const res: any = await HomeApi.addExpense(params);
     // if (res.code === 200) {

@@ -68,6 +68,7 @@ export const InputSelect = forwardRef<InputRef, InputProps>(
             setIsFocus(false);
             props.onSelected && props.onSelected(item);
           }}
+          fontFamily={themeStyle.FONT_FAMILY}
           disable={props.disable}
           activeColor={color.SILVER}
           maxHeight={normalize(300)}

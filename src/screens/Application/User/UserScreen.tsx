@@ -68,7 +68,7 @@ export default function UserScreen() {
   return (
     <ScrollView
       ref={scrollViewRef}
-      style={styles.containerUser}
+      // style={styles.containerUser}
       showsVerticalScrollIndicator={false}>
       <UserInfo />
       <TouchableOpacity style={styles.viewPremium}></TouchableOpacity>
